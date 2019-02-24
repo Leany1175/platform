@@ -1,18 +1,38 @@
 package com.platform.entity;
 
-import java.io.Serializable;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+@Table(name = "b_admin")
 public class Administrator implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name = "admin_id", length = 32)
+	@GenericGenerator(name = "uuidGenerator", strategy = "uuid")
+	@GeneratedValue(generator = "uuidGenerator")
 	private String adminId;
+
 	/** 手机号 */
+	@Column(name = "phone", length = 11)
 	private String phone;
+
 	/** 密码 */
+	@Column(name = "password", length = 32)
 	private String password;
+
 	/** 创建时间 */
-	private String createTime;
+	@Column(name = "create_time")
+	private Date createTime;
+
 	/** 上次更新 */
-	private String lastUpdate;
+	@Column(name = "last_update")
+	private Date lastUpdate;
 
 	public String getAdminId() {
 		return adminId;
@@ -38,19 +58,19 @@ public class Administrator implements Serializable{
 		this.password = password;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public String getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(String lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 }

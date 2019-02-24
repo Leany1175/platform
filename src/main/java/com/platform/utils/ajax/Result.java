@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class Result implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	/** 500:错误,200:成功 */
 	private int code = 500;
 	/** 描述信息 */
