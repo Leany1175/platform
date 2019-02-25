@@ -2,6 +2,7 @@ package com.platform.shiro;
 
 import com.platform.entity.Administrator;
 import com.platform.service.AdminService;
+import com.platform.utils.ajax.utils.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,7 +31,7 @@ public class AdminRealm extends AuthorizingRealm{
 		// 密码
 		String password = new String((char[]) token.getCredentials());
 		// 登录查询
-		Administrator admin = adminService.login(username, password);
+		Administrator admin = adminService.login(username, StringUtils.encodeMD5(password));
 		if (admin == null) {
 			throw new AuthenticationException("用户名或密码错误");
 		}

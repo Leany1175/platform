@@ -2,6 +2,7 @@ package com.platform.repository;
 
 import com.platform.PlatformApplication;
 import com.platform.entity.Administrator;
+import com.platform.utils.ajax.utils.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ public class AdminRepositoryTest {
 	public void saveTest() {
 		Administrator admin = new Administrator();
 		String phone = "15000000000";
-		String password = "123456";
+		String password = StringUtils.encodeMD5("123456");
 		admin.setPhone(phone);
 		admin.setPassword(password);
 		admin.setCreateTime(new Date());

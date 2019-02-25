@@ -7,7 +7,7 @@ public interface AdminService {
 	/**
 	 * 登录查询
 	 * @param phone 手机号
-	 * @param password  密码
+	 * @param password  密码(未加密)
 	 * @return 查询结果
 	 */
 	Administrator login(String phone, String password);
