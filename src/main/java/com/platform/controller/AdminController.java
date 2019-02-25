@@ -15,4 +15,9 @@ public class AdminController {
         return "admin/index";
     }
 
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main() {
+        return "admin/index/main";
+    }
+
 }
