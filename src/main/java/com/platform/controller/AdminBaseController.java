@@ -1,15 +1,16 @@
 package com.platform.controller;
 
-import com.platform.service.AdminService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.platform.entity.Administrator;
 import com.platform.utils.ajax.Result;
 
@@ -19,9 +20,6 @@ import com.platform.utils.ajax.Result;
 public class AdminBaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(AdminBaseController.class);
-
-	@Autowired
-	private AdminService adminService;
 
 	/**
 	 * 登录界面
@@ -47,12 +45,19 @@ public class AdminBaseController {
 			return new Result(message);
 		}
 
-		Administrator administrator = adminService.login(admin.getPhone(), admin.getPassword());
-		if (administrator == null) {
-			return new Result("用户名或密码错误");
-		}
-
+//		Administrator administrator = adminService.login(admin.getPhone(), admin.getPassword());
+//		if (administrator == null) {
+//			return new Result("用户名或密码错误");
+//		}
 		// TODO shiro登录
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			// 登录
+			subject.login(new UsernamePasswordToken(admin.getPhone(), admin.getPassword()));
+		} catch (AuthenticationException e) {
+			logger.error("登录失败", e);
+			return new Result(e.getMessage());
+		}
 		return new Result(200, "登录成功", "/");
 	}
 

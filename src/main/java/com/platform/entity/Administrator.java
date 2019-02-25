@@ -1,5 +1,6 @@
 package com.platform.entity;
 
+import com.alibaba.fastjson.JSON;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -33,6 +34,11 @@ public class Administrator implements Serializable{
 	/** 上次更新 */
 	@Column(name = "last_update")
 	private Date lastUpdate;
+
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 
 	public String getAdminId() {
 		return adminId;
