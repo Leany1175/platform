@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Scope("prototype")
-public class IndexController {
+@RequestMapping("/admin")
+public class AdminController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
-		return "redirect:/admin/index";
-	}
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index() {
+        return "admin/index";
+    }
 
 }

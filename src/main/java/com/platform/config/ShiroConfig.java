@@ -107,21 +107,18 @@ public class ShiroConfig {
 		factoryBean.setSecurityManager(securityManager);
 
 		// 登录页面
-		factoryBean.setLoginUrl("/admin/loginPage");
+		factoryBean.setLoginUrl("/administrator/loginPage");
 		// 未授权
 //		factoryBean.setUnauthorizedUrl("/403/page");
 
 		Map<String, String> filterChainDefinitionMap = factoryBean.getFilterChainDefinitionMap();
 
-		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/**/*.js", "anon");
 		filterChainDefinitionMap.put("/**/*.css", "anon");
 		filterChainDefinitionMap.put("/**/*.jpg", "anon");
 		filterChainDefinitionMap.put("/**/*.png", "anon");
 
-		filterChainDefinitionMap.put("/admin/*", "authc");
-//		filterChainDefinitionMap.put("/user/show", "authc, roles[admin, admin1]");
-//		filterChainDefinitionMap.put("/user/add", "authc,perms[user:add]");
+		filterChainDefinitionMap.put("/admin/**", "authc");
 		factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return factoryBean;
 	}
