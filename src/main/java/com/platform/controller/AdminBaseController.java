@@ -1,5 +1,7 @@
 package com.platform.controller;
 
+import com.platform.entity.Administrator;
+import com.platform.utils.ajax.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -9,10 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.platform.entity.Administrator;
-import com.platform.utils.ajax.Result;
 
 @Controller
 @Scope("prototype")
@@ -45,11 +45,7 @@ public class AdminBaseController {
 			return new Result(message);
 		}
 
-//		Administrator administrator = adminService.login(admin.getPhone(), admin.getPassword());
-//		if (administrator == null) {
-//			return new Result("用户名或密码错误");
-//		}
-		// TODO shiro登录
+		// shiro登录
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			// 登录
@@ -59,6 +55,18 @@ public class AdminBaseController {
 			return new Result(e.getMessage());
 		}
 		return new Result(200, "登录成功", "/");
+	}
+
+	/**
+	 * 注销
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+	public Result loginOut() {
+		// shiro注销
+		SecurityUtils.getSubject().logout();
+		return new Result(200, "注销成功", "/admin/index");
 	}
 
 	/**
