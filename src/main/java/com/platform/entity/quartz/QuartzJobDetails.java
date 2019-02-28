@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "qrtz_job_details")
 @IdClass(JobDetailKey.class)
-public class QrtzJobDetails implements Serializable {
+public class QuartzJobDetails implements Serializable {
 
     @Id
     @Column(name = "sched_name", length = 120, nullable = false)

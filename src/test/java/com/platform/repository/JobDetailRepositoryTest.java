@@ -1,7 +1,7 @@
 package com.platform.repository;
 
 import com.platform.PlatformApplication;
-import com.platform.entity.quartz.QrtzJobDetails;
+import com.platform.entity.quartz.QuartzJobDetails;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class JobDetailRepositoryTest {
 
     @Test
     public void findAllTest() {
-        List<QrtzJobDetails> list = jobDetailRepository.findAll();
+        List<QuartzJobDetails> list = jobDetailRepository.findAll();
         list.forEach(System.out :: println);
         System.out.println("finish");
     }
