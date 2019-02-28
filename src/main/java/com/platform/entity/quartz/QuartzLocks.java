@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 存储程序的非观锁的信息(假如使用了悲观锁)
+ */
 @Entity
 @Table(name = "qrtz_locks")
 @IdClass(LocksKey.class)

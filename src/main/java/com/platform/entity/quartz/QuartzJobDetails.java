@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 存储每一个已配置的 Job 的详细信息(jobDetail)
+ */
 @Entity
 @Table(name = "qrtz_job_details")
 @IdClass(JobDetailKey.class)

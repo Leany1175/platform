@@ -4,8 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * 存储与已触发的 Trigger 相关的状态信息，以及相联 Job 的执行信息
+ */
 @Entity
-@Table(name = "qrtz_cron_triggers")
+@Table(name = "qrtz_fired_triggers")
 @IdClass(FiredTriggersKey.class)
 public class QuartzFiredTriggers implements Serializable {
 

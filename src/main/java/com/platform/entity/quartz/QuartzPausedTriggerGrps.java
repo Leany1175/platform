@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 存储已暂停的 Trigger 组的信息
+ */
 @Entity
 @Table(name = "qrtz_paused_trigger_grps")
 @IdClass(PausedTriggerGrpsKey.class)

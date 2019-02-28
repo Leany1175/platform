@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 存储 Cron Trigger，包括 Cron 表达式和时区信息
+ */
 @Entity
 @Table(name = "qrtz_cron_triggers")
 @IdClass(TriggersKey.class)

@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 以 Blob 类型存储 Quartz 的 Calendar 信息
+ */
 @Entity
 @Table(name = "qrtz_calendars")
 @IdClass(CalendarsKey.class)

@@ -3,6 +3,9 @@ package com.platform.entity.quartz;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * qrtz_blog_triggers
+ */
 @Entity
 @Table(name = "qrtz_blob_triggers")
 @IdClass(TriggersKey.class)

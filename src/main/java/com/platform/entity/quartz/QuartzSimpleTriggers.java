@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * qrtz_simple_triggers
+ */
 @Entity
 @Table(name = "qrtz_simple_triggers")
 @IdClass(TriggersKey.class)

@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * 存储少量的有关调度器 (Scheduler) 的状态，和别的 调度器 (Scheduler)实例(假如是用于一个集群中)
+ */
 @Entity
 @Table(name = "qrtz_scheduler_state")
 @IdClass(SchedulerStateKey.class)

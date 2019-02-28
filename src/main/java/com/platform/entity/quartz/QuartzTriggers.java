@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * 存储已配置的 触发器 (Trigger) 的信息
+ */
 @Entity
 @Table(name = "qrtz_triggers")
 @IdClass(TriggersKey.class)
