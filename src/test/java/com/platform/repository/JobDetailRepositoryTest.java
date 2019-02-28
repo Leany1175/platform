@@ -1,7 +1,8 @@
 package com.platform.repository;
 
 import com.platform.PlatformApplication;
-import com.platform.entity.quartz.QuartzJobDetails;
+import com.platform.quartz.entity.QuartzJobDetails;
+import com.platform.quartz.repository.JobDetailRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
