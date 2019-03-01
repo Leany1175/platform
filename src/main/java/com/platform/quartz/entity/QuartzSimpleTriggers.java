@@ -12,7 +12,9 @@ import java.math.BigDecimal;
 @IdClass(TriggersKey.class)
 public class QuartzSimpleTriggers implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "sched_name", length = 120, nullable = false)
     private String schedName;
 

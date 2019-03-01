@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class CalendarsKey implements Serializable {
 
-    private String schedName;
+	private static final long serialVersionUID = 1L;
+	private String schedName;
     private String calendarName;
 
     public CalendarsKey() {

@@ -11,7 +11,9 @@ import java.io.Serializable;
 @IdClass(JobDetailKey.class)
 public class QuartzJobDetails implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "sched_name", length = 120, nullable = false)
     private String schedName;
 

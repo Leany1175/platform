@@ -12,7 +12,9 @@ import java.math.BigDecimal;
 @IdClass(SchedulerStateKey.class)
 public class QuartzSchedulerState implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "sched_name", length = 120, nullable = false)
     private String schedName;
 

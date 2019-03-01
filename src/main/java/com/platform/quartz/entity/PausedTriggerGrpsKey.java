@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class PausedTriggerGrpsKey implements Serializable {
 
-    private String schedName;
+	private static final long serialVersionUID = 1L;
+	private String schedName;
     private String triggerGroup;
 
     public PausedTriggerGrpsKey() {
