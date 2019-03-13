@@ -2,7 +2,7 @@ package com.platform.shiro;
 
 import com.platform.entity.Administrator;
 import com.platform.service.AdminService;
-import com.platform.utils.ajax.utils.StringUtils;
+import com.platform.utils.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

@@ -1,5 +1,5 @@
 layui.config({
-	base: "/admin/layui/extends/"
+	base: "/layui/extends/"
 }).use(["table", "jquery", "ajax"], function(){
 	var table = layui.table,
 		$ = layui.jquery,
@@ -7,7 +7,7 @@ layui.config({
 	
 	var tableIns = table.render({
 		elem: "#datalist",
-		url: "/admin/notice/datalist",
+		url: "/admin/job/datalist",
 		page: true,
 		limit: 10,
 		limits: [5, 10, 20, 50, 100],

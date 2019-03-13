@@ -2,7 +2,7 @@ package com.platform.repository;
 
 import com.platform.PlatformApplication;
 import com.platform.entity.Administrator;
-import com.platform.utils.ajax.utils.StringUtils;
+import com.platform.utils.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

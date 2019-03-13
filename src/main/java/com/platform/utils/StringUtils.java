@@ -1,4 +1,4 @@
-package com.platform.utils.ajax.utils;
+package com.platform.utils;
 
 /**
  * 字符串相关工具类
