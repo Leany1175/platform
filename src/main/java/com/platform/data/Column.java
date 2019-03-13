@@ -13,6 +13,7 @@ import java.sql.ResultSetMetaData;
  */
 public class Column implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	/** 列名 */
 	private String name;
 	/** 列类型名 */
