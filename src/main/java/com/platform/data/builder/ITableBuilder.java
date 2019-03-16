@@ -30,13 +30,13 @@ public interface ITableBuilder {
 	 * 构建生成sql语句
 	 * @return sql语句
 	 */
-	ITableBuilder build();
+	String build();
 
 	/**
 	 * 构建生成sql语句
 	 * @param format true:格式化
 	 * @return this
 	 */
-	ITableBuilder build(boolean format);
+	String build(boolean format);
 
 }

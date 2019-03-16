@@ -25,7 +25,7 @@ public class Column implements Serializable {
 	/** 精度 */
 	private int precision;
 	/** 默认值 */
-	private String defaultValue;
+	private Object defaultValue;
 	/** 是否是主键 */
 	private boolean isPK = false;
 	/** 是否是自增 */
@@ -78,11 +78,11 @@ public class Column implements Serializable {
 		this.precision = precision;
 	}
 
-	public String getDefaultValue() {
+	public Object getDefaultValue() {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(String defaultValue) {
+	public void setDefaultValue(Object defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
@@ -136,8 +136,6 @@ public class Column implements Serializable {
 			System.out.println("Scale:" + metaData.getScale(i));
 			System.out.println("-------------------------------------------------");
 		}
-
-		System.out.println(byte[].class);
 
 		ps.close();
 		conn.close();

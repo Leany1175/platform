@@ -14,10 +14,10 @@ public interface IColumnBuilder {
 
 	/**
 	 * 列类型
-	 * @param type 列类型
+	 * @param columnType 列类型
 	 * @return this
 	 */
-	IColumnBuilder type(String type);
+	IColumnBuilder type(IColumnType columnType);
 
 	/**
 	 * 列长度
@@ -40,6 +40,13 @@ public interface IColumnBuilder {
 	 * @return this
 	 */
 	IColumnBuilder primaryKey(boolean pk);
+
+	/**
+	 * 是否允许为空
+	 * @param isNull true:允许为空
+	 * @return this
+	 */
+	IColumnBuilder isNull(boolean isNull);
 
 	/**
 	 * 是否自增
