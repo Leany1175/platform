@@ -10,17 +10,15 @@ public class MysqlTableBuilder extends BaseTableBuilder {
 		if (format) {
 			String sql = "create table " + name + "(\n?\n)";
 			StringBuffer buffer = new StringBuffer();
-			columnBuilderList.forEach(builder -> {
-				buffer.append("\t\t" + builder.build() + ",\n");
-			});
+			columnBuilderList.forEach(builder -> buffer.append("\t\t" + builder.build() + ",\n"));
 			return sql.replaceFirst("\\?", buffer.delete(buffer.length() - 2, buffer.length()).toString());
 		}
 
-//		StringBuffer buffer = new StringBuffer("create table table_name()");
-//		columnBuilderList.forEach(builder -> {
-//
-//		});
-		return null;
+		// sql语句
+		String sql = "create table " + name + "(?)";
+		StringBuffer buffer = new StringBuffer();
+		columnBuilderList.forEach(builder -> buffer.append(builder.build() + ","));
+		return sql.replaceFirst("\\?", buffer.delete(buffer.length() - 1, buffer.length()).toString());
 	}
 
 }
