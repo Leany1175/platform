@@ -46,8 +46,9 @@ public interface ITable {
 	/**
 	 * 列数
 	 * @return 几列
+	 * @exception SQLException 异常
 	 */
-	int columnCount();
+	int columnCount() throws SQLException;
 
 	/**
 	 * 返回一个迭代器

@@ -54,9 +54,8 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public int columnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int columnCount() throws SQLException{
+		return JdbcUtil.columnCount(dataSource, name);
 	}
 
 	@Override

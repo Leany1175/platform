@@ -136,4 +136,19 @@ public class JdbcUtil {
 		return null;
 	}
 
+	/**
+	 * 返回列数
+	 * @param dataSource 数据源
+	 * @param tableName 表名
+	 * @return 列数
+	 */
+	public static int columnCount(DataSource dataSource, String tableName) throws SQLException{
+		Connection conn = dataSource.getConnection();
+		PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
+		// 总列数
+		int count = ps.getMetaData().getColumnCount();
+		close(conn, ps);
+		return count;
+	}
+
 }

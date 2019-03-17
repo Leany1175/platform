@@ -38,4 +38,10 @@ public class TableTest {
 		table.deleteColumn("sex");
 	}
 
+	@Test
+	public void columnCountTest() throws SQLException{
+		ITable table = database.getTable("users");
+		System.out.println(table.columnCount());
+	}
+
 }
