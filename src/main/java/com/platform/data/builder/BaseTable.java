@@ -49,9 +49,8 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public void deleteColumn(String name) {
-		// TODO Auto-generated method stub
-		
+	public void deleteColumn(String columnName) throws SQLException{
+		JdbcUtil.executeUpdate(dataSource, "alter table " + name + " drop column " + columnName);
 	}
 
 	@Override

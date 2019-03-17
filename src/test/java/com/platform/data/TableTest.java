@@ -32,4 +32,10 @@ public class TableTest {
 		table.modifyColumn(columnBuilder);
 	}
 
+	@Test
+	public void deleteColumnTest() throws SQLException{
+		ITable table = database.getTable("users");
+		table.deleteColumn("sex");
+	}
+
 }

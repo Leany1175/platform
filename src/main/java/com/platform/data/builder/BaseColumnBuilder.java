@@ -15,8 +15,6 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
 	@Override
 	public IColumnBuilder type(IColumnType columnType) {
 		column.setColumnType(columnType.type());
-		// 所有类型默认长度为11
-		column.setLength(11);
 		return this;
 	}
 

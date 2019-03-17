@@ -38,9 +38,10 @@ public interface ITable {
 
 	/**
 	 * 删除列
-	 * @param name 列名
+	 * @param columnName 列名
+	 * @exception SQLException 异常
 	 */
-	void deleteColumn(String name);
+	void deleteColumn(String columnName) throws SQLException;
 
 	/**
 	 * 列数
