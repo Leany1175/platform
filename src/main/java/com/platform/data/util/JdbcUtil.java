@@ -17,19 +17,30 @@ public class JdbcUtil {
 	/**
 	 * 执行sql语句
 	 * @param dataSource 数据源
+	 * @param sql sql语句
+	 * @return 行数
+	 * @throws SQLException 异常
+	 */
+	public static int executeUpdate(DataSource dataSource, String sql) throws SQLException{
+		// 获取连接对象
+		Connection conn = dataSource.getConnection();
+		// 预编译
+		PreparedStatement ps = conn.prepareStatement(sql);
+		int count = ps.executeUpdate();
+		// 关闭
+		close(conn, ps);
+		return count;
+	}
+
+	/**
+	 * 执行sql语句
+	 * @param dataSource 数据源
 	 * @param tableBuilder 表
 	 * @return 行数
 	 * @throws SQLException 异常
 	 */
 	public static int executeUpdate(DataSource dataSource, ITableBuilder tableBuilder) throws SQLException{
-		// 获取连接对象
-		Connection conn = dataSource.getConnection();
-		// 预编译
-		PreparedStatement ps = conn.prepareStatement(tableBuilder.build());
-		int count = ps.executeUpdate();
-		// 关闭
-		close(conn, ps);
-		return count;
+		return executeUpdate(dataSource, tableBuilder.build());
 	}
 
 	/**

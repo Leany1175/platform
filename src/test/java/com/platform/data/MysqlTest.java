@@ -16,7 +16,6 @@ public class MysqlTest {
 
 		List<String> list = database.getAllTableName();
 		list.forEach(System.out :: println);
-
 	}
 
 }

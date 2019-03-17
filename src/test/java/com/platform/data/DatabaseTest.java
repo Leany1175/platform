@@ -1,17 +1,16 @@
 package com.platform.data;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.platform.data.builder.ColumnBuilders;
+import com.platform.data.builder.IDatabase;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.builder.TableBuilders;
+import com.platform.data.factory.AbstractDatabaseFactory;
 import com.platform.data.mysql.MysqlColumnType;
+import com.platform.data.mysql.MysqlDatabaseFactory;
 import org.junit.Test;
 
-import com.platform.data.builder.IDatabase;
-import com.platform.data.factory.AbstractDatabaseFactory;
-import com.platform.data.mysql.MysqlDatabaseFactory;
+import java.sql.SQLException;
+import java.util.List;
 
 public class DatabaseTest {
 
@@ -26,7 +25,7 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void addTableTest() throws SQLException{
+	public void createTableTest() throws SQLException{
 		ITableBuilder tableBuilder = TableBuilders.mysql()
 				.tableName("users")
 				.addColumn(
@@ -37,6 +36,11 @@ public class DatabaseTest {
 				.addColumn(ColumnBuilders.mysql().name("age").type(MysqlColumnType.INTEGER).length(11).defaultValue(18))
 				.addColumn(ColumnBuilders.mysql().name("height").type(MysqlColumnType.DECIMAL).length(10, 5).isNull(false));
 		database.createTable(tableBuilder);
+	}
+
+	@Test
+	public void dropTableTest() throws SQLException {
+		database.dropTable("users");
 	}
 
 }

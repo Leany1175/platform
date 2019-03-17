@@ -1,11 +1,12 @@
 package com.platform.data.builder;
 
-import com.platform.data.ITable;
-import com.platform.data.util.JdbcUtil;
-
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.platform.data.ITable;
+import com.platform.data.util.JdbcUtil;
 
 public abstract class BaseDatabase implements IDatabase {
 
@@ -38,11 +39,8 @@ public abstract class BaseDatabase implements IDatabase {
 	}
 
 	@Override
-	public void dropTable(String tableName) {
-		// TODO Auto-generated method stub
-		
+	public void dropTable(String tableName) throws SQLException{
+		JdbcUtil.executeUpdate(dataSource, "drop table " + tableName);
 	}
-
-	
 
 }
