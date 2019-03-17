@@ -51,10 +51,18 @@ public interface ITable {
 	int columnCount() throws SQLException;
 
 	/**
+	 * 获取列集合
+	 * @return 列集合
+	 * @exception SQLException 异常
+	 */
+	List<Column> columnList() throws SQLException;
+
+	/**
 	 * 返回一个迭代器
 	 * @return 迭代器
+	 * @exception SQLException 异常
 	 */
-	Iterator<Column> columnIterator();
+	Iterator<Column> columnIterator() throws SQLException;
 
 	/**
 	 * 查询

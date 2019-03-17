@@ -1,5 +1,6 @@
 package com.platform.data;
 
+import com.alibaba.fastjson.JSON;
 import com.platform.data.builder.ColumnBuilders;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IDatabase;
@@ -42,6 +43,12 @@ public class TableTest {
 	public void columnCountTest() throws SQLException{
 		ITable table = database.getTable("users");
 		System.out.println(table.columnCount());
+	}
+
+	@Test
+	public void columnListTest() throws SQLException{
+		ITable table = database.getTable("users");
+		System.out.println(JSON.toJSONString(table.columnList(), true));
 	}
 
 }

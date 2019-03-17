@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 /**
@@ -118,6 +119,10 @@ public class Column implements Serializable {
 		dataSource.setPassword("123456");
 
 		Connection conn = dataSource.getConnection();
+		ResultSet rs = conn.getMetaData().getPrimaryKeys(null, null, "test_table");
+		while (rs.next()) {
+			System.out.println(rs.getString("column_name"));
+		}
 		PreparedStatement ps = conn.prepareStatement("select * from test_table");
 		ResultSetMetaData metaData = ps.getMetaData();
 		int count = metaData.getColumnCount();
@@ -134,6 +139,7 @@ public class Column implements Serializable {
 			System.out.println("ColumnDisplaySize:" + metaData.getColumnDisplaySize(i));
 			System.out.println("Precision:" + metaData.getPrecision(i));
 			System.out.println("Scale:" + metaData.getScale(i));
+			System.out.println("Nullable:" + metaData.isNullable(i));
 			System.out.println("-------------------------------------------------");
 		}
 

@@ -1,13 +1,12 @@
 package com.platform.data.util;
 
+import com.platform.data.Column;
 import com.platform.data.DatabaseType;
 import com.platform.data.builder.ITableBuilder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -149,6 +148,53 @@ public class JdbcUtil {
 		int count = ps.getMetaData().getColumnCount();
 		close(conn, ps);
 		return count;
+	}
+
+	/**
+	 * 获取列集合
+	 * @param dataSource 数据源
+	 * @param tableName 表名
+	 * @return 列集合
+	 * @throws SQLException 异常
+	 */
+	public static List<Column> columnList(DataSource dataSource, String tableName) throws SQLException{
+		Connection conn = dataSource.getConnection();
+		PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
+		ResultSetMetaData metaData = ps.getMetaData();
+		int count = metaData.getColumnCount();
+		// 主键列名
+		List<String> pkList = getPKColumnName(dataSource, tableName);
+		List<Column> columnList = new ArrayList<>(count);
+		for (int i = 1; i < count + 1; i++) {
+			Column column = new Column();
+			column.setName(metaData.getColumnName(i));
+			column.setColumnType(metaData.getColumnTypeName(i).toLowerCase());
+			column.setColumnClassName(metaData.getColumnClassName(i));
+			column.setLength(metaData.getPrecision(i));
+			column.setPrecision(metaData.getScale(i));
+			column.setPK(pkList.contains(metaData.getColumnName(i)));
+			column.setAuto(metaData.isAutoIncrement(i));
+			column.setNull(metaData.isNullable(i) != 0);
+			columnList.add(column);
+		}
+		return columnList;
+	}
+
+	/**
+	 * 获取主键列名
+	 * @param dataSource 数据源
+	 * @param tableName 表名
+	 * @return 列名集合
+	 * @exception SQLException 异常
+	 */
+	public static List<String> getPKColumnName(DataSource dataSource, String tableName) throws SQLException{
+		Connection conn = dataSource.getConnection();
+		ResultSet rs = conn.getMetaData().getPrimaryKeys(null, null, tableName);
+		List<String> list = new LinkedList<>();
+		while (rs.next()) {
+			list.add(rs.getString("column_name"));
+		}
+		return list;
 	}
 
 }
