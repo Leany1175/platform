@@ -36,7 +36,7 @@ public class DatabaseTest {
 				.addColumn(ColumnBuilders.mysql().name("user_name").type(MysqlColumnType.VARCHAR).length(32).isNull(false))
 				.addColumn(ColumnBuilders.mysql().name("age").type(MysqlColumnType.INTEGER).length(11).defaultValue(18))
 				.addColumn(ColumnBuilders.mysql().name("height").type(MysqlColumnType.DECIMAL).length(10, 5).isNull(false));
-		database.addTable(tableBuilder);
+		database.createTable(tableBuilder);
 	}
 
 }
