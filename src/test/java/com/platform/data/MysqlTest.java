@@ -1,12 +1,11 @@
 package com.platform.data;
 
-import com.mysql.jdbc.Driver;
+import java.sql.SQLException;
+import java.util.List;
+
 import com.platform.data.builder.IDatabase;
 import com.platform.data.factory.AbstractDatabaseFactory;
 import com.platform.data.mysql.MysqlDatabaseFactory;
-
-import java.sql.SQLException;
-import java.util.List;
 
 public class MysqlTest {
 
