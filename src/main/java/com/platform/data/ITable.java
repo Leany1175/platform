@@ -92,6 +92,4 @@ public interface ITable {
 	 */
 	int deleteRow(List<Row> row);
 
-
-
 }

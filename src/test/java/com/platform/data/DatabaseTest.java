@@ -43,4 +43,9 @@ public class DatabaseTest {
 		database.dropTable("users");
 	}
 
+	@Test
+	public void getTableTest() throws SQLException{
+		database.getTable("users");
+	}
+
 }

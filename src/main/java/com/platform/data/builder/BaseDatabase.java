@@ -1,6 +1,7 @@
 package com.platform.data.builder;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -11,7 +12,7 @@ import com.platform.data.util.JdbcUtil;
 public abstract class BaseDatabase implements IDatabase {
 
 	/** 数据源 */
-	private DataSource dataSource;
+	protected DataSource dataSource;
 
 	public BaseDatabase(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -23,14 +24,13 @@ public abstract class BaseDatabase implements IDatabase {
 	}
 
 	@Override
-	public List<ITable> getAllTable() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ITable getTable(String tableName) {
-		return null;
+	public List<ITable> getAllTable() throws SQLException{
+		List<String> nameList = getAllTableName();
+		List<ITable> tableList = new ArrayList<>(nameList.size());
+		for (String name : nameList) {
+			tableList.add(getTable(name));
+		}
+		return tableList;
 	}
 
 	@Override

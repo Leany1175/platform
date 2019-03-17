@@ -20,15 +20,17 @@ public interface IDatabase {
 	/**
 	 * 获取所有表对象
 	 * @return 表对象
+	 * @exception SQLException 异常
 	 */
-	List<ITable> getAllTable();
+	List<ITable> getAllTable() throws SQLException;
 
 	/**
 	 * 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
+	 * @exception SQLException 异常
 	 */
-	ITable getTable(String tableName);
+	ITable getTable(String tableName) throws SQLException;
 
 	/**
 	 * 创建表

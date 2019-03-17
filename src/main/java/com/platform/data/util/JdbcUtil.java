@@ -1,5 +1,6 @@
 package com.platform.data.util;
 
+import com.platform.data.DatabaseType;
 import com.platform.data.builder.ITableBuilder;
 
 import javax.sql.DataSource;
@@ -118,6 +119,21 @@ public class JdbcUtil {
 		close(rs);
 		close(ps);
 		close(conn);
+	}
+
+	/**
+	 * 判断数据库类型
+	 * @param dataSource 数据源
+	 * @return 数据库类型
+	 * @throws SQLException 异常
+	 */
+	public static DatabaseType judgeDatabaseType(DataSource dataSource) throws SQLException{
+		// 驱动类
+		String driverName = dataSource.getConnection().getMetaData().getDriverName();
+		if ("mysql".equalsIgnoreCase(driverName)) {
+			return DatabaseType.MYSQL;
+		}
+		return null;
 	}
 
 }
