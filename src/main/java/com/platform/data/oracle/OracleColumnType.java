@@ -1,6 +1,8 @@
-package com.platform.data.builder;
+package com.platform.data.oracle;
 
-public enum OracleColumnType implements IColumnType{
+import com.platform.data.builder.IColumnType;
+
+public enum OracleColumnType implements IColumnType {
 
 	CHAR,VARCHAR2,INTEGER,LONG,DECIMAL,DOUBLE,FLOAT,DATE,TIMESTAMP;
 

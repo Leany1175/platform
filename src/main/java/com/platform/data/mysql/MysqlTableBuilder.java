@@ -1,4 +1,6 @@
-package com.platform.data.builder;
+package com.platform.data.mysql;
+
+import com.platform.data.builder.BaseTableBuilder;
 
 public class MysqlTableBuilder extends BaseTableBuilder {
 

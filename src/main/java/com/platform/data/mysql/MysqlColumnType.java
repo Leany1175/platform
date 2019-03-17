@@ -1,6 +1,8 @@
-package com.platform.data.builder;
+package com.platform.data.mysql;
 
-public enum MysqlColumnType implements IColumnType{
+import com.platform.data.builder.IColumnType;
+
+public enum MysqlColumnType implements IColumnType {
 
 	CHAR,VARCHAR,INTEGER,LONG,DECIMAL,DOUBLE,FLOAT,DATE,DATETIME;
 

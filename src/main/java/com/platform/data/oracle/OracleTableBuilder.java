@@ -1,4 +1,6 @@
-package com.platform.data.builder;
+package com.platform.data.oracle;
+
+import com.platform.data.builder.BaseTableBuilder;
 
 public class OracleTableBuilder extends BaseTableBuilder {
 

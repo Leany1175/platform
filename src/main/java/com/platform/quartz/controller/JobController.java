@@ -30,6 +30,7 @@ public class JobController {
 	@ResponseBody
 	@RequestMapping(value = "/datalist", method = RequestMethod.GET)
 	public Object datalist() {
+		logger.info("任务列表");
 		return new Object();
 	}
 
