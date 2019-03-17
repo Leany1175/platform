@@ -1,6 +1,10 @@
 package com.platform.data;
 
+import com.platform.data.builder.IColumnBuilder;
+import com.platform.data.builder.QueryBuilder;
+
 import java.util.Iterator;
+import java.util.List;
 
 public interface ITable {
 
@@ -11,18 +15,21 @@ public interface ITable {
 
 	/**
 	 * 添加列
+	 * @param columnBuilder 列
 	 */
-	void addColumn();
+	void addColumn(IColumnBuilder columnBuilder);
 
 	/**
 	 * 更改列
+	 * @param columnBuilder 列
 	 */
-	void modifyColumn();
+	void modifyColumn(IColumnBuilder columnBuilder);
 
 	/**
 	 * 删除列
+	 * @param name 列名
 	 */
-	void deleteColumn();
+	void deleteColumn(String name);
 
 	/**
 	 * 列数
@@ -35,5 +42,56 @@ public interface ITable {
 	 * @return 迭代器
 	 */
 	Iterator<Column> columnIterator();
+
+	/**
+	 * 查询
+	 * @param queryBuilder 查询条件
+	 * @return 查询结果
+	 */
+	List<DataSet> executeQuery(QueryBuilder queryBuilder);
+
+	/**
+	 * 添加或更新
+	 * @param row 行
+	 * @return 受影响行数
+	 */
+	int executeUpdate(Row row);
+
+	/**
+	 * 批量添加或更新
+	 * @param row 行
+	 * @return 收影响行数
+	 */
+	int executeUpdate(Row... row);
+
+	/**
+	 * 批量添加或更新
+	 * @param row 行
+	 * @return 收影响行数
+	 */
+	int executeUpdate(List<Row> row);
+
+	/**
+	 * 删除
+	 * @param row 行
+	 * @return 收影响行数
+	 */
+	int deleteRow(Row row);
+
+	/**
+	 * 批量删除
+	 * @param row 行
+	 * @return 收影响行数
+	 */
+	int deleteRow(Row... row);
+
+	/**
+	 * 批量删除
+	 * @param row 行
+	 * @return 收影响行数
+	 */
+	int deleteRow(List<Row> row);
+
+
 
 }
