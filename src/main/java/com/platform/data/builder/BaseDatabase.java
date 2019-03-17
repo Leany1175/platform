@@ -33,9 +33,8 @@ public abstract class BaseDatabase implements IDatabase {
 	}
 
 	@Override
-	public void addTable(ITableBuilder tableBuilder) {
-		// TODO Auto-generated method stub
-		
+	public void createTable(ITableBuilder tableBuilder) throws SQLException{
+		JdbcUtil.executeUpdate(dataSource, tableBuilder);
 	}
 
 	@Override

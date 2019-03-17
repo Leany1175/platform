@@ -33,8 +33,9 @@ public interface IDatabase {
 	/**
 	 * 创建表
 	 * @param tableBuilder 表建造者
+	 * @exception SQLException 创建表失败
 	 */
-	void addTable(ITableBuilder tableBuilder);
+	void createTable(ITableBuilder tableBuilder) throws SQLException;
 
 	/**
 	 * 删除表

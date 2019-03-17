@@ -1,5 +1,7 @@
 package com.platform.data.util;
 
+import com.platform.data.builder.ITableBuilder;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,24 @@ import java.util.List;
 public class JdbcUtil {
 
 	private JdbcUtil() {}
+
+	/**
+	 * 执行sql语句
+	 * @param dataSource 数据源
+	 * @param tableBuilder 表
+	 * @return 行数
+	 * @throws SQLException 异常
+	 */
+	public static int executeUpdate(DataSource dataSource, ITableBuilder tableBuilder) throws SQLException{
+		// 获取连接对象
+		Connection conn = dataSource.getConnection();
+		// 预编译
+		PreparedStatement ps = conn.prepareStatement(tableBuilder.build());
+		int count = ps.executeUpdate();
+		// 关闭
+		close(conn, ps);
+		return count;
+	}
 
 	/**
 	 * 获取所有表名
@@ -63,6 +83,17 @@ public class JdbcUtil {
 		if (rs != null && !rs.isClosed()) {
 			rs.close();
 		}
+	}
+
+	/**
+	 * 关闭
+	 * @param conn 连接
+	 * @param ps 预编译
+	 * @throws SQLException 异常
+	 */
+	public static void close(Connection conn, PreparedStatement ps) throws SQLException{
+		close(ps);
+		close(conn);
 	}
 
 	/**
