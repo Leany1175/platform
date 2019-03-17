@@ -6,11 +6,10 @@ import com.platform.data.ITable;
 import com.platform.data.Row;
 import com.platform.data.util.JdbcUtil;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 public abstract class BaseTable implements ITable {
 
@@ -40,9 +39,13 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public void modifyColumn(IColumnBuilder columnBuilder) {
-		// TODO Auto-generated method stub
-		
+	public void modifyColumn(IColumnBuilder columnBuilder) throws SQLException {
+		JdbcUtil.executeUpdate(dataSource, "alter table " + name + " modify " + columnBuilder.build());
+	}
+
+	@Override
+	public void modifyColumn(String oldColumn, IColumnBuilder columnBuilder) throws SQLException{
+		JdbcUtil.executeUpdate(dataSource, "alter table " + name + " change " + oldColumn + " " + columnBuilder.build());
 	}
 
 	@Override

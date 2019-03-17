@@ -3,6 +3,7 @@ package com.platform.data;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,14 +17,24 @@ public interface ITable {
 	/**
 	 * 添加列
 	 * @param columnBuilder 列
+	 * @exception SQLException 异常
 	 */
-	void addColumn(IColumnBuilder columnBuilder);
+	void addColumn(IColumnBuilder columnBuilder) throws SQLException;
 
 	/**
 	 * 更改列
 	 * @param columnBuilder 列
+	 * @exception SQLException 异常
 	 */
-	void modifyColumn(IColumnBuilder columnBuilder);
+	void modifyColumn(IColumnBuilder columnBuilder) throws SQLException;
+
+	/**
+	 * 更改列
+	 * @param oldColumn 需要修改的列名
+	 * @param columnBuilder 列
+	 * @exception SQLException 异常
+	 */
+	void modifyColumn(String oldColumn, IColumnBuilder columnBuilder) throws SQLException;
 
 	/**
 	 * 删除列

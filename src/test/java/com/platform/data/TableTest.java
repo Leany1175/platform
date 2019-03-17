@@ -23,4 +23,13 @@ public class TableTest {
 		table.addColumn(columnBuilder);
 	}
 
+	@Test
+	public void modifyColumnTest() throws SQLException{
+		ITable table = database.getTable("users");
+		IColumnBuilder columnBuilder = ColumnBuilders.mysql().name("sex").type(MysqlColumnType.INTEGER).isNull(false);
+		System.out.println(columnBuilder.build());
+//		table.modifyColumn("sex1", columnBuilder);
+		table.modifyColumn(columnBuilder);
+	}
+
 }

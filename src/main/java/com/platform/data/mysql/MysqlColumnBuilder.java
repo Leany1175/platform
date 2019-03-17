@@ -12,8 +12,12 @@ public class MysqlColumnBuilder extends BaseColumnBuilder {
 		// DECIMAL
 		if ("decimal".equalsIgnoreCase(column.getColumnType())) {
 			buffer.append("(" + column.getLength() + "," + column.getPrecision() + ")");
-		} else {
+		} else if ("char".equalsIgnoreCase(column.getColumnType()) || "varchar".equalsIgnoreCase(column.getColumnType())) {
 			buffer.append("(" + column.getLength() + ")");
+		} else {
+			if (column.getLength() > 0) {
+				buffer.append("(" + column.getLength() + ")");
+			}
 		}
 
 		// 默认值
