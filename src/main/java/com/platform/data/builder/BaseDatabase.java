@@ -1,13 +1,11 @@
 package com.platform.data.builder;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.LinkedList;
-import java.util.List;
+import com.platform.data.ITable;
+import com.platform.data.util.JdbcUtil;
 
 import javax.sql.DataSource;
-
-import com.platform.data.ITable;
+import java.sql.SQLException;
+import java.util.List;
 
 public abstract class BaseDatabase implements IDatabase {
 
@@ -19,25 +17,18 @@ public abstract class BaseDatabase implements IDatabase {
 	}
 
 	@Override
-	public List<String> getAllTableName() {
-		try {
-			Connection connection = dataSource.getConnection();
-			ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{ "table" });
-			// 集合储存表名
-			List<String> list = new LinkedList<>();
-			while (rs.next()) {
-				list.add(rs.getString("table_name"));
-			}
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public List<String> getAllTableName() throws SQLException {
+		return JdbcUtil.getAllTableName(dataSource);
 	}
 
 	@Override
 	public List<ITable> getAllTable() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ITable getTable(String tableName) {
 		return null;
 	}
 
