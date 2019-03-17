@@ -1,5 +1,7 @@
 package com.platform.data.builder;
 
+import com.platform.data.Column;
+
 /**
  * 列建造者
  */
@@ -74,5 +76,11 @@ public interface IColumnBuilder {
 	 * @return sql语句
 	 */
 	String build();
+
+	/**
+	 * 获取列
+	 * @return 列
+	 */
+	Column getColumn();
 
 }

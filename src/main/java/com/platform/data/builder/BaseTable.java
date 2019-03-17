@@ -1,15 +1,16 @@
 package com.platform.data.builder;
 
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import com.platform.data.Column;
 import com.platform.data.DataSet;
 import com.platform.data.ITable;
 import com.platform.data.Row;
 import com.platform.data.util.JdbcUtil;
-
-import javax.sql.DataSource;
-import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
 
 public abstract class BaseTable implements ITable {
 
@@ -59,9 +60,13 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public Iterator<Column> columnIterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Column> columnList() throws SQLException{
+		return JdbcUtil.columnList(dataSource, name);
+	}
+
+	@Override
+	public Iterator<Column> columnIterator() throws SQLException{
+		return columnList().iterator();
 	}
 
 	@Override

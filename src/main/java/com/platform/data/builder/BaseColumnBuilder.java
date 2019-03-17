@@ -6,6 +6,12 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
 
 	protected Column column = new Column();
 
+	protected BaseColumnBuilder() {}
+
+	protected BaseColumnBuilder(Column column) {
+		this.column = column;
+	}
+
 	@Override
 	public IColumnBuilder name(String name) {
 		column.setName(name);
@@ -61,4 +67,8 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
 		return this;
 	}
 
+	@Override
+	public Column getColumn() {
+		return column;
+	}
 }
