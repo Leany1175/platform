@@ -4,7 +4,9 @@ import com.platform.data.Column;
 import com.platform.data.DataSet;
 import com.platform.data.ITable;
 import com.platform.data.Row;
+import com.platform.data.util.JdbcUtil;
 
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,9 +35,8 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public void addColumn(IColumnBuilder columnBuilder) {
-		// TODO Auto-generated method stub
-		
+	public void addColumn(IColumnBuilder columnBuilder) throws SQLException {
+		JdbcUtil.executeUpdate(dataSource, "alter table " + name + " add column " + columnBuilder.build());
 	}
 
 	@Override
