@@ -1,11 +1,68 @@
 package com.platform.data.builder;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 查询条件
  */
 public interface QueryBuilder {
+
+	/**
+	 * 当前页
+	 * @param currentPage 页号
+	 * @return this
+	 */
+	QueryBuilder currentPage(int currentPage);
+
+	/**
+	 * 条数
+	 * @param size 条数
+	 * @return this
+	 */
+	QueryBuilder size(int size);
+
+	/**
+	 * 并且
+	 * @param queryBuilder 查询条件
+	 * @return this
+	 */
+	QueryBuilder and(QueryBuilder queryBuilder);
+
+	/**
+	 * 并且
+	 * @param queryBuilders 查询条件
+	 * @return this
+	 */
+	QueryBuilder and(QueryBuilder... queryBuilders);
+
+	/**
+	 * 并且
+	 * @param queryBuilders 查询条件
+	 * @return this
+	 */
+	QueryBuilder and(List<QueryBuilder> queryBuilders);
+
+	/**
+	 * 或者
+	 * @param queryBuilder 查询条件
+	 * @return this
+	 */
+	QueryBuilder or(QueryBuilder queryBuilder);
+
+	/**
+	 * 或者
+	 * @param queryBuilders 查询条件
+	 * @return this
+	 */
+	QueryBuilder or(QueryBuilder... queryBuilders);
+
+	/**
+	 * 或者
+	 * @param queryBuilders 查询条件
+	 * @return this
+	 */
+	QueryBuilder or(List<QueryBuilder> queryBuilders);
 
 	/**
 	 * 字段名称,列名
@@ -104,5 +161,11 @@ public interface QueryBuilder {
 	 * @return
 	 */
 	QueryBuilder isNotNull();
+
+	/**
+	 * 构建
+	 * @return sql条件
+	 */
+	String build();
 
 }

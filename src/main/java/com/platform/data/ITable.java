@@ -72,6 +72,20 @@ public interface ITable {
 	List<DataSet> executeQuery(QueryBuilder queryBuilder);
 
 	/**
+	 * 查询
+	 * @param queryBuilders 查询条件
+	 * @return 查询结果
+	 */
+	List<DataSet> executeQuery(QueryBuilder... queryBuilders);
+
+	/**
+	 * 查询
+	 * @param queryBuilders 查询条件
+	 * @return 查询结果
+	 */
+	List<DataSet> executeQuery(List<QueryBuilder> queryBuilders);
+
+	/**
 	 * 添加或更新
 	 * @param row 行
 	 * @return 受影响行数
@@ -80,17 +94,17 @@ public interface ITable {
 
 	/**
 	 * 批量添加或更新
-	 * @param row 行
+	 * @param rows 行
 	 * @return 收影响行数
 	 */
-	int executeUpdate(Row... row);
+	int executeUpdate(Row... rows);
 
 	/**
 	 * 批量添加或更新
-	 * @param row 行
+	 * @param rows 行
 	 * @return 收影响行数
 	 */
-	int executeUpdate(List<Row> row);
+	int executeUpdate(List<Row> rows);
 
 	/**
 	 * 删除
