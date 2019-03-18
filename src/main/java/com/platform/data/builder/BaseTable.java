@@ -70,18 +70,8 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public List<DataSet> executeQuery(QueryBuilder queryBuilder) {
+	public DataSet executeQuery(QueryBuilder queryBuilder) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<DataSet> executeQuery(QueryBuilder... queryBuilders) {
-		return null;
-	}
-
-	@Override
-	public List<DataSet> executeQuery(List<QueryBuilder> queryBuilders) {
 		return null;
 	}
 

@@ -69,21 +69,7 @@ public interface ITable {
 	 * @param queryBuilder 查询条件
 	 * @return 查询结果
 	 */
-	List<DataSet> executeQuery(QueryBuilder queryBuilder);
-
-	/**
-	 * 查询
-	 * @param queryBuilders 查询条件
-	 * @return 查询结果
-	 */
-	List<DataSet> executeQuery(QueryBuilder... queryBuilders);
-
-	/**
-	 * 查询
-	 * @param queryBuilders 查询条件
-	 * @return 查询结果
-	 */
-	List<DataSet> executeQuery(List<QueryBuilder> queryBuilders);
+	DataSet executeQuery(QueryBuilder queryBuilder);
 
 	/**
 	 * 添加或更新
