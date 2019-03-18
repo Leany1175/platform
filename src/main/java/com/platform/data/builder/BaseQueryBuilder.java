@@ -1,9 +1,9 @@
 package com.platform.data.builder;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import com.platform.utils.date.DateUtils;
+
+import java.text.ParseException;
+import java.util.*;
 
 public abstract class BaseQueryBuilder implements QueryBuilder{
 
@@ -18,7 +18,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     /** 查询条件 */
     protected List<ConditionBean> conditionList = new LinkedList<>();
     /** 排序条件 */
-    private List<ConditionBean> orderList = new LinkedList<>();
+    protected List<ConditionBean> orderList = new LinkedList<>();
 
     @Override
     public QueryBuilder tableName(String name) {
@@ -64,7 +64,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
 	@Override
 	public QueryBuilder equals(String field, String str) {
-	    conditionList.add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, str));
+	    conditionList.add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, "'" + str + "'"));
 		return this;
 	}
 
@@ -76,7 +76,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
     @Override
     public QueryBuilder notEquals(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, str));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, "'" + str + "'"));
         return this;
     }
 
@@ -88,13 +88,13 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
 	@Override
 	public QueryBuilder startWith(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, str + "%"));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, "'" + str + "%'"));
         return this;
 	}
 
 	@Override
 	public QueryBuilder like(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "%" + str + "%"));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "'%" + str + "%'"));
         return this;
 	}
 
@@ -106,7 +106,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
 	@Override
 	public QueryBuilder between(String field, Date start, Date end) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, start, end));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, start, end));
         return this;
 	}
 
@@ -136,17 +136,21 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
     @Override
     public QueryBuilder in(String field, String... strs) {
-	    for (String str : strs) {
-	        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, str));
-        }
+    	if (strs.length == 0) {
+    		throw new NullPointerException("必须给定字符串数组");
+		}
+    	List<String> list = new ArrayList<>(Arrays.asList(strs));
+		conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
         return this;
     }
 
     @Override
     public QueryBuilder in(String field, Number... numbers) {
-        for (Number number : numbers) {
-            conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, number));
-        }
+		if (numbers.length == 0) {
+			throw new NullPointerException("必须给定数字数组");
+		}
+		List<Number> list = new LinkedList<>(Arrays.asList(numbers));
+		conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
         return this;
     }
 
@@ -164,13 +168,13 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
 	@Override
 	public QueryBuilder desc(String field) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_DESC));
+        orderList.add(new ConditionBean(field, ConditionBean.TYPE_DESC));
         return this;
 	}
 
 	@Override
 	public QueryBuilder asc(String field) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_ASC));
+		orderList.add(new ConditionBean(field, ConditionBean.TYPE_ASC));
         return this;
 	}
 
@@ -183,5 +187,74 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     public List<ConditionBean> getOrderCondition() {
         return orderList;
     }
+
+	/**
+	 * 生成查询sql语句
+	 * @param condition 条件
+	 * @return sql语句,如: name like '%zhang%'
+	 * @exception ParseException 时间转换异常
+	 */
+	protected String createQueryCondition(ConditionBean condition) {
+		switch (condition.getType()) {
+			case ConditionBean.TYPE_EQUALS:
+				return condition.getKey() + " = " + condition.getValue1();
+			case ConditionBean.TYPE_NOT_EQUALS:
+				return condition.getKey() + " != " + condition.getValue1();
+			case ConditionBean.TYPE_START_WITH:
+				return condition.getKey() + " like " + condition.getValue1();
+			case ConditionBean.TYPE_LIKE:
+				return condition.getKey() + " like " + condition.getValue1();
+			case ConditionBean.TYPE_BETWEEN:
+				// 时间
+				if (condition.getValue1() instanceof Date) {
+					return condition.getKey() + " between '" + DateUtils.formatTime((Date) condition.getValue1())
+							+ "' and '" + DateUtils.formatTime((Date) condition.getValue2()) + "'";
+				} else {
+					return condition.getKey() + " between " + condition.getValue1() + " and " + condition.getValue2();
+				}
+			case ConditionBean.TYPE_GT:
+				return condition.getKey() + " > " + condition.getValue1();
+			case ConditionBean.TYPE_GTE:
+				return condition.getKey() + " >= " + condition.getValue1();
+			case ConditionBean.TYPE_LT:
+				return condition.getKey() + " < " + condition.getValue1();
+			case ConditionBean.TYPE_LTE:
+				return condition.getKey() + " <= " + condition.getValue1();
+			case ConditionBean.TYPE_IS_NULL:
+				return condition.getKey() + " is null";
+			case ConditionBean.TYPE_IS_NOT_NULL:
+				return condition.getKey() + " is not null";
+			case ConditionBean.TYPE_IN:
+				List<?> list = (List<?>) condition.getValue1();
+				StringBuffer buffer = new StringBuffer();
+				list.forEach(obj -> {
+					buffer.append(obj instanceof String ? "'" + obj + "'" : obj)
+							.append(",");
+				});
+				// 删除最后一个 ","
+				buffer.delete(buffer.length() - 1, buffer.length());
+				return condition.getKey() + " in(" + buffer.toString() + ")";
+			default:
+				break;
+		}
+    	return null;
+	}
+
+	/**
+	 * 生成查询sql语句
+	 * @param condition 条件
+	 * @return sql语句,如: name like '%zhang%'
+	 */
+	protected String createOrderCondition(ConditionBean condition) {
+		switch (condition.getType()) {
+			case ConditionBean.TYPE_ASC:
+				return condition.getKey() + " desc";
+			case ConditionBean.TYPE_DESC:
+				return condition.getKey() + " asc";
+			default:
+				break;
+		}
+		return null;
+	}
 
 }
