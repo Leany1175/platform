@@ -29,6 +29,9 @@ public class MysqlQueryBuilder extends BaseQueryBuilder {
             orderList.forEach(condition -> list.add(createOrderCondition(condition)));
             buffer.append(String.join(",", list));
         }
+        // 分页
+        buffer.append(" limit " + (pageNo - 1) * size + ",")
+                .append(size);
         return buffer.toString();
     }
 
