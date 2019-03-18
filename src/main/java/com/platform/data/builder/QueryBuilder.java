@@ -9,6 +9,34 @@ import java.util.List;
 public interface QueryBuilder {
 
 	/**
+	 * 表名
+	 * @param name 表名
+	 * @return this
+	 */
+	QueryBuilder tableName(String name);
+
+	/**
+	 * 字段名
+	 * @param field 字段名
+	 * @return this
+	 */
+	QueryBuilder field(String field);
+
+	/**
+	 * 字段名
+	 * @param fields 字段名
+	 * @return this
+	 */
+	QueryBuilder field(String... fields);
+
+	/**
+	 * 字段名
+	 * @param fields 字段名
+	 * @return this
+	 */
+	QueryBuilder field(List<String> fields);
+
+	/**
 	 * 当前页
 	 * @param currentPage 页号
 	 * @return this

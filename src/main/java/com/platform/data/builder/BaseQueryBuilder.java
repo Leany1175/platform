@@ -1,11 +1,16 @@
 package com.platform.data.builder;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseQueryBuilder implements QueryBuilder{
 
+    /** 表名 */
+    protected String tableName;
+    /** 查询字段 */
+    protected List<String> fieldList = new LinkedList<>();
     /** 当前页,默认为1 */
     protected int pageNo = 1;
     /** 条数,默认为10 */
@@ -15,7 +20,31 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     /** 排序条件 */
     private List<ConditionBean> orderList = new LinkedList<>();
 
-	@Override
+    @Override
+    public QueryBuilder tableName(String name) {
+        this.tableName = name;
+        return this;
+    }
+
+    @Override
+    public QueryBuilder field(String field) {
+        fieldList.add(field);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder field(String... fields) {
+        fieldList.addAll(Arrays.asList(fields));
+        return this;
+    }
+
+    @Override
+    public QueryBuilder field(List<String> fields) {
+        fieldList.addAll(fields);
+        return this;
+    }
+
+    @Override
 	public QueryBuilder currentPage(int currentPage) {
 	    if (currentPage <= 0) {
 	        throw new IllegalArgumentException("currentPage值不能小于等于0");
@@ -59,13 +88,13 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 
 	@Override
 	public QueryBuilder startWith(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, str));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, str + "%"));
         return this;
 	}
 
 	@Override
 	public QueryBuilder like(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LIKE, str));
+        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "%" + str + "%"));
         return this;
 	}
 
