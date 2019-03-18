@@ -23,149 +23,163 @@ public interface QueryBuilder {
 	QueryBuilder size(int size);
 
 	/**
-	 * 并且
-	 * @param queryBuilder 查询条件
+	 * 等于
+	 * @param field 字段
+	 * @param str 字符串
 	 * @return this
 	 */
-	QueryBuilder and(QueryBuilder queryBuilder);
-
-	/**
-	 * 并且
-	 * @param queryBuilders 查询条件
-	 * @return this
-	 */
-	QueryBuilder and(QueryBuilder... queryBuilders);
-
-	/**
-	 * 并且
-	 * @param queryBuilders 查询条件
-	 * @return this
-	 */
-	QueryBuilder and(List<QueryBuilder> queryBuilders);
-
-	/**
-	 * 或者
-	 * @param queryBuilder 查询条件
-	 * @return this
-	 */
-	QueryBuilder or(QueryBuilder queryBuilder);
-
-	/**
-	 * 或者
-	 * @param queryBuilders 查询条件
-	 * @return this
-	 */
-	QueryBuilder or(QueryBuilder... queryBuilders);
-
-	/**
-	 * 或者
-	 * @param queryBuilders 查询条件
-	 * @return this
-	 */
-	QueryBuilder or(List<QueryBuilder> queryBuilders);
-
-	/**
-	 * 字段名称,列名
-	 * @param field 列名
-	 * @return this
-	 */
-	QueryBuilder field(String field);
+	QueryBuilder equals(String field, String str);
 
 	/**
 	 * 等于
-	 * @param str 字符串
+	 * @param field 字段
+	 * @param number 数字
 	 * @return this
 	 */
-	QueryBuilder equals(String str);
+	QueryBuilder equals(String field, Number number);
 
 	/**
 	 * 不等于
+	 * @param field 字段
 	 * @param str 字符串
 	 * @return this
 	 */
-	QueryBuilder notEquals(String str);
+	QueryBuilder notEquals(String field, String str);
 
 	/**
 	 * 不等于
+	 * @param field 字段
 	 * @param number 值
 	 * @return this
 	 */
-	QueryBuilder notEquals(Number number);
+	QueryBuilder notEquals(String field, Number number);
 
 	/**
 	 * 以什么开始
+	 * @param field 字段
 	 * @param str 字符串
 	 * @return this
 	 */
-	QueryBuilder startWith(String str);
+	QueryBuilder startWith(String field, String str);
 
 	/**
 	 * 模糊
+	 * @param field 子弹
 	 * @param str 字符串
 	 * @return this
 	 */
-	QueryBuilder like(String str);
+	QueryBuilder like(String field, String str);
 
 	/**
 	 * 数字介于两者之间
+	 * @param field 字段
 	 * @param min 小数值
 	 * @param max 大数值
 	 * @return this
 	 */
-	QueryBuilder between(Number min, Number max);
+	QueryBuilder between(String field, Number min, Number max);
 
 	/**
 	 * 时间介于两者之间
+	 * @param field 字段
 	 * @param start 开始时间
 	 * @param end 结束时间
 	 * @return this
 	 */
-	QueryBuilder between(Date start, Date end);
+	QueryBuilder between(String field, Date start, Date end);
 
 	/**
 	 * 大于
+	 * @param field 字段
 	 * @param number 值
 	 * @return this
 	 */
-	QueryBuilder gt(Number number);
+	QueryBuilder gt(String field, Number number);
 
 	/**
 	 * 大于等于
+	 * @param field 字段
 	 * @param number 值
 	 * @return this
 	 */
-	QueryBuilder gte(Number number);
+	QueryBuilder gte(String field, Number number);
 
 	/**
 	 * 小于
+	 * @param field 字段
 	 * @param number 值
 	 * @return this
 	 */
-	QueryBuilder lt(Number number);
+	QueryBuilder lt(String field, Number number);
 
 	/**
 	 * 小于等于
+	 * @param field 字段
 	 * @param number 值
 	 * @return this
 	 */
-	QueryBuilder lte(Number number);
+	QueryBuilder lte(String field, Number number);
+
+	/**
+	 * in查询
+	 * @param field 字段
+	 * @param numbers 数值
+	 * @return this
+	 */
+	QueryBuilder in(String field, Number... numbers);
+
+	/**
+	 * in查询
+	 * @param field 字段
+	 * @param strs 字符串
+	 * @return this
+	 */
+	QueryBuilder in(String field, String... strs);
 
 	/**
 	 * 值为null
+	 * @param field 字段
 	 * @return this
 	 */
-	QueryBuilder isNull();
+	QueryBuilder isNull(String field);
 
 	/**
 	 * 值不为空
-	 * @return
+	 * @param field 字段
+	 * @return this
 	 */
-	QueryBuilder isNotNull();
+	QueryBuilder isNotNull(String field);
+
+	/**
+	 * 降序
+	 * @param field 字段
+	 * @return this
+	 */
+	QueryBuilder desc(String field);
+
+	/**
+	 * 升序
+	 * @param field 字段
+	 * @return this
+	 */
+	QueryBuilder asc(String field);
 
 	/**
 	 * 构建
 	 * @return sql条件
 	 */
 	String build();
+
+	/**
+	 * 查询条件
+	 * @return 查询条件
+	 */
+	List<ConditionBean> getQueryCondition();
+
+	/**
+	 * 排序条件
+	 * @return 条件
+	 */
+	List<ConditionBean> getOrderCondition();
 
 }
