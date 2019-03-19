@@ -37,7 +37,9 @@ public class WebContainerListener implements ServletContextListener {
 			Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger-name", "trigger-group").withSchedule(
 					SimpleScheduleBuilder.repeatSecondlyForever(5).repeatForever()).build();
 
-			scheduler.scheduleJob(jobDetail, trigger);
+//			scheduler.scheduleJob(jobDetail, trigger);
+			System.out.println(jobDetail);
+			System.out.println(trigger);
 
 		} catch (SchedulerException e) {
 			logger.error("quatz start faild", e);
