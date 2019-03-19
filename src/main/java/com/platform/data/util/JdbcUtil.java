@@ -1,14 +1,21 @@
 package com.platform.data.util;
 
-import com.platform.data.Column;
-import com.platform.data.DatabaseType;
-import com.platform.data.builder.ITableBuilder;
-
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.platform.data.Column;
+import com.platform.data.DataSet;
+import com.platform.data.DatabaseType;
+import com.platform.data.builder.ITableBuilder;
+import com.platform.data.builder.QueryBuilder;
 
 public class JdbcUtil {
 
@@ -195,6 +202,20 @@ public class JdbcUtil {
 			list.add(rs.getString("column_name"));
 		}
 		return list;
+	}
+
+	/**
+	 * 数据库查询
+	 * @param dataSource 数据源
+	 * @param queryBuilder 查询条件
+	 * @return 结果
+	 * @exception SQLException 查询异常
+	 */
+	public static DataSet executeQuery(DataSource dataSource, QueryBuilder queryBuilder) throws SQLException{
+		Connection conn = dataSource.getConnection();
+		PreparedStatement ps = conn.prepareStatement(queryBuilder.build());
+		System.out.println(ps);
+		return null;
 	}
 
 }

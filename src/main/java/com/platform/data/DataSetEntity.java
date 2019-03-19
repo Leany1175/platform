@@ -5,7 +5,8 @@ import java.util.List;
 
 public class DataSetEntity implements Serializable {
 
-    /** 数据库名 */
+	private static final long serialVersionUID = 1L;
+	/** 数据库名 */
     private String databaseName;
     /** 表名 */
     private String tableName;
