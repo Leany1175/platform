@@ -1,0 +1,28 @@
+.container {
+	overflow: hidden;
+	background-color: #FFFFFF;
+}
+
+.left {
+	float: left;
+	width: 136px;
+	padding-top: 20px;
+}
+
+.right {
+	float: left;
+}
+
+.datasource{
+	border-bottom: 1px solid red;
+	padding: 5px 25px;
+	cursor: pointer;
+}
+
+.datasource-name{
+	font-weight: bolder;
+}
+
+.datasource-type,.datasource-conn{
+	font-size: 12px;
+}
