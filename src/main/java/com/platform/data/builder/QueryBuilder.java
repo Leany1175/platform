@@ -193,6 +193,13 @@ public interface QueryBuilder {
 	QueryBuilder asc(String field);
 
 	/**
+	 * 开启分页
+	 * @param isPage true:使用分页
+	 * @return this
+	 */
+	QueryBuilder enablePage(boolean isPage);
+
+	/**
 	 * 构建
 	 * @return sql条件
 	 */

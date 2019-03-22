@@ -7,6 +7,8 @@ import java.util.*;
 
 public abstract class BaseQueryBuilder implements QueryBuilder{
 
+	/** 是否分页 */
+	protected boolean isPage = true;
     /** 表名 */
     protected String tableName;
     /** 查询字段 */
@@ -178,7 +180,13 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
         return this;
 	}
 
-    @Override
+	@Override
+	public QueryBuilder enablePage(boolean isPage) {
+    	this.isPage = isPage;
+		return this;
+	}
+
+	@Override
     public List<ConditionBean> getQueryCondition() {
         return conditionList;
     }
