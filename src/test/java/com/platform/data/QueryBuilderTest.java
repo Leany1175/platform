@@ -22,6 +22,7 @@ public class QueryBuilderTest {
                 .in("name", "张三", "李四")
                 .desc("age")
                 .asc("id")
+                .enablePage(false)
                 .desc("create_time");
             System.out.println(queryBuilder.build());
     }

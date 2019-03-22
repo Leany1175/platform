@@ -187,6 +187,11 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 	}
 
 	@Override
+	public String getTableName() {
+		return tableName;
+	}
+
+	@Override
     public List<ConditionBean> getQueryCondition() {
         return conditionList;
     }

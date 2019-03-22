@@ -11,9 +11,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.platform.data.Column;
-import com.platform.data.DataSet;
-import com.platform.data.DatabaseType;
+import com.platform.data.*;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.builder.QueryBuilder;
 
@@ -168,23 +166,7 @@ public class JdbcUtil {
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
 		ResultSetMetaData metaData = ps.getMetaData();
-		int count = metaData.getColumnCount();
-		// 主键列名
-		List<String> pkList = getPKColumnName(dataSource, tableName);
-		List<Column> columnList = new ArrayList<>(count);
-		for (int i = 1; i < count + 1; i++) {
-			Column column = new Column();
-			column.setName(metaData.getColumnName(i));
-			column.setColumnType(metaData.getColumnTypeName(i).toLowerCase());
-			column.setColumnClassName(metaData.getColumnClassName(i));
-			column.setLength(metaData.getPrecision(i));
-			column.setPrecision(metaData.getScale(i));
-			column.setPK(pkList.contains(metaData.getColumnName(i)));
-			column.setAuto(metaData.isAutoIncrement(i));
-			column.setNull(metaData.isNullable(i) != 0);
-			columnList.add(column);
-		}
-		return columnList;
+		return analysisColumns(dataSource, metaData, tableName);
 	}
 
 	/**
@@ -214,8 +196,49 @@ public class JdbcUtil {
 	public static DataSet executeQuery(DataSource dataSource, QueryBuilder queryBuilder) throws SQLException{
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement(queryBuilder.build());
-		System.out.println(ps);
-		return null;
+		// 获取列信息
+		List<Column> columnList = analysisColumns(dataSource, ps.getMetaData(),  queryBuilder.getTableName());
+		// 行列表
+		List<Row> rowList = new LinkedList<>();
+		// 结果集
+		ResultSet rs = ps.getResultSet();
+		while (rs.next()) {
+			Row row = new Row();
+			for (int i = 1, len = columnList.size() + 1; i < len; i++) {
+				row.put(columnList.get(i), rs.getObject(i));
+			}
+			rowList.add(row);
+		}
+		// 关闭
+		close(conn, ps, rs);
+		return new SimpleDataSet(columnList, rowList);
+	}
+
+	/**
+	 * 解析列
+	 * @param dataSource 数据源
+	 * @param metaData 元数据集
+	 * @param tableName 表名
+	 * @exception SQLException 异常
+	 */
+	private static List<Column> analysisColumns(DataSource dataSource, ResultSetMetaData metaData, String tableName) throws SQLException{
+		int count = metaData.getColumnCount();
+		// 主键列名
+		List<String> pkList = getPKColumnName(dataSource, tableName);
+		List<Column> columnList = new ArrayList<>(count);
+		for (int i = 1; i < count + 1; i++) {
+			Column column = new Column();
+			column.setName(metaData.getColumnName(i));
+			column.setColumnType(metaData.getColumnTypeName(i).toLowerCase());
+			column.setColumnClassName(metaData.getColumnClassName(i));
+			column.setLength(metaData.getPrecision(i));
+			column.setPrecision(metaData.getScale(i));
+			column.setPK(pkList.contains(metaData.getColumnName(i)));
+			column.setAuto(metaData.isAutoIncrement(i));
+			column.setNull(metaData.isNullable(i) != 0);
+			columnList.add(column);
+		}
+		return columnList;
 	}
 
 }

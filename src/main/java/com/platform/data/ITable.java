@@ -68,8 +68,9 @@ public interface ITable {
 	 * 查询
 	 * @param queryBuilder 查询条件
 	 * @return 查询结果
+	 * @exception SQLException 异常
 	 */
-	DataSet executeQuery(QueryBuilder queryBuilder);
+	DataSet executeQuery(QueryBuilder queryBuilder) throws SQLException;
 
 	/**
 	 * 添加或更新

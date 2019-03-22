@@ -70,9 +70,8 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public DataSet executeQuery(QueryBuilder queryBuilder) {
-		// TODO Auto-generated method stub
-		return null;
+	public DataSet executeQuery(QueryBuilder queryBuilder) throws SQLException{
+		return JdbcUtil.executeQuery(dataSource, queryBuilder);
 	}
 
 	@Override

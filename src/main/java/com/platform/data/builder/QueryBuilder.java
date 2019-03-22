@@ -200,6 +200,12 @@ public interface QueryBuilder {
 	QueryBuilder enablePage(boolean isPage);
 
 	/**
+	 * 获取表名
+	 * @return this
+	 */
+	String getTableName();
+
+	/**
 	 * 构建
 	 * @return sql条件
 	 */

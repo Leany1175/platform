@@ -1,9 +1,7 @@
 package com.platform.data;
 
 import com.alibaba.fastjson.JSON;
-import com.platform.data.builder.ColumnBuilders;
-import com.platform.data.builder.IColumnBuilder;
-import com.platform.data.builder.IDatabase;
+import com.platform.data.builder.*;
 import com.platform.data.factory.AbstractDatabaseFactory;
 import com.platform.data.mysql.MysqlColumnType;
 import com.platform.data.mysql.MysqlDatabaseFactory;
@@ -48,6 +46,8 @@ public class TableTest {
 	@Test
 	public void columnListTest() throws SQLException{
 		ITable table = database.getTable("users");
+		table.executeQuery(QueryBuilders.mysql()
+				.tableName("users"));
 		System.out.println(JSON.toJSONString(table.columnList(), true));
 	}
 
