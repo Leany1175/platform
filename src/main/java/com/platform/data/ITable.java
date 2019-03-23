@@ -1,6 +1,7 @@
 package com.platform.data;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import com.platform.data.builder.IColumnBuilder;
@@ -83,8 +84,9 @@ public interface ITable {
 	 * 添加或更新
 	 * @param row 行
 	 * @return 受影响行数
+	 * @exception SQLException 异常
 	 */
-	int executeUpdate(Row row);
+	int executeUpdate(Row row) throws SQLException;
 
 	/**
 	 * 批量添加或更新

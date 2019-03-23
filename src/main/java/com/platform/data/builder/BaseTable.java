@@ -3,6 +3,7 @@ package com.platform.data.builder;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -102,8 +103,46 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public int executeUpdate(Row row) {
+	public int executeUpdate(Row row) throws SQLException{
 		// TODO Auto-generated method stub
+		// 主键名
+		String pkName = null;
+		// 主键值
+		Object value = null;
+		for (Map.Entry<Column, Object> entry : row.entrySet()) {
+			if (entry.getKey().isPK()) {
+				pkName = entry.getKey().getName();
+				value = entry.getValue();
+				break;
+			}
+		}
+
+		if (pkName != null) {
+			// 存在主键
+			StringBuffer buffer = new StringBuffer("select * form ")
+					.append(name)
+					.append(" where ")
+					.append(pkName)
+					.append(" = ");
+			if (value instanceof String) {
+				buffer.append("'" + value + "'");
+			} else {
+				buffer.append(value);
+			}
+			Connection connection = dataSource.getConnection();
+			PreparedStatement ps = connection.prepareStatement(buffer.toString());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				// 数据库存在这条记录 执行update
+				// TODO 列名
+				List<String> columnNameList = row.keysString();
+				StringBuffer sql = new StringBuffer("insert into ")
+						.append(name)
+						.append("()")
+						.append(" values()");
+			}
+		}
+
 		return 0;
 	}
 

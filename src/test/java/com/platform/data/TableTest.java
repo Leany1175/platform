@@ -8,6 +8,7 @@ import com.platform.data.mysql.MysqlDatabaseFactory;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 public class TableTest {
 
@@ -46,9 +47,15 @@ public class TableTest {
 	@Test
 	public void columnListTest() throws SQLException{
 		ITable table = database.getTable("users");
-		table.queryAll(QueryBuilders.mysql()
-				.tableName("users"));
-		System.out.println(JSON.toJSONString(table.columnList(), true));
+		// 行
+		Row row = new Row();
+		row.put(new Column("user_id", true), 1);
+		row.put("user_name", "小六");
+		row.put("age", 24);
+		row.put("height", 66.665);
+		row.put("create_date", new Date());
+		int count = table.executeUpdate(row);
+		System.out.println(count);
 	}
 
 }

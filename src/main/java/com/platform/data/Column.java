@@ -41,6 +41,11 @@ public class Column implements Serializable {
 		this.name = name;
 	}
 
+	public Column(String name, boolean isPK) {
+		this.name = name;
+		this.isPK = isPK;
+	}
+
 	@Override
 	public int hashCode() {
 		return name == null ? 0 : name.hashCode() + 1;

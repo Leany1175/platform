@@ -43,4 +43,8 @@ public class Row extends HashMap<Column, Object> {
 		return (Date) get(new Column(columnName));
 	}
 
+	public void put(String columnName, Object value) {
+		put(new Column(columnName), value);
+	}
+
 }
