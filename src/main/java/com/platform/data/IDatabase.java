@@ -1,6 +1,6 @@
-package com.platform.data.builder;
+package com.platform.data;
 
-import com.platform.data.ITable;
+import com.platform.data.builder.ITableBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,6 +9,14 @@ import java.util.List;
  * 数据库
  */
 public interface IDatabase {
+
+	/**
+	 * 表名是否存在
+	 * @param tableName 表名
+	 * @return true:表示改表存在
+	 * @throws SQLException 异常
+	 */
+	boolean existsTable(String tableName) throws SQLException;
 
 	/**
 	 * 返回所有表名

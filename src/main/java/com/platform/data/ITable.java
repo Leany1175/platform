@@ -1,11 +1,10 @@
 package com.platform.data;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.QueryBuilder;
-
-import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
 
 public interface ITable {
 
@@ -57,20 +56,28 @@ public interface ITable {
 	 */
 	List<Column> columnList() throws SQLException;
 
-	/**
-	 * 返回一个迭代器
-	 * @return 迭代器
-	 * @exception SQLException 异常
-	 */
-	Iterator<Column> columnIterator() throws SQLException;
+//	/**
+//	 * 返回一个迭代器
+//	 * @return 迭代器
+//	 * @exception SQLException 异常
+//	 */
+//	Iterator<Column> columnIterator() throws SQLException;
 
 	/**
-	 * 查询
+	 * 分页查询
 	 * @param queryBuilder 查询条件
 	 * @return 查询结果
 	 * @exception SQLException 异常
 	 */
-	DataSet executeQuery(QueryBuilder queryBuilder) throws SQLException;
+	PageModel<Row> queryPage(QueryBuilder queryBuilder) throws SQLException;
+
+	/**
+	 * 查询所有
+	 * @param queryBuilder 查询条件
+	 * @return 行集合
+	 * @exception SQLException 异常
+	 */
+	List<Row> queryAll(QueryBuilder queryBuilder) throws SQLException;
 
 	/**
 	 * 添加或更新

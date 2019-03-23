@@ -1,7 +1,6 @@
 package com.platform.data;
 
 import com.platform.data.builder.ColumnBuilders;
-import com.platform.data.builder.IDatabase;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.builder.TableBuilders;
 import com.platform.data.factory.AbstractDatabaseFactory;

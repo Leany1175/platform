@@ -1,6 +1,6 @@
 package com.platform.data.factory;
 
-import com.platform.data.builder.IDatabase;
+import com.platform.data.IDatabase;
 
 import javax.sql.DataSource;
 

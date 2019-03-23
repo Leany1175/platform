@@ -1,15 +1,12 @@
 package com.platform.data.builder;
 
-import java.sql.SQLException;
-import java.util.Iterator;
+import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.platform.data.Column;
-import com.platform.data.DataSet;
-import com.platform.data.ITable;
-import com.platform.data.Row;
+import com.platform.data.*;
 import com.platform.data.util.JdbcUtil;
 
 public abstract class BaseTable implements ITable {
@@ -64,14 +61,44 @@ public abstract class BaseTable implements ITable {
 		return JdbcUtil.columnList(dataSource, name);
 	}
 
+//	@Override
+//	public Iterator<Column> columnIterator() throws SQLException{
+//		return columnList().iterator();
+//	}
+
 	@Override
-	public Iterator<Column> columnIterator() throws SQLException{
-		return columnList().iterator();
+	public PageModel<Row> queryPage(QueryBuilder queryBuilder) throws SQLException{
+		// 行集
+		List<Row> rowList = getRowList(dataSource, queryBuilder);
+
+		// 查询总条数
+		Connection conn = dataSource.getConnection();
+		PreparedStatement ps = conn.prepareStatement(queryBuilder.buildCount());
+		ResultSet rs = ps.executeQuery();
+		// 总条数
+		int count = 0;
+		if (rs.next()) {
+			count = rs.getInt(1);
+		}
+		PageModel<Row> pm = new PageModel<>();
+		// 当前页
+		pm.setCurrentPage(queryBuilder.getQueryCondition().getPageNo());
+		// 每页显示 条数
+		pm.setSize(queryBuilder.getQueryCondition().getSize());
+		// 数据
+		pm.setList(rowList);
+		// 总条数
+		pm.setCount(count);
+		// 关闭
+		JdbcUtil.close(conn, ps, rs);
+		return pm;
 	}
 
 	@Override
-	public DataSet executeQuery(QueryBuilder queryBuilder) throws SQLException{
-		return JdbcUtil.executeQuery(dataSource, queryBuilder);
+	public List<Row> queryAll(QueryBuilder queryBuilder) throws SQLException{
+		// 禁用分页
+		queryBuilder.enablePage(false);
+		return getRowList(dataSource, queryBuilder);
 	}
 
 	@Override
@@ -110,7 +137,36 @@ public abstract class BaseTable implements ITable {
 		return 0;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	/**
+	 * 获取行集合
+	 * @param dataSource 数据源
+	 * @param queryBuilder 查询条件
+	 * @return 行集
+	 * @throws SQLException 异常
+	 */
+	protected List<Row> getRowList(DataSource dataSource, QueryBuilder queryBuilder) throws SQLException{
+		// 设置表名
+		queryBuilder.tableName(name);
+		// 获取连接对象
+		Connection conn = dataSource.getConnection();
+		// 预编译
+		PreparedStatement ps = conn.prepareStatement(queryBuilder.build());
+		// 结果集
+		ResultSet rs = ps.executeQuery();
+		// 获取列信息
+		List<Column> columnList = JdbcUtil.analysisColumns(dataSource, ps.getMetaData(),  name);
+		// 行列表
+		List<Row> rowList = new LinkedList<>();
+		while (rs.next()) {
+			Row row = new Row();
+			for (int i = 1, len = columnList.size() + 1; i < len; i++) {
+				row.put(columnList.get(i - 1), rs.getObject(i));
+			}
+			rowList.add(row);
+		}
+		// 关闭
+		JdbcUtil.close(conn, ps, rs);
+		return rowList;
 	}
+
 }

@@ -3,7 +3,7 @@ package com.platform.data.mysql;
 import javax.sql.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.platform.data.builder.IDatabase;
+import com.platform.data.IDatabase;
 import com.platform.data.factory.AbstractDatabaseFactory;
 
 public class MysqlDatabaseFactory implements AbstractDatabaseFactory {

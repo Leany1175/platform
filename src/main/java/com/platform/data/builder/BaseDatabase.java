@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.platform.data.IDatabase;
 import com.platform.data.ITable;
 import com.platform.data.util.JdbcUtil;
 
@@ -16,6 +17,11 @@ public abstract class BaseDatabase implements IDatabase {
 
 	public BaseDatabase(DataSource dataSource) {
 		this.dataSource = dataSource;
+	}
+
+	@Override
+	public boolean existsTable(String tableName) throws SQLException {
+		return getAllTableName().contains(tableName);
 	}
 
 	@Override

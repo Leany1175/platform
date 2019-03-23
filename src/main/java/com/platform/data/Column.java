@@ -34,6 +34,33 @@ public class Column implements Serializable {
 	/** 允许为空 */
 	private boolean isNull = true;
 
+	public Column() {
+	}
+
+	public Column(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public int hashCode() {
+		return name == null ? 0 : name.hashCode() + 1;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Column)) {
+			return false;
+		}
+		Column column = (Column) obj;
+		if (column.getName() == null) {
+			return false;
+		}
+		return column.getName().equals(name);
+	}
+
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);

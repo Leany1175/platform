@@ -46,7 +46,7 @@ public class TableTest {
 	@Test
 	public void columnListTest() throws SQLException{
 		ITable table = database.getTable("users");
-		table.executeQuery(QueryBuilders.mysql()
+		table.queryAll(QueryBuilders.mysql()
 				.tableName("users"));
 		System.out.println(JSON.toJSONString(table.columnList(), true));
 	}

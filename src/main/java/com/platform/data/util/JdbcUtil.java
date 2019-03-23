@@ -11,9 +11,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.platform.data.*;
+import com.platform.data.Column;
+import com.platform.data.DatabaseType;
 import com.platform.data.builder.ITableBuilder;
-import com.platform.data.builder.QueryBuilder;
 
 public class JdbcUtil {
 
@@ -187,41 +187,13 @@ public class JdbcUtil {
 	}
 
 	/**
-	 * 数据库查询
-	 * @param dataSource 数据源
-	 * @param queryBuilder 查询条件
-	 * @return 结果
-	 * @exception SQLException 查询异常
-	 */
-	public static DataSet executeQuery(DataSource dataSource, QueryBuilder queryBuilder) throws SQLException{
-		Connection conn = dataSource.getConnection();
-		PreparedStatement ps = conn.prepareStatement(queryBuilder.build());
-		// 获取列信息
-		List<Column> columnList = analysisColumns(dataSource, ps.getMetaData(),  queryBuilder.getTableName());
-		// 行列表
-		List<Row> rowList = new LinkedList<>();
-		// 结果集
-		ResultSet rs = ps.getResultSet();
-		while (rs.next()) {
-			Row row = new Row();
-			for (int i = 1, len = columnList.size() + 1; i < len; i++) {
-				row.put(columnList.get(i), rs.getObject(i));
-			}
-			rowList.add(row);
-		}
-		// 关闭
-		close(conn, ps, rs);
-		return new SimpleDataSet(columnList, rowList);
-	}
-
-	/**
 	 * 解析列
 	 * @param dataSource 数据源
 	 * @param metaData 元数据集
 	 * @param tableName 表名
 	 * @exception SQLException 异常
 	 */
-	private static List<Column> analysisColumns(DataSource dataSource, ResultSetMetaData metaData, String tableName) throws SQLException{
+	public static List<Column> analysisColumns(DataSource dataSource, ResultSetMetaData metaData, String tableName) throws SQLException{
 		int count = metaData.getColumnCount();
 		// 主键列名
 		List<String> pkList = getPKColumnName(dataSource, tableName);

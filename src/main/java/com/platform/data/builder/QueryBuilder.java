@@ -1,5 +1,7 @@
 package com.platform.data.builder;
 
+import com.platform.data.QueryCondition;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,22 +17,22 @@ public interface QueryBuilder {
 	 */
 	QueryBuilder tableName(String name);
 
-	/**
-	 * 字段名
-	 * @param field 字段名
-	 * @return this
-	 */
-	QueryBuilder field(String field);
+//	/**
+//	 * 需要查询的 字段名
+//	 * @param field 字段名
+//	 * @return this
+//	 */
+//	QueryBuilder field(String field);
 
 	/**
-	 * 字段名
+	 * 需要查询的 字段名
 	 * @param fields 字段名
 	 * @return this
 	 */
 	QueryBuilder field(String... fields);
 
 	/**
-	 * 字段名
+	 * 需要查询的 字段名
 	 * @param fields 字段名
 	 * @return this
 	 */
@@ -199,28 +201,40 @@ public interface QueryBuilder {
 	 */
 	QueryBuilder enablePage(boolean isPage);
 
-	/**
-	 * 获取表名
-	 * @return this
-	 */
-	String getTableName();
+//	/**
+//	 * 获取表名
+//	 * @return this
+//	 */
+//	String getTableName();
 
 	/**
-	 * 构建
+	 * 构建sql查询条件
 	 * @return sql条件
 	 */
 	String build();
 
 	/**
-	 * 查询条件
-	 * @return 查询条件
+	 * 构建条数统计sql语句
+	 * @return sql语句
 	 */
-	List<ConditionBean> getQueryCondition();
+	String buildCount();
+
+//	/**
+//	 * 查询条件
+//	 * @return 查询条件
+//	 */
+//	List<ConditionBean> getQueryCondition();
+//
+//	/**
+//	 * 排序条件
+//	 * @return 条件
+//	 */
+//	List<ConditionBean> getOrderCondition();
 
 	/**
-	 * 排序条件
-	 * @return 条件
+	 * 获取查询条件
+	 * @return 查询条件
 	 */
-	List<ConditionBean> getOrderCondition();
+	QueryCondition getQueryCondition();
 
 }

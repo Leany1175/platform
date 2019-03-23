@@ -1,5 +1,6 @@
 package com.platform.data.builder;
 
+import com.platform.data.QueryCondition;
 import com.platform.utils.date.DateUtils;
 
 import java.text.ParseException;
@@ -7,42 +8,46 @@ import java.util.*;
 
 public abstract class BaseQueryBuilder implements QueryBuilder{
 
-	/** 是否分页 */
-	protected boolean isPage = true;
-    /** 表名 */
-    protected String tableName;
-    /** 查询字段 */
-    protected List<String> fieldList = new LinkedList<>();
-    /** 当前页,默认为1 */
-    protected int pageNo = 1;
-    /** 条数,默认为10 */
-    protected int size = 10;
-    /** 查询条件 */
-    protected List<ConditionBean> conditionList = new LinkedList<>();
-    /** 排序条件 */
-    protected List<ConditionBean> orderList = new LinkedList<>();
+//	/** 是否分页 */
+//	protected boolean isPage = true;
+//    /** 表名 */
+//    protected String tableName;
+//    /** 查询字段 */
+//    protected List<String> fieldList = new LinkedList<>();
+//    /** 当前页,默认为1 */
+//    protected int pageNo = 1;
+//    /** 条数,默认为10 */
+//    protected int size = 10;
+//    /** 查询条件 */
+//    protected List<ConditionBean> conditionList = new LinkedList<>();
+//    /** 排序条件 */
+//    protected List<ConditionBean> orderList = new LinkedList<>();
+
+	protected QueryCondition condition = new QueryCondition();
 
     @Override
     public QueryBuilder tableName(String name) {
-        this.tableName = name;
+		condition.setTableName(name);
         return this;
     }
 
-    @Override
-    public QueryBuilder field(String field) {
-        fieldList.add(field);
-        return this;
-    }
+//    @Override
+//    public QueryBuilder field(String field) {
+//		condition.getFieldList().add(field);
+//        fieldList.add(field);
+//
+//        return this;
+//    }
 
     @Override
     public QueryBuilder field(String... fields) {
-        fieldList.addAll(Arrays.asList(fields));
+		condition.getFieldList().addAll(Arrays.asList(fields));
         return this;
     }
 
     @Override
     public QueryBuilder field(List<String> fields) {
-        fieldList.addAll(fields);
+        condition.getFieldList().addAll(fields);
         return this;
     }
 
@@ -51,7 +56,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 	    if (currentPage <= 0) {
 	        throw new IllegalArgumentException("currentPage值不能小于等于0");
         }
-	    this.pageNo = currentPage;
+	    condition.setPageNo(currentPage);
 		return this;
 	}
 
@@ -60,79 +65,79 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
         if (size <= 0) {
             throw new IllegalArgumentException("每页展示条数不能小于等于0");
         }
-        this.size = size;
+        condition.setSize(size);
 		return this;
 	}
 
 	@Override
 	public QueryBuilder equals(String field, String str) {
-	    conditionList.add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, "'" + str + "'"));
+	    condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, "'" + str + "'"));
 		return this;
 	}
 
     @Override
     public QueryBuilder equals(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, number));
         return this;
     }
 
     @Override
     public QueryBuilder notEquals(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, "'" + str + "'"));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, "'" + str + "'"));
         return this;
     }
 
 	@Override
 	public QueryBuilder notEquals(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, number));
         return this;
 	}
 
 	@Override
 	public QueryBuilder startWith(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, "'" + str + "%'"));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, "'" + str + "%'"));
         return this;
 	}
 
 	@Override
 	public QueryBuilder like(String field, String str) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "'%" + str + "%'"));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "'%" + str + "%'"));
         return this;
 	}
 
 	@Override
 	public QueryBuilder between(String field, Number min, Number max) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, min, max));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, min, max));
         return this;
 	}
 
 	@Override
 	public QueryBuilder between(String field, Date start, Date end) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, start, end));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, start, end));
         return this;
 	}
 
 	@Override
 	public QueryBuilder gt(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_GT, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_GT, number));
         return this;
 	}
 
 	@Override
 	public QueryBuilder gte(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_GTE, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_GTE, number));
         return this;
 	}
 
 	@Override
 	public QueryBuilder lt(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LT, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LT, number));
         return this;
 	}
 
 	@Override
 	public QueryBuilder lte(String field, Number number) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_LTE, number));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LTE, number));
         return this;
 	}
 
@@ -142,7 +147,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     		throw new NullPointerException("必须给定字符串数组");
 		}
     	List<String> list = new ArrayList<>(Arrays.asList(strs));
-		conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
         return this;
     }
 
@@ -152,54 +157,59 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 			throw new NullPointerException("必须给定数字数组");
 		}
 		List<Number> list = new LinkedList<>(Arrays.asList(numbers));
-		conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IN, list));
         return this;
     }
 
     @Override
 	public QueryBuilder isNull(String field) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IS_NULL));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IS_NULL));
         return this;
 	}
 
 	@Override
 	public QueryBuilder isNotNull(String field) {
-        conditionList.add(new ConditionBean(field, ConditionBean.TYPE_IS_NOT_NULL));
+		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IS_NOT_NULL));
         return this;
 	}
 
 	@Override
 	public QueryBuilder desc(String field) {
-        orderList.add(new ConditionBean(field, ConditionBean.TYPE_DESC));
+		condition.getOrderList().add(new ConditionBean(field, ConditionBean.TYPE_DESC));
         return this;
 	}
 
 	@Override
 	public QueryBuilder asc(String field) {
-		orderList.add(new ConditionBean(field, ConditionBean.TYPE_ASC));
+		condition.getOrderList().add(new ConditionBean(field, ConditionBean.TYPE_ASC));
         return this;
 	}
 
 	@Override
 	public QueryBuilder enablePage(boolean isPage) {
-    	this.isPage = isPage;
+    	condition.setPage(isPage);
 		return this;
 	}
 
 	@Override
-	public String getTableName() {
-		return tableName;
+	public QueryCondition getQueryCondition() {
+		return condition;
 	}
 
-	@Override
-    public List<ConditionBean> getQueryCondition() {
-        return conditionList;
-    }
+//	@Override
+//	public String getTableName() {
+//		return tableName;
+//	}
 
-    @Override
-    public List<ConditionBean> getOrderCondition() {
-        return orderList;
-    }
+//	@Override
+//    public List<ConditionBean> getQueryCondition() {
+//        return conditionList;
+//    }
+//
+////    @Override
+//    public List<ConditionBean> getOrderCondition() {
+//        return orderList;
+//    }
 
 	/**
 	 * 生成查询sql语句
