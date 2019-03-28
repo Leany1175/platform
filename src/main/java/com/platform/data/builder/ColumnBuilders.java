@@ -1,6 +1,6 @@
 package com.platform.data.builder;
 
-import com.platform.data.Column;
+import com.platform.data.entity.Column;
 import com.platform.data.mysql.MysqlColumnBuilder;
 import com.platform.data.oracle.OracleColumnBuilder;
 

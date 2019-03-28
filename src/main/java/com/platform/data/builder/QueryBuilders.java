@@ -6,7 +6,7 @@ public class QueryBuilders {
 
     private QueryBuilders() {}
 
-    public static QueryBuilder mysql() {
+    public static IQueryBuilder mysql() {
         return new MysqlQueryBuilder();
     }
 

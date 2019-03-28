@@ -1,7 +1,8 @@
 package com.platform.data;
 
-import com.alibaba.fastjson.JSON;
 import com.platform.data.builder.*;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Row;
 import com.platform.data.factory.AbstractDatabaseFactory;
 import com.platform.data.mysql.MysqlColumnType;
 import com.platform.data.mysql.MysqlDatabaseFactory;

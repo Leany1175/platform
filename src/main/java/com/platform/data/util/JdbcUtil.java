@@ -11,8 +11,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.platform.data.Column;
-import com.platform.data.DatabaseType;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.DatabaseType;
 import com.platform.data.builder.ITableBuilder;
 
 public class JdbcUtil {

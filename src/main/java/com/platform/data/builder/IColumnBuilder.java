@@ -1,6 +1,6 @@
 package com.platform.data.builder;
 
-import com.platform.data.Column;
+import com.platform.data.entity.Column;
 
 /**
  * 列建造者

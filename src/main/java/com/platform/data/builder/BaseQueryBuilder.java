@@ -1,12 +1,12 @@
 package com.platform.data.builder;
 
-import com.platform.data.QueryCondition;
+import com.platform.data.entity.QueryCondition;
 import com.platform.utils.date.DateUtils;
 
 import java.text.ParseException;
 import java.util.*;
 
-public abstract class BaseQueryBuilder implements QueryBuilder{
+public abstract class BaseQueryBuilder implements IQueryBuilder{
 
 //	/** 是否分页 */
 //	protected boolean isPage = true;
@@ -26,7 +26,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 	protected QueryCondition condition = new QueryCondition();
 
     @Override
-    public QueryBuilder tableName(String name) {
+    public IQueryBuilder tableName(String name) {
 		condition.setTableName(name);
         return this;
     }
@@ -40,19 +40,19 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 //    }
 
     @Override
-    public QueryBuilder field(String... fields) {
+    public IQueryBuilder field(String... fields) {
 		condition.getFieldList().addAll(Arrays.asList(fields));
         return this;
     }
 
     @Override
-    public QueryBuilder field(List<String> fields) {
+    public IQueryBuilder field(List<String> fields) {
         condition.getFieldList().addAll(fields);
         return this;
     }
 
     @Override
-	public QueryBuilder currentPage(int currentPage) {
+	public IQueryBuilder currentPage(int currentPage) {
 	    if (currentPage <= 0) {
 	        throw new IllegalArgumentException("currentPage值不能小于等于0");
         }
@@ -61,7 +61,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 	}
 
 	@Override
-	public QueryBuilder size(int size) {
+	public IQueryBuilder size(int size) {
         if (size <= 0) {
             throw new IllegalArgumentException("每页展示条数不能小于等于0");
         }
@@ -70,79 +70,79 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
 	}
 
 	@Override
-	public QueryBuilder equals(String field, String str) {
+	public IQueryBuilder equals(String field, String str) {
 	    condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, "'" + str + "'"));
 		return this;
 	}
 
     @Override
-    public QueryBuilder equals(String field, Number number) {
+    public IQueryBuilder equals(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_EQUALS, number));
         return this;
     }
 
     @Override
-    public QueryBuilder notEquals(String field, String str) {
+    public IQueryBuilder notEquals(String field, String str) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, "'" + str + "'"));
         return this;
     }
 
 	@Override
-	public QueryBuilder notEquals(String field, Number number) {
+	public IQueryBuilder notEquals(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_NOT_EQUALS, number));
         return this;
 	}
 
 	@Override
-	public QueryBuilder startWith(String field, String str) {
+	public IQueryBuilder startWith(String field, String str) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_START_WITH, "'" + str + "%'"));
         return this;
 	}
 
 	@Override
-	public QueryBuilder like(String field, String str) {
+	public IQueryBuilder like(String field, String str) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LIKE, "'%" + str + "%'"));
         return this;
 	}
 
 	@Override
-	public QueryBuilder between(String field, Number min, Number max) {
+	public IQueryBuilder between(String field, Number min, Number max) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, min, max));
         return this;
 	}
 
 	@Override
-	public QueryBuilder between(String field, Date start, Date end) {
+	public IQueryBuilder between(String field, Date start, Date end) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_BETWEEN, start, end));
         return this;
 	}
 
 	@Override
-	public QueryBuilder gt(String field, Number number) {
+	public IQueryBuilder gt(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_GT, number));
         return this;
 	}
 
 	@Override
-	public QueryBuilder gte(String field, Number number) {
+	public IQueryBuilder gte(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_GTE, number));
         return this;
 	}
 
 	@Override
-	public QueryBuilder lt(String field, Number number) {
+	public IQueryBuilder lt(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LT, number));
         return this;
 	}
 
 	@Override
-	public QueryBuilder lte(String field, Number number) {
+	public IQueryBuilder lte(String field, Number number) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_LTE, number));
         return this;
 	}
 
     @Override
-    public QueryBuilder in(String field, String... strs) {
+    public IQueryBuilder in(String field, String... strs) {
     	if (strs.length == 0) {
     		throw new NullPointerException("必须给定字符串数组");
 		}
@@ -152,7 +152,7 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     }
 
     @Override
-    public QueryBuilder in(String field, Number... numbers) {
+    public IQueryBuilder in(String field, Number... numbers) {
 		if (numbers.length == 0) {
 			throw new NullPointerException("必须给定数字数组");
 		}
@@ -162,31 +162,31 @@ public abstract class BaseQueryBuilder implements QueryBuilder{
     }
 
     @Override
-	public QueryBuilder isNull(String field) {
+	public IQueryBuilder isNull(String field) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IS_NULL));
         return this;
 	}
 
 	@Override
-	public QueryBuilder isNotNull(String field) {
+	public IQueryBuilder isNotNull(String field) {
 		condition.getConditionList().add(new ConditionBean(field, ConditionBean.TYPE_IS_NOT_NULL));
         return this;
 	}
 
 	@Override
-	public QueryBuilder desc(String field) {
+	public IQueryBuilder desc(String field) {
 		condition.getOrderList().add(new ConditionBean(field, ConditionBean.TYPE_DESC));
         return this;
 	}
 
 	@Override
-	public QueryBuilder asc(String field) {
+	public IQueryBuilder asc(String field) {
 		condition.getOrderList().add(new ConditionBean(field, ConditionBean.TYPE_ASC));
         return this;
 	}
 
 	@Override
-	public QueryBuilder enablePage(boolean isPage) {
+	public IQueryBuilder enablePage(boolean isPage) {
     	condition.setPage(isPage);
 		return this;
 	}

@@ -1,11 +1,14 @@
 package com.platform.data;
 
+import com.platform.data.builder.IColumnBuilder;
+import com.platform.data.builder.IQueryBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.PageModel;
+import com.platform.data.entity.Row;
+
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-
-import com.platform.data.builder.IColumnBuilder;
-import com.platform.data.builder.QueryBuilder;
 
 public interface ITable {
 
@@ -70,7 +73,7 @@ public interface ITable {
 	 * @return 查询结果
 	 * @exception SQLException 异常
 	 */
-	PageModel<Row> queryPage(QueryBuilder queryBuilder) throws SQLException;
+	PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException;
 
 	/**
 	 * 查询所有
@@ -78,7 +81,7 @@ public interface ITable {
 	 * @return 行集合
 	 * @exception SQLException 异常
 	 */
-	List<Row> queryAll(QueryBuilder queryBuilder) throws SQLException;
+	List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException;
 
 	/**
 	 * 添加或更新
@@ -93,14 +96,7 @@ public interface ITable {
 	 * @param rows 行
 	 * @return 收影响行数
 	 */
-	int executeUpdate(Row... rows);
-
-	/**
-	 * 批量添加或更新
-	 * @param rows 行
-	 * @return 收影响行数
-	 */
-	int executeUpdate(List<Row> rows);
+	int executeUpdate(Collection<Row> rows);
 
 	/**
 	 * 删除
@@ -114,13 +110,12 @@ public interface ITable {
 	 * @param row 行
 	 * @return 收影响行数
 	 */
-	int deleteRow(Row... row);
+	int deleteRow(Collection<Row> row);
 
 	/**
-	 * 批量删除
-	 * @param row 行
-	 * @return 收影响行数
+	 * 聚合
+	 * @param queryBuilder 条件
 	 */
-	int deleteRow(List<Row> row);
+	void aggregation(IQueryBuilder queryBuilder);
 
 }

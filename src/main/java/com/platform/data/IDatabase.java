@@ -1,7 +1,9 @@
 package com.platform.data;
 
 import com.platform.data.builder.ITableBuilder;
+import com.platform.data.entity.ExportOption;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,12 +27,12 @@ public interface IDatabase {
 	 */
 	List<String> getAllTableName() throws SQLException;
 
-	/**
-	 * 获取所有表对象
-	 * @return 表对象
-	 * @exception SQLException 异常
-	 */
-	List<ITable> getAllTable() throws SQLException;
+//	/**
+//	 * 获取所有表对象
+//	 * @return 表对象
+//	 * @exception SQLException 异常
+//	 */
+//	List<ITable> getAllTable() throws SQLException;
 
 	/**
 	 * 获取表对象
@@ -53,5 +55,24 @@ public interface IDatabase {
 	 * @exception SQLException 异常
 	 */
 	void dropTable(String tableName) throws SQLException;
+
+	/**
+	 * 导出
+	 * @param option 导出选项
+	 * @return 文件对象
+	 */
+	File export(ExportOption option, String... tableName);
+
+	/**
+	 * 导入文件
+	 * @param file 文件对象
+	 */
+	void importFile(File file);
+
+	/**
+	 * 导入sql文件
+	 * @param file 文件
+	 */
+	void importSql(File file);
 
 }

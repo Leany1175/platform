@@ -1,13 +1,20 @@
 package com.platform.data.builder;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
-import com.platform.data.*;
+import com.platform.data.ITable;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.PageModel;
+import com.platform.data.entity.Row;
 import com.platform.data.util.JdbcUtil;
 
 public abstract class BaseTable implements ITable {
@@ -68,7 +75,7 @@ public abstract class BaseTable implements ITable {
 //	}
 
 	@Override
-	public PageModel<Row> queryPage(QueryBuilder queryBuilder) throws SQLException{
+	public PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException{
 		// 行集
 		List<Row> rowList = getRowList(dataSource, queryBuilder);
 
@@ -96,7 +103,7 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public List<Row> queryAll(QueryBuilder queryBuilder) throws SQLException{
+	public List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException{
 		// 禁用分页
 		queryBuilder.enablePage(false);
 		return getRowList(dataSource, queryBuilder);
@@ -147,13 +154,7 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public int executeUpdate(Row... rows) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int executeUpdate(List<Row> rows) {
+	public int executeUpdate(Collection<Row> rows) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -165,15 +166,14 @@ public abstract class BaseTable implements ITable {
 	}
 
 	@Override
-	public int deleteRow(Row... row) {
+	public int deleteRow(Collection<Row> row) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteRow(List<Row> row) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void aggregation(IQueryBuilder queryBuilder) {
+
 	}
 
 	/**
@@ -183,7 +183,7 @@ public abstract class BaseTable implements ITable {
 	 * @return 行集
 	 * @throws SQLException 异常
 	 */
-	protected List<Row> getRowList(DataSource dataSource, QueryBuilder queryBuilder) throws SQLException{
+	protected List<Row> getRowList(DataSource dataSource, IQueryBuilder queryBuilder) throws SQLException{
 		// 设置表名
 		queryBuilder.tableName(name);
 		// 获取连接对象

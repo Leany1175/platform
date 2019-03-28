@@ -1,4 +1,4 @@
-package com.platform.data;
+package com.platform.data.entity;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSON;
