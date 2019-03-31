@@ -1,12 +1,13 @@
-package com.platform.data;
+package com.platform.data.base;
 
-import com.platform.data.builder.ConditionBean;
+import com.platform.data.IWhereClause;
+import com.platform.data.entity.ConditionBean;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WhereClauseImpl implements IWhereClause{
+public class WhereClauseImpl implements IWhereClause {
 
 	/** 查询条件 */
 	protected List<ConditionBean> conditionList = new LinkedList<>();

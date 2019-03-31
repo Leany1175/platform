@@ -1,7 +1,7 @@
 package com.platform.data.mysql;
 
 import com.platform.data.ITable;
-import com.platform.data.builder.BaseDatabase;
+import com.platform.data.base.BaseDatabase;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

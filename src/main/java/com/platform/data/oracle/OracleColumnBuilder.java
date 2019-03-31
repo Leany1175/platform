@@ -1,6 +1,6 @@
 package com.platform.data.oracle;
 
-import com.platform.data.builder.BaseColumnBuilder;
+import com.platform.data.builder.base.BaseColumnBuilder;
 
 public class OracleColumnBuilder extends BaseColumnBuilder {
 

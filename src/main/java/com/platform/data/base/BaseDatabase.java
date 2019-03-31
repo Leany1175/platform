@@ -1,8 +1,11 @@
-package com.platform.data.builder;
+package com.platform.data.base;
 
 import com.platform.data.IAggregationResult;
 import com.platform.data.IDatabase;
 import com.platform.data.ISearchResult;
+import com.platform.data.builder.IAggregationBuilder;
+import com.platform.data.builder.IQueryBuilder;
+import com.platform.data.builder.ITableBuilder;
 import com.platform.data.entity.ExportOption;
 import com.platform.data.util.JdbcUtil;
 
@@ -18,11 +21,6 @@ public abstract class BaseDatabase implements IDatabase {
 
 	public BaseDatabase(DataSource dataSource) {
 		this.dataSource = dataSource;
-	}
-
-	@Override
-	public boolean existsTable(String tableName) throws SQLException {
-		return getAllTableName().contains(tableName);
 	}
 
 	@Override

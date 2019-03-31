@@ -1,6 +1,7 @@
-package com.platform.data.builder;
+package com.platform.data.builder.base;
 
-import com.platform.data.WhereClauseImpl;
+import com.platform.data.base.WhereClauseImpl;
+import com.platform.data.builder.IAggregationBuilder;
 
 public abstract class BaseAggregationBuilder extends WhereClauseImpl implements IAggregationBuilder {
 

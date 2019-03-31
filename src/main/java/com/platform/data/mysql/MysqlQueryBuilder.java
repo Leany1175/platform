@@ -1,9 +1,6 @@
 package com.platform.data.mysql;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.platform.data.builder.BaseQueryBuilder;
+import com.platform.data.builder.base.BaseQueryBuilder;
 
 public class MysqlQueryBuilder extends BaseQueryBuilder {
 

@@ -1,10 +1,9 @@
 package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.platform.data.builder.AggregationBuilders;
 import com.platform.data.builder.IAggregationBuilder;
-import com.platform.data.factory.AbstractDatabaseFactory;
-import com.platform.data.mysql.MysqlDatabaseFactory;
+import com.platform.data.factory.AbstractFactory;
+import com.platform.data.mysql.MysqlFactory;
 
 public class TestMain {
 
@@ -15,11 +14,10 @@ public class TestMain {
 		dataSource.setUsername("root");
 		dataSource.setPassword("123456");
 
-		AbstractDatabaseFactory databaseFactory = new MysqlDatabaseFactory();
+		AbstractFactory databaseFactory = new MysqlFactory();
 		IDatabase database = databaseFactory.createDatabase(dataSource);
 		ITable table = database.getTable("user_info");
-
-		IAggregationBuilder aggregationBuilder = AggregationBuilders.mysql().name("").field("").subAggregation(null);
+		IAggregationBuilder aggregationBuilder = databaseFactory.createAggregationBuilder().name("").field("").subAggregation(null);
 		System.out.println("finish");
 	}
 

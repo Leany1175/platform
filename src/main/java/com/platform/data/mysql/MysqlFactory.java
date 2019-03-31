@@ -1,12 +1,16 @@
 package com.platform.data.mysql;
 
-import javax.sql.DataSource;
-
 import com.alibaba.druid.pool.DruidDataSource;
 import com.platform.data.IDatabase;
-import com.platform.data.factory.AbstractDatabaseFactory;
+import com.platform.data.builder.IAggregationBuilder;
+import com.platform.data.builder.IColumnBuilder;
+import com.platform.data.builder.IQueryBuilder;
+import com.platform.data.builder.ITableBuilder;
+import com.platform.data.factory.AbstractFactory;
 
-public class MysqlDatabaseFactory implements AbstractDatabaseFactory {
+import javax.sql.DataSource;
+
+public class MysqlFactory implements AbstractFactory {
 
 	@Override
 	public IDatabase createDatabase(DataSource dataSource) {
@@ -29,6 +33,26 @@ public class MysqlDatabaseFactory implements AbstractDatabaseFactory {
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		return createDatabase(dataSource);
+	}
+
+	@Override
+	public ITableBuilder createTableBuilder() {
+		return new MysqlTableBuilder();
+	}
+
+	@Override
+	public IColumnBuilder createColumnBuilder() {
+		return new MysqlColumnBuilder();
+	}
+
+	@Override
+	public IQueryBuilder createQueryBuilder() {
+		return new MysqlQueryBuilder();
+	}
+
+	@Override
+	public IAggregationBuilder createAggregationBuilder() {
+		return new MysqlAggregationBuilder();
 	}
 
 }

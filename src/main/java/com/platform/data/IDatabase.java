@@ -15,26 +15,21 @@ import java.util.List;
 public interface IDatabase {
 
 	/**
-	 * 表名是否存在
-	 * @param tableName 表名
-	 * @return true:表示改表存在
-	 * @throws SQLException 异常
-	 */
-	boolean existsTable(String tableName) throws SQLException;
-
-	/**
 	 * 返回所有表名
 	 * @return 表名
 	 * @exception SQLException 数据库连接异常
 	 */
 	List<String> getAllTableName() throws SQLException;
 
-//	/**
-//	 * 获取所有表对象
-//	 * @return 表对象
-//	 * @exception SQLException 异常
-//	 */
-//	List<ITable> getAllTable() throws SQLException;
+	/**
+	 * 表名是否存在
+	 * @param tableName 表名
+	 * @return true:表示改表存在
+	 * @throws SQLException 异常
+	 */
+	default boolean existsTable(String tableName) throws SQLException {
+		return getAllTableName().contains(tableName);
+	}
 
 	/**
 	 * 获取表对象

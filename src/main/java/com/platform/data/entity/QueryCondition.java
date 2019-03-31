@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.platform.data.builder.ConditionBean;
-
 /**
  * 查询条件
  */

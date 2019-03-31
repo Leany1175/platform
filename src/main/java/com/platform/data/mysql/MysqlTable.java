@@ -2,7 +2,7 @@ package com.platform.data.mysql;
 
 import javax.sql.DataSource;
 
-import com.platform.data.builder.BaseTable;
+import com.platform.data.base.BaseTable;
 
 public class MysqlTable extends BaseTable {
 

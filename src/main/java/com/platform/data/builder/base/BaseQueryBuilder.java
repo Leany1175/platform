@@ -1,12 +1,14 @@
-package com.platform.data.builder;
+package com.platform.data.builder.base;
 
-import com.platform.data.WhereClauseImpl;
+import com.platform.data.base.WhereClauseImpl;
+import com.platform.data.builder.IQueryBuilder;
+import com.platform.data.entity.ConditionBean;
 import com.platform.utils.date.DateUtils;
 
 import java.text.ParseException;
 import java.util.*;
 
-public abstract class BaseQueryBuilder extends WhereClauseImpl implements IQueryBuilder{
+public abstract class BaseQueryBuilder extends WhereClauseImpl implements IQueryBuilder {
 
 //	protected QueryCondition condition = new QueryCondition();
 	/** 是否分页 */

@@ -1,4 +1,4 @@
-package com.platform.data.builder;
+package com.platform.data.entity;
 
 import java.io.Serializable;
 

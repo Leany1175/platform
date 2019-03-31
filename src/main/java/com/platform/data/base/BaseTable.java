@@ -1,4 +1,4 @@
-package com.platform.data.builder;
+package com.platform.data.base;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +15,9 @@ import com.platform.data.IAggregationResult;
 import com.platform.data.ISearchResult;
 import com.platform.data.ITable;
 import com.platform.data.IWhereClause;
+import com.platform.data.builder.IAggregationBuilder;
+import com.platform.data.builder.IColumnBuilder;
+import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.entity.Column;
 import com.platform.data.entity.Row;
 import com.platform.data.util.JdbcUtil;
