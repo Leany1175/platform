@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.platform.IAggregationResult;
+import com.platform.data.ISearchResult;
 import com.platform.data.ITable;
 import com.platform.data.entity.Column;
 import com.platform.data.entity.PageModel;
@@ -75,39 +77,50 @@ public abstract class BaseTable implements ITable {
 //	}
 
 	@Override
-	public PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException{
-		// 行集
-		List<Row> rowList = getRowList(dataSource, queryBuilder);
-
-		// 查询总条数
-		Connection conn = dataSource.getConnection();
-		PreparedStatement ps = conn.prepareStatement(queryBuilder.buildCount());
-		ResultSet rs = ps.executeQuery();
-		// 总条数
-		int count = 0;
-		if (rs.next()) {
-			count = rs.getInt(1);
-		}
-		PageModel<Row> pm = new PageModel<>();
-		// 当前页
-		pm.setCurrentPage(queryBuilder.getQueryCondition().getPageNo());
-		// 每页显示 条数
-		pm.setSize(queryBuilder.getQueryCondition().getSize());
-		// 数据
-		pm.setList(rowList);
-		// 总条数
-		pm.setCount(count);
-		// 关闭
-		JdbcUtil.close(conn, ps, rs);
-		return pm;
+	public ISearchResult query(IQueryBuilder queryBuilder) throws SQLException {
+		return null;
 	}
 
 	@Override
-	public List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException{
-		// 禁用分页
-		queryBuilder.enablePage(false);
-		return getRowList(dataSource, queryBuilder);
+	public IAggregationResult aggregation(IQueryBuilder queryBuilder) {
+		return null;
 	}
+
+
+//	@Override
+//	public PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException{
+//		// 行集
+//		List<Row> rowList = getRowList(dataSource, queryBuilder);
+//
+//		// 查询总条数
+//		Connection conn = dataSource.getConnection();
+//		PreparedStatement ps = conn.prepareStatement(queryBuilder.buildCount());
+//		ResultSet rs = ps.executeQuery();
+//		// 总条数
+//		int count = 0;
+//		if (rs.next()) {
+//			count = rs.getInt(1);
+//		}
+//		PageModel<Row> pm = new PageModel<>();
+//		// 当前页
+//		pm.setCurrentPage(queryBuilder.getQueryCondition().getPageNo());
+//		// 每页显示 条数
+//		pm.setSize(queryBuilder.getQueryCondition().getSize());
+//		// 数据
+//		pm.setList(rowList);
+//		// 总条数
+//		pm.setCount(count);
+//		// 关闭
+//		JdbcUtil.close(conn, ps, rs);
+//		return null;
+//	}
+
+//	@Override
+//	public List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException{
+//		// 禁用分页
+//		queryBuilder.enablePage(false);
+//		return getRowList(dataSource, queryBuilder);
+//	}
 
 	@Override
 	public int executeUpdate(Row row) throws SQLException{
@@ -171,11 +184,6 @@ public abstract class BaseTable implements ITable {
 		return 0;
 	}
 
-	@Override
-	public void aggregation(IQueryBuilder queryBuilder) {
-
-	}
-
 	/**
 	 * 获取行集合
 	 * @param dataSource 数据源
@@ -189,7 +197,7 @@ public abstract class BaseTable implements ITable {
 		// 获取连接对象
 		Connection conn = dataSource.getConnection();
 		// 预编译
-		PreparedStatement ps = conn.prepareStatement(queryBuilder.build());
+		PreparedStatement ps = conn.prepareStatement(queryBuilder.buildString());
 		// 结果集
 		ResultSet rs = ps.executeQuery();
 		// 获取列信息

@@ -2,6 +2,7 @@ package com.platform.data.builder;
 
 import com.platform.data.entity.QueryCondition;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface IQueryBuilder {
 	 * @param fields 字段名
 	 * @return this
 	 */
-	IQueryBuilder field(List<String> fields);
+	IQueryBuilder field(Collection<String> fields);
 
 	/**
 	 * 当前页
@@ -211,13 +212,13 @@ public interface IQueryBuilder {
 	 * 构建sql查询条件
 	 * @return sql条件
 	 */
-	String build();
+	String buildString();
 
-	/**
-	 * 构建条数统计sql语句
-	 * @return sql语句
-	 */
-	String buildCount();
+//	/**
+//	 * 构建条数统计sql语句
+//	 * @return sql语句
+//	 */
+//	String buildCount();
 
 //	/**
 //	 * 查询条件
@@ -235,6 +236,12 @@ public interface IQueryBuilder {
 	 * 获取查询条件
 	 * @return 查询条件
 	 */
-	QueryCondition getQueryCondition();
+	QueryCondition build();
+
+	/**
+	 * 构建筛选条件
+	 * @return where后面的条件语句
+	 */
+	String buildWhereClause();
 
 }

@@ -1,5 +1,6 @@
 package com.platform.data.builder;
 
+import com.platform.data.column.IColumnType;
 import com.platform.data.entity.Column;
 
 /**

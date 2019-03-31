@@ -1,5 +1,6 @@
 package com.platform.data;
 
+import com.platform.IAggregationResult;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.entity.Column;
@@ -68,20 +69,26 @@ public interface ITable {
 //	Iterator<Column> columnIterator() throws SQLException;
 
 	/**
-	 * 分页查询
+	 * 查询
 	 * @param queryBuilder 查询条件
 	 * @return 查询结果
 	 * @exception SQLException 异常
 	 */
-	PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException;
+	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
+
+//	/**
+//	 * 查询所有
+//	 * @param queryBuilder 查询条件
+//	 * @return 行集合
+//	 * @exception SQLException 异常
+//	 */
+//	List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException;
 
 	/**
-	 * 查询所有
-	 * @param queryBuilder 查询条件
-	 * @return 行集合
-	 * @exception SQLException 异常
+	 * TODO 聚合
+	 * @param queryBuilder 条件
 	 */
-	List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException;
+	IAggregationResult aggregation(IQueryBuilder queryBuilder);
 
 	/**
 	 * 添加或更新
@@ -112,10 +119,5 @@ public interface ITable {
 	 */
 	int deleteRow(Collection<Row> row);
 
-	/**
-	 * 聚合
-	 * @param queryBuilder 条件
-	 */
-	void aggregation(IQueryBuilder queryBuilder);
 
 }

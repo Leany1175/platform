@@ -46,7 +46,7 @@ public abstract class BaseQueryBuilder implements IQueryBuilder{
     }
 
     @Override
-    public IQueryBuilder field(List<String> fields) {
+    public IQueryBuilder field(Collection<String> fields) {
         condition.getFieldList().addAll(fields);
         return this;
     }
@@ -192,7 +192,7 @@ public abstract class BaseQueryBuilder implements IQueryBuilder{
 	}
 
 	@Override
-	public QueryCondition getQueryCondition() {
+	public QueryCondition build() {
 		return condition;
 	}
 
@@ -210,6 +210,12 @@ public abstract class BaseQueryBuilder implements IQueryBuilder{
 //    public List<ConditionBean> getOrderCondition() {
 //        return orderList;
 //    }
+
+
+	@Override
+	public String buildWhereClause() {
+		return null;
+	}
 
 	/**
 	 * 生成查询sql语句

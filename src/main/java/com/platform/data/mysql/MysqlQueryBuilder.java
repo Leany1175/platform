@@ -8,7 +8,7 @@ import com.platform.data.builder.BaseQueryBuilder;
 public class MysqlQueryBuilder extends BaseQueryBuilder {
 
     @Override
-    public String build() {
+    public String buildString() {
         StringBuffer buffer = new StringBuffer("select");
         if (condition.getFieldList().size() > 0) {
             buffer.append(" " + String.join(",", condition.getFieldList()));
@@ -38,15 +38,15 @@ public class MysqlQueryBuilder extends BaseQueryBuilder {
         return buffer.toString();
     }
 
-    @Override
-    public String buildCount() {
-        StringBuffer buffer = new StringBuffer("select count(*) from ")
-                .append(condition.getTableName());
-        // 分页
-        if (condition.isPage()) {
-            buffer.append(" limit " + (condition.getPageNo() - 1) * condition.getSize() + ",")
-                    .append(condition.getSize());
-        }
-        return buffer.toString();
-    }
+//    @Override
+//    public String buildCount() {
+//        StringBuffer buffer = new StringBuffer("select count(*) from ")
+//                .append(condition.getTableName());
+//        // 分页
+//        if (condition.isPage()) {
+//            buffer.append(" limit " + (condition.getPageNo() - 1) * condition.getSize() + ",")
+//                    .append(condition.getSize());
+//        }
+//        return buffer.toString();
+//    }
 }
