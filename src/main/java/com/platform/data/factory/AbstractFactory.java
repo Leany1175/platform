@@ -27,17 +27,6 @@ public interface AbstractFactory {
 	IDatabase createDatabase(Object object) throws Exception;
 
 	/**
-	 * 创建数据库对象
-	 * @param url url
-	 * @param driverClassName 驱动类名
-	 * @param username 用户名
-	 * @param password 密码
-	 * @return 数据库对象
-	 */
-	@Deprecated
-	IDatabase createDatabase(String url, String driverClassName, String username, String password);
-
-	/**
 	 * 创建表建造者
 	 * @return 表建造者
 	 */

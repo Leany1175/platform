@@ -26,16 +26,6 @@ public class MysqlFactory implements AbstractFactory {
 	}
 
 	@Override
-	public IDatabase createDatabase(String url, String driverClassName, String username, String password) {
-		DruidDataSource dataSource = new DruidDataSource();
-		dataSource.setUrl(url);
-		dataSource.setDriverClassName(driverClassName);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
-		return createDatabase(dataSource);
-	}
-
-	@Override
 	public ITableBuilder createTableBuilder() {
 		return new MysqlTableBuilder();
 	}

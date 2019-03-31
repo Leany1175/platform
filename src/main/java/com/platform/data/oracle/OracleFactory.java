@@ -13,8 +13,7 @@ public class OracleFactory implements AbstractFactory {
 
 	@Override
 	public IDatabase createDatabase(DataSource dataSource) {
-		// TODO Auto-generated method stub
-		return null;
+		return new OracleDatabase(dataSource);
 	}
 
 	@Override
@@ -26,35 +25,23 @@ public class OracleFactory implements AbstractFactory {
 	}
 
 	@Override
-	public IDatabase createDatabase(String url, String driverClassName, String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ITableBuilder createTableBuilder() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OracleTableBuilder();
 	}
 
 	@Override
 	public IColumnBuilder createColumnBuilder() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OracleColumnBuilder();
 	}
 
 	@Override
 	public IQueryBuilder createQueryBuilder() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OracleQueryBuilder();
 	}
 
 	@Override
 	public IAggregationBuilder createAggregationBuilder() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OracleAggregationBuilder();
 	}
-
-	
 
 }
