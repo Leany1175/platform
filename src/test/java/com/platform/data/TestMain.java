@@ -1,49 +1,26 @@
 package com.platform.data;
 
-import com.platform.data.builder.*;
-import com.platform.data.mysql.MysqlColumnType;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.platform.data.builder.AggregationBuilders;
+import com.platform.data.builder.IAggregationBuilder;
+import com.platform.data.factory.AbstractDatabaseFactory;
+import com.platform.data.mysql.MysqlDatabaseFactory;
 
 public class TestMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
+		DruidDataSource dataSource = new DruidDataSource();
+		dataSource.setUrl("jdbc:mysql://localhost:3306/test?characterEncoding=utf8");
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUsername("root");
+		dataSource.setPassword("123456");
 
-		ITableBuilder tableBuilder = TableBuilders.mysql()
-				.tableName("users")
-				.addColumn(
-						ColumnBuilders.mysql()
-								.name("id")
-								.type(MysqlColumnType.INTEGER)
-								.length(11)
-								.primaryKey(true)
-								.isNull(false)
-								.autoIncrement(true)
-				)
-				.addColumn(
-						ColumnBuilders.mysql()
-								.name("heigth")
-								.type(MysqlColumnType.DECIMAL)
-								.length(6,3)
-								.defaultValue(1.64)
-								.isNull(false)
-				)
-				.addColumn(
-						ColumnBuilders.mysql()
-								.name("name")
-								.type(MysqlColumnType.VARCHAR)
-								.length(32)
-								.defaultValue("张三")
-								.isNull(true)
-				)
-				.addColumn(
-						ColumnBuilders.mysql()
-								.name("sex")
-								.type(MysqlColumnType.INTEGER)
-								.isNull(true)
-				);
+		AbstractDatabaseFactory databaseFactory = new MysqlDatabaseFactory();
+		IDatabase database = databaseFactory.createDatabase(dataSource);
+		ITable table = database.getTable("user_info");
 
-		System.out.println(tableBuilder.build(true));
-
-
+		IAggregationBuilder aggregationBuilder = AggregationBuilders.mysql().name("").field("").subAggregation(null);
+		System.out.println("finish");
 	}
 
 }

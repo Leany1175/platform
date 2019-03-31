@@ -1,4 +1,4 @@
-package com.platform;
+package com.platform.data;
 
 /**
  * 聚合结果

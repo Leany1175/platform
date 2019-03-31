@@ -1,6 +1,8 @@
 package com.platform.data.builder;
 
+import com.platform.data.IAggregationResult;
 import com.platform.data.IDatabase;
+import com.platform.data.ISearchResult;
 import com.platform.data.entity.ExportOption;
 import com.platform.data.util.JdbcUtil;
 
@@ -46,6 +48,16 @@ public abstract class BaseDatabase implements IDatabase {
 	@Override
 	public void dropTable(String tableName) throws SQLException{
 		JdbcUtil.executeUpdate(dataSource, "drop table " + tableName);
+	}
+
+	@Override
+	public ISearchResult query(IQueryBuilder queryBuilder) throws SQLException {
+		return null;
+	}
+
+	@Override
+	public IAggregationResult aggregation(IAggregationBuilder aggregationBuilder) {
+		return null;
 	}
 
 	@Override

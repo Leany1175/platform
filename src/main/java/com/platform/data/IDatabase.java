@@ -1,5 +1,7 @@
 package com.platform.data;
 
+import com.platform.data.builder.IAggregationBuilder;
+import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.entity.ExportOption;
 
@@ -55,6 +57,20 @@ public interface IDatabase {
 	 * @exception SQLException 异常
 	 */
 	void dropTable(String tableName) throws SQLException;
+
+	/**
+	 * 查询
+	 * @param queryBuilder 查询条件
+	 * @return 查询结果
+	 * @exception SQLException 异常
+	 */
+	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
+
+	/**
+	 * TODO 聚合
+	 * @param aggregationBuilder 条件
+	 */
+	IAggregationResult aggregation(IAggregationBuilder aggregationBuilder);
 
 	/**
 	 * 导出

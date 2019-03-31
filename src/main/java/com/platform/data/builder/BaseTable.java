@@ -11,11 +11,11 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import com.platform.IAggregationResult;
+import com.platform.data.IAggregationResult;
 import com.platform.data.ISearchResult;
 import com.platform.data.ITable;
+import com.platform.data.IWhereClause;
 import com.platform.data.entity.Column;
-import com.platform.data.entity.PageModel;
 import com.platform.data.entity.Row;
 import com.platform.data.util.JdbcUtil;
 
@@ -71,23 +71,31 @@ public abstract class BaseTable implements ITable {
 		return JdbcUtil.columnList(dataSource, name);
 	}
 
-//	@Override
-//	public Iterator<Column> columnIterator() throws SQLException{
-//		return columnList().iterator();
+	@Override
+	public ISearchResult query(IWhereClause whereClause) {
+		return null;
+	}
+
+	@Override
+	public IAggregationResult aggregation(IAggregationBuilder aggregationBuilder, IWhereClause whereClause) {
+		return null;
+	}
+
+	//	@Override
+//	public ISearchResult query(IQueryBuilder queryBuilder) throws SQLException {
+//		// 设置默认表名
+//		if (queryBuilder.build().getTableName() == null) {
+//			queryBuilder.tableName(name);
+//		}
+//		return null;
 //	}
 
-	@Override
-	public ISearchResult query(IQueryBuilder queryBuilder) throws SQLException {
-		return null;
-	}
-
-	@Override
-	public IAggregationResult aggregation(IQueryBuilder queryBuilder) {
-		return null;
-	}
-
-
 //	@Override
+//	public IAggregationResult aggregation(IAggregationBuilder aggregationBuilder) {
+//		return null;
+//	}
+
+	//	@Override
 //	public PageModel<Row> queryPage(IQueryBuilder queryBuilder) throws SQLException{
 //		// 行集
 //		List<Row> rowList = getRowList(dataSource, queryBuilder);

@@ -14,6 +14,14 @@ public class MysqlDatabaseFactory implements AbstractDatabaseFactory {
 	}
 
 	@Override
+	public IDatabase createDatabase(Object object) throws Exception{
+		if (object instanceof DataSource) {
+			createDatabase((DataSource) object);
+		}
+		throw new Exception("未知数据源对象");
+	}
+
+	@Override
 	public IDatabase createDatabase(String url, String driverClassName, String username, String password) {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setUrl(url);

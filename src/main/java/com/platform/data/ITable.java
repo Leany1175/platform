@@ -1,10 +1,9 @@
 package com.platform.data;
 
-import com.platform.IAggregationResult;
+import com.platform.data.builder.IAggregationBuilder;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.entity.Column;
-import com.platform.data.entity.PageModel;
 import com.platform.data.entity.Row;
 
 import java.sql.SQLException;
@@ -62,19 +61,12 @@ public interface ITable {
 	List<Column> columnList() throws SQLException;
 
 //	/**
-//	 * 返回一个迭代器
-//	 * @return 迭代器
+//	 * 查询
+//	 * @param queryBuilder 查询条件
+//	 * @return 查询结果
 //	 * @exception SQLException 异常
 //	 */
-//	Iterator<Column> columnIterator() throws SQLException;
-
-	/**
-	 * 查询
-	 * @param queryBuilder 查询条件
-	 * @return 查询结果
-	 * @exception SQLException 异常
-	 */
-	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
+//	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
 
 //	/**
 //	 * 查询所有
@@ -84,11 +76,26 @@ public interface ITable {
 //	 */
 //	List<Row> queryAll(IQueryBuilder queryBuilder) throws SQLException;
 
+//	/**
+//	 * TODO 聚合
+//	 * @param aggregationBuilder 条件
+//	 */
+//	IAggregationResult aggregation(IAggregationBuilder aggregationBuilder);
+
 	/**
-	 * TODO 聚合
-	 * @param queryBuilder 条件
+	 * 表查询
+	 * @param whereClause 过滤,排序条件
+	 * @return 查询结果
 	 */
-	IAggregationResult aggregation(IQueryBuilder queryBuilder);
+	ISearchResult query(IWhereClause whereClause);
+
+	/**
+	 * 聚合
+	 * @param aggregationBuilder 聚合
+	 * @param whereClause 条件
+	 * @return 聚合结果
+	 */
+	IAggregationResult aggregation(IAggregationBuilder aggregationBuilder, IWhereClause whereClause);
 
 	/**
 	 * 添加或更新
