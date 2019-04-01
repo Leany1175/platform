@@ -2,6 +2,9 @@ package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mysql.jdbc.Driver;
+import com.platform.data.builder.IColumnBuilder;
+import com.platform.data.builder.ITableBuilder;
+import com.platform.data.column.type.*;
 import com.platform.data.factory.AbstractFactory;
 import com.platform.data.mysql.MysqlFactory;
 import com.platform.data.oracle.OracleFactory;
@@ -34,9 +37,20 @@ public class DatabaseTest {
 	public void getAllTableNameTest() throws Exception{
 		IDatabase mysqlDatabase = mysqlFactory.createDatabase(mysql);
 		//mysqlDatabase.getAllTableName().forEach(System.out :: println);
+		ITableBuilder mysqlTableBuilder = mysqlFactory.createTableBuilder().tableName("demo_table").startWith(10L)
+				.addColumn(mysqlFactory.createColumnBuilder().name("id").type(new ColumnInteger()).length(11).primaryKey(true).autoIncrement(true).isNull(false))
+				.addColumn(mysqlFactory.createColumnBuilder().name("age").type(new ColumnInt()).length(4).defaultValue(18).isNull(false))
+				.addColumn(mysqlFactory.createColumnBuilder().name("heigth").type(new ColumnDouble()).defaultValue(66.66))
+				.addColumn(mysqlFactory.createColumnBuilder().name("len_mete").type(new ColumnFloat()))
+				.addColumn(mysqlFactory.createColumnBuilder().name("sex").type(new ColumnChar()).length(4).defaultValue("男").isNull(false))
+				.addColumn(mysqlFactory.createColumnBuilder().name("name").type(new ColumnVarchar()).length(32))
+				.addColumn(mysqlFactory.createColumnBuilder().name("description").type(new ColumnText()));
+
+		System.out.println(mysqlTableBuilder.build());
+		System.out.println(mysqlTableBuilder.build(true));
 
 		IDatabase oracleDatabase = oracleFactory.createDatabase(oracle);
-		oracleDatabase.getAllTableName().forEach(System.out :: println);
+//		oracleDatabase.getAllTableName().forEach(System.out :: println);
 	}
 
 }

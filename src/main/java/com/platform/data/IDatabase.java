@@ -32,7 +32,7 @@ public interface IDatabase {
 	}
 
 	/**
-	 * 获取表对象
+	 * TODO 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
 	 * @exception SQLException 异常

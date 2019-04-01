@@ -6,13 +6,18 @@ public class MysqlColumnBuilder extends BaseColumnBuilder {
 
 	@Override
 	public String build() {
+		// 非空检查
+		check();
+		// 列名和列类型
 		StringBuffer buffer = new StringBuffer(column.getName())
 				.append(" ")
 				.append(column.getColumnType());
-		// DECIMAL
+
 		if ("decimal".equalsIgnoreCase(column.getColumnType())) {
+			// DECIMAL
 			buffer.append("(" + column.getLength() + "," + column.getPrecision() + ")");
-		} else if ("char".equalsIgnoreCase(column.getColumnType()) || "varchar".equalsIgnoreCase(column.getColumnType())) {
+		} else if ("varchar".equalsIgnoreCase(column.getColumnType())) {
+			// varchar 默认长度255
 			buffer.append("(" + column.getLength() + ")");
 		} else {
 			if (column.getLength() > 0) {

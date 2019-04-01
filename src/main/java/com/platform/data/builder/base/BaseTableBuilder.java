@@ -10,10 +10,8 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 
 	/** 表名 */
 	protected String name;
-
-	/** true:创建表如果该表存在就先删除 */
-	protected boolean replace = false;
-
+	/** 默认从1开始 */
+	protected long start = 1L;
 	/** 列 */
 	protected List<IColumnBuilder> columnBuilderList = new LinkedList<>();
 
@@ -30,8 +28,8 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 	}
 
 	@Override
-	public ITableBuilder replace(boolean isReplace) {
-		replace = isReplace;
+	public ITableBuilder startWith(long start) {
+		this.start = start;
 		return this;
 	}
 
@@ -40,5 +38,16 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 		return build(false);
 	}
 
+	/**
+	 * 验证表名非空,至少存在一列
+	 */
+	protected void check() {
+		if (name == null) {
+			throw new NullPointerException("表名不能为空");
+		}
+		if (columnBuilderList.size() == 0) {
+			throw new NullPointerException("至少存在一列");
+		}
+	}
 
 }

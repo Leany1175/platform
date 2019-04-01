@@ -1,5 +1,11 @@
 package com.platform.data.base;
 
+import java.io.File;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import com.platform.data.IAggregationResult;
 import com.platform.data.IDatabase;
 import com.platform.data.ISearchResult;
@@ -8,11 +14,6 @@ import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.entity.ExportOption;
 import com.platform.data.util.JdbcUtil;
-
-import javax.sql.DataSource;
-import java.io.File;
-import java.sql.SQLException;
-import java.util.List;
 
 public abstract class BaseDatabase implements IDatabase {
 

@@ -73,4 +73,17 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
 	public Column getColumn() {
 		return column;
 	}
+
+	/**
+	 * 列名和列类型不能为空
+	 */
+	protected void check() {
+		if (column.getName() == null || column.getName().trim().isEmpty()) {
+			throw new NullPointerException("列名不能为空");
+		}
+		if (column.getColumnType() == null || column.getColumnType().trim().isEmpty()) {
+			throw new NullPointerException("列类型不能为空");
+		}
+	}
+
 }

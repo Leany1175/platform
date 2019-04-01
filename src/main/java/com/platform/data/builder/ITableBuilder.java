@@ -20,11 +20,11 @@ public interface ITableBuilder {
 	ITableBuilder addColumn(IColumnBuilder columnBuilder);
 
 	/**
-	 * 是否替换
-	 * @param isReplace true:创建表如果该表存在就先删除
+	 * 自增从?开始
+	 * @param start 值
 	 * @return this
 	 */
-	ITableBuilder replace(boolean isReplace);
+	ITableBuilder startWith(long start);
 
 	/**
 	 * 构建生成sql语句
