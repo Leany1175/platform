@@ -1,8 +1,16 @@
 package com.platform.data.mysql;
 
 import com.platform.data.builder.base.BaseColumnBuilder;
+import com.platform.data.entity.Column;
 
 public class MysqlColumnBuilder extends BaseColumnBuilder {
+
+	public MysqlColumnBuilder() {
+	}
+
+	public MysqlColumnBuilder(Column column) {
+		super(column);
+	}
 
 	@Override
 	public String build() {

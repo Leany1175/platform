@@ -5,6 +5,7 @@ import com.mysql.jdbc.Driver;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.ITableBuilder;
 import com.platform.data.column.type.*;
+import com.platform.data.entity.Table;
 import com.platform.data.factory.AbstractFactory;
 import com.platform.data.mysql.MysqlFactory;
 import com.platform.data.oracle.OracleFactory;
@@ -46,10 +47,14 @@ public class DatabaseTest {
 				.addColumn(mysqlFactory.createColumnBuilder().name("name").type(new ColumnVarchar()).length(32))
 				.addColumn(mysqlFactory.createColumnBuilder().name("description").type(new ColumnText()));
 
+		Table table = mysqlTableBuilder.buildTable();
 		System.out.println(mysqlTableBuilder.build());
 		System.out.println(mysqlTableBuilder.build(true));
 
 		IDatabase oracleDatabase = oracleFactory.createDatabase(oracle);
+		ITableBuilder oracleTableBuilder = oracleFactory.createTableBuilder(table);
+		System.out.println(oracleTableBuilder.build());
+		System.out.println(oracleTableBuilder.build(true));
 //		oracleDatabase.getAllTableName().forEach(System.out :: println);
 	}
 

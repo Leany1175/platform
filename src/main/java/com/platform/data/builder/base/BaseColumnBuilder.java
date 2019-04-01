@@ -70,7 +70,7 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
 	}
 
 	@Override
-	public Column getColumn() {
+	public Column buildColumn() {
 		return column;
 	}
 

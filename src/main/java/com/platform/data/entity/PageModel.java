@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 /**
  * 分页模型
  */
+@Deprecated
 public class PageModel<T> {
 	
 	/** 当前页号 */

@@ -82,6 +82,6 @@ public interface IColumnBuilder {
 	 * 获取列
 	 * @return 列
 	 */
-	Column getColumn();
+	Column buildColumn();
 
 }

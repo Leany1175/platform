@@ -1,14 +1,15 @@
 package com.platform.data.mysql;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import javax.sql.DataSource;
+
 import com.platform.data.IDatabase;
 import com.platform.data.builder.IAggregationBuilder;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.builder.ITableBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
 import com.platform.data.factory.AbstractFactory;
-
-import javax.sql.DataSource;
 
 public class MysqlFactory implements AbstractFactory {
 
@@ -31,8 +32,18 @@ public class MysqlFactory implements AbstractFactory {
 	}
 
 	@Override
+	public ITableBuilder createTableBuilder(Table table) {
+		return new MysqlTableBuilder(table);
+	}
+
+	@Override
 	public IColumnBuilder createColumnBuilder() {
 		return new MysqlColumnBuilder();
+	}
+
+	@Override
+	public IColumnBuilder createColumnBuilder(Column column) {
+		return new MysqlColumnBuilder(column);
 	}
 
 	@Override

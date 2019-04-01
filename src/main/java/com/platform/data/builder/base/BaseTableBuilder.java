@@ -2,7 +2,10 @@ package com.platform.data.builder.base;
 
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.ITableBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 
 	@Override
 	public ITableBuilder tableName(String tableName) {
-		name = tableName;
+		this.name = tableName;
 		return this;
 	}
 
@@ -36,6 +39,16 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 	@Override
 	public String build() {
 		return build(false);
+	}
+
+	@Override
+	public Table buildTable() {
+		Table table = new Table();
+		table.setName(name);
+		table.setStartWith(start);
+		List<Column> columnList = new ArrayList<>(columnBuilderList.size());
+		columnBuilderList.forEach(columnBuilder -> columnList.add(columnBuilder.buildColumn()));
+		return table;
 	}
 
 	/**

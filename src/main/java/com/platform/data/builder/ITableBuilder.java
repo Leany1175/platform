@@ -1,5 +1,7 @@
 package com.platform.data.builder;
 
+import com.platform.data.entity.Table;
+
 /**
  * 表建造者
  */
@@ -38,5 +40,11 @@ public interface ITableBuilder {
 	 * @return this
 	 */
 	String build(boolean format);
+
+	/**
+	 * 构建表信息
+	 * @return 表信息
+	 */
+	Table buildTable();
 
 }

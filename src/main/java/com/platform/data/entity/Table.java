@@ -1,6 +1,7 @@
 package com.platform.data.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,10 @@ public class Table implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/** 表名 */
 	private String name;
+	/** 自增张初始值 */
+	private long startWith = 1;
 	/** 列 */
-	private List<Column> columnList;
+	private List<Column> columnList = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -28,5 +31,13 @@ public class Table implements Serializable {
 
 	public void setColumnList(List<Column> columnList) {
 		this.columnList = columnList;
+	}
+
+	public long getStartWith() {
+		return startWith;
+	}
+
+	public void setStartWith(long startWith) {
+		this.startWith = startWith;
 	}
 }

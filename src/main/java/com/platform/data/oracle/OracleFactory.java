@@ -7,6 +7,8 @@ import com.platform.data.builder.IAggregationBuilder;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.builder.ITableBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
 import com.platform.data.factory.AbstractFactory;
 
 public class OracleFactory implements AbstractFactory {
@@ -30,8 +32,18 @@ public class OracleFactory implements AbstractFactory {
 	}
 
 	@Override
+	public ITableBuilder createTableBuilder(Table table) {
+		return new OracleTableBuilder(table);
+	}
+
+	@Override
 	public IColumnBuilder createColumnBuilder() {
 		return new OracleColumnBuilder();
+	}
+
+	@Override
+	public IColumnBuilder createColumnBuilder(Column column) {
+		return new OracleColumnBuilder(column);
 	}
 
 	@Override

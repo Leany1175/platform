@@ -5,6 +5,8 @@ import com.platform.data.builder.IAggregationBuilder;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.IQueryBuilder;
 import com.platform.data.builder.ITableBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -33,10 +35,24 @@ public interface AbstractFactory {
 	ITableBuilder createTableBuilder();
 
 	/**
+	 * 创建表建造者
+	 * @param table 表
+	 * @return 表建造者
+	 */
+	ITableBuilder createTableBuilder(Table table);
+
+	/**
 	 * 创建列建造者
 	 * @return 列建造者
 	 */
 	IColumnBuilder createColumnBuilder();
+
+	/**
+	 * 创建列建造者
+	 * @param column 列
+	 * @return 列建造者
+	 */
+	IColumnBuilder createColumnBuilder(Column column);
 
 	/**
 	 * 创建查询建造者

@@ -1,8 +1,27 @@
 package com.platform.data.mysql;
 
+import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.builder.base.BaseTableBuilder;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MysqlTableBuilder extends BaseTableBuilder {
+
+	public MysqlTableBuilder() {
+	}
+
+	public MysqlTableBuilder(Table table) {
+		this.name = table.getName();
+		this.start = table.getStartWith();
+		// 列
+		List<Column> columnList = table.getColumnList();
+		List<IColumnBuilder> columnBuilderList = new ArrayList<>(columnList.size());
+		columnList.forEach(column -> new MysqlColumnBuilder(column));
+		this.columnBuilderList = columnBuilderList;
+	}
 
 	@Override
 	public String build(boolean format) {
