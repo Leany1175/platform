@@ -44,6 +44,7 @@ public class JdbcUtil {
 	 * @return 行数
 	 * @throws SQLException 异常
 	 */
+	@Deprecated
 	public static int executeUpdate(DataSource dataSource, ITableBuilder tableBuilder) throws SQLException{
 		return executeUpdate(dataSource, tableBuilder.build());
 	}
@@ -56,11 +57,11 @@ public class JdbcUtil {
 	 */
 	public static List<String> getAllTableName(DataSource dataSource) throws SQLException {
 		Connection connection = dataSource.getConnection();
-		ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{ "table" });
+		ResultSet rs = connection.getMetaData().getTables(connection.getCatalog(), null, null, new String[]{ "TABLE" });
 		// 集合储存表名
 		List<String> list = new LinkedList<>();
 		while (rs.next()) {
-			list.add(rs.getString("table_name"));
+			list.add(rs.getString("TABLE_NAME"));
 		}
 		// 关闭
 		close(rs);
@@ -131,6 +132,7 @@ public class JdbcUtil {
 	 * @return 数据库类型
 	 * @throws SQLException 异常
 	 */
+	@Deprecated
 	public static DatabaseType judgeDatabaseType(DataSource dataSource) throws SQLException{
 		// 驱动类
 		String driverName = dataSource.getConnection().getMetaData().getDriverName();
@@ -146,6 +148,7 @@ public class JdbcUtil {
 	 * @param tableName 表名
 	 * @return 列数
 	 */
+	@Deprecated
 	public static int columnCount(DataSource dataSource, String tableName) throws SQLException{
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
@@ -162,6 +165,7 @@ public class JdbcUtil {
 	 * @return 列集合
 	 * @throws SQLException 异常
 	 */
+	@Deprecated
 	public static List<Column> columnList(DataSource dataSource, String tableName) throws SQLException{
 		Connection conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
@@ -193,6 +197,7 @@ public class JdbcUtil {
 	 * @param tableName 表名
 	 * @exception SQLException 异常
 	 */
+	@Deprecated
 	public static List<Column> analysisColumns(DataSource dataSource, ResultSetMetaData metaData, String tableName) throws SQLException{
 		int count = metaData.getColumnCount();
 		// 主键列名

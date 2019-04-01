@@ -28,16 +28,6 @@ public abstract class BaseDatabase implements IDatabase {
 		return JdbcUtil.getAllTableName(dataSource);
 	}
 
-//	@Override
-//	public List<ITable> getAllTable() throws SQLException{
-//		List<String> nameList = getAllTableName();
-//		List<ITable> tableList = new ArrayList<>(nameList.size());
-//		for (String name : nameList) {
-//			tableList.add(getTable(name));
-//		}
-//		return tableList;
-//	}
-
 	@Override
 	public void createTable(ITableBuilder tableBuilder) throws SQLException{
 		JdbcUtil.executeUpdate(dataSource, tableBuilder);
