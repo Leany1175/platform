@@ -21,6 +21,7 @@
         <druid.version>1.1.5</druid.version>
         <mysql.version>5.1.39</mysql.version>
         <quartz.version>2.3.0</quartz.version>
+        <oracle.version>12.1.0.2</oracle.version>
     </properties>
 
     <dependencies>
@@ -92,6 +93,12 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
+        </dependency>
+        <!-- oracle -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>${oracle.version}</version>
         </dependency>
     </dependencies>
 
