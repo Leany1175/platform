@@ -14,7 +14,11 @@ public class OracleColumnBuilder extends BaseColumnBuilder {
 
 	@Override
 	public String build() {
-		return null;
+		StringBuffer buffer = new StringBuffer(column.getName())
+				.append(" ")
+				.append(column.getColumnType());
+
+		return buffer.toString();
 	}
 
 }

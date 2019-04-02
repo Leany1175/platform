@@ -48,12 +48,12 @@ public class DatabaseTest {
 				.addColumn(mysqlFactory.createColumnBuilder().name("description").type(new ColumnText()));
 
 		Table table = mysqlTableBuilder.buildTable();
-		System.out.println(mysqlTableBuilder.build());
-		System.out.println(mysqlTableBuilder.build(true));
+//		System.out.println(mysqlTableBuilder.build());
+//		System.out.println(mysqlTableBuilder.build(true));
 
 		IDatabase oracleDatabase = oracleFactory.createDatabase(oracle);
 		ITableBuilder oracleTableBuilder = oracleFactory.createTableBuilder(table);
-		System.out.println(oracleTableBuilder.build());
+//		System.out.println(oracleTableBuilder.build());
 		System.out.println(oracleTableBuilder.build(true));
 //		oracleDatabase.getAllTableName().forEach(System.out :: println);
 	}

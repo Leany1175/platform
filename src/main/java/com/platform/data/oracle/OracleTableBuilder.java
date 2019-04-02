@@ -20,14 +20,14 @@ public class OracleTableBuilder extends BaseTableBuilder {
 		// 列
 		List<Column> columnList = table.getColumnList();
 		List<IColumnBuilder> columnBuilderList = new ArrayList<>(columnList.size());
-		columnList.forEach(column -> new OracleColumnBuilder(column));
+		columnList.forEach(column -> columnBuilderList.add(new OracleColumnBuilder(column)));
 		this.columnBuilderList = columnBuilderList;
 	}
 
 
 	@Override
 	public String build(boolean format) {
-		// TODO oracle建表语句
+		columnBuilderList.forEach(columnBuilder -> System.out.println(columnBuilder.build()));
 		return null;
 	}
 

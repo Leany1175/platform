@@ -48,6 +48,7 @@ public abstract class BaseTableBuilder implements ITableBuilder {
 		table.setStartWith(start);
 		List<Column> columnList = new ArrayList<>(columnBuilderList.size());
 		columnBuilderList.forEach(columnBuilder -> columnList.add(columnBuilder.buildColumn()));
+		table.setColumnList(columnList);
 		return table;
 	}
 
