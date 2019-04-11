@@ -1,6 +1,8 @@
 package com.platform.quartz.controller;
 
+import com.platform.quartz.entity.QuartzJobDetails;
 import com.platform.quartz.service.JobDetaiService;
+import com.platform.utils.layui.LayuiEntity;
 import com.platform.utils.layui.LayuiTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +37,18 @@ public class JobController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/datalist", method = RequestMethod.GET)
-	public Object datalist(LayuiTable table) {
+	public LayuiEntity<QuartzJobDetails> datalist(LayuiTable table) {
 		logger.info("任务列表");
 		return jobDetaiService.findPage(table);
+	}
+
+	/**
+	 * 添加任务页面
+	 * @return 页面路径
+	 */
+	@RequestMapping(value = "/addPage", method = RequestMethod.GET)
+	public String addPage() {
+		return "admin/job/job-add";
 	}
 
 }

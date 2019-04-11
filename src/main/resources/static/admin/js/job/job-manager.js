@@ -23,18 +23,6 @@ layui.config({
 					title: "公告标题"
 				},
 				{
-					field: "content",
-					title: "公告内容"
-				},
-				{
-					field: "createTime",
-					title: "创建时间"
-				},
-				{
-					field: "lastUpdate",
-					title: "上次更新"
-				},
-				{
 					field: "",
 					title: "操作",
 					toolbar: "#toolbar"
@@ -43,7 +31,11 @@ layui.config({
 		]
 	});
 	
-	table.on("tool(*)", function(obj){
+	$(".btn-add").click(function(){
+		location = "/admin/job/addPage";
+	});
+	
+	/* table.on("tool(*)", function(obj){
 		var event = obj.event,
 		    data = obj.data;
 		
@@ -62,13 +54,9 @@ layui.config({
 				layer.close(index);
 			});
 		}
-	});
+	}); */
 	
-	$(".btn-add").click(function(){
-		location = "/admin/notice/addPage";
-	});
-	
-	$(".btn-query").click(function(){
+	/* $(".btn-query").click(function(){
 		tableIns.reload({
 			where: {
 				title: $("#title").val(),
@@ -111,6 +99,6 @@ layui.config({
 		if(e.keyCode == 13){
 			$(".btn-query").click();
 		}
-	});
+	}); */
 	
 });
