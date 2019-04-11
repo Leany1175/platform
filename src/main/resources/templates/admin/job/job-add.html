@@ -65,17 +65,63 @@
 							<input type="text" placeholder="请输入触发器描述" class="layui-input" />
 						</div>
 					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">触发类型</label>
+						<div class="layui-input-block">
+							<select>
+								<option value="-1">请选择触发类型</option>
+								<option value="2">cron</option>
+								<option value="0">定时</option>
+								<option value="1">定点</option>
+								<option value="2">只执行一次</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">cron表达式</label>
+						<div class="layui-input-block">
+							<input type="text" placeholder="0/10 * * * * ?" class="layui-input" />
+						</div>
+					</div>
 					<div class="layui-form-item layui-row">
 						<div class="layui-col-xs6">
-							<label class="layui-form-label"></label>
+							<label class="layui-form-label">时间间隔</label>
 							<div class="layui-input-block">
-								<input type="text" placeholder="请输入触发器描述" class="layui-input" />
+								<input type="text" placeholder="请输入时间间隔" class="layui-input" />
 							</div>
 						</div>
 						<div class="layui-col-xs6">
-							<label class="layui-form-label"></label>
+							<label class="layui-form-label">间隔单位</label>
 							<div class="layui-input-block">
-								<input type="text" placeholder="请输入触发器描述" class="layui-input" />
+								<select>
+									<option value="-1">请选择间隔单位</option>
+									<option value="0">秒</option>
+									<option value="1">分</option>
+									<option value="2">时</option>
+									<option value="3">天</option>
+									<option value="4">周</option>
+									<option value="5">月</option>
+									<option value="6">年</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item layui-row">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label">定点单位</label>
+							<div class="layui-input-block">
+								<select>
+									<option value="-1">请选择定点单位</option>
+									<option value="0">每天</option>
+									<option value="1">每月</option>
+									<option value="2">每年</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-col-xs6">
+							<label class="layui-form-label">时间间隔</label>
+							<div class="layui-input-block">
+								<input type="text" id="time" class="layui-input" placeholder="HH:mm:ss"/>
 							</div>
 						</div>
 					</div>
