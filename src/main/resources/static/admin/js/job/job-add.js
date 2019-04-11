@@ -6,7 +6,13 @@ layui.config({
 		laydate = layui.laydate;
 	
 	laydate.render({
-		elem: "#time"
+		elem: "#time",
+		type: "time"
+	});
+	
+	form.on("submit(save)", function(data) {
+		console.log(data);
+		return false;
 	});
 	
 });
