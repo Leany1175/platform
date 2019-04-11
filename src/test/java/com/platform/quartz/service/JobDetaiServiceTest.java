@@ -3,7 +3,7 @@ package com.platform.quartz.service;
 import com.platform.PlatformApplication;
 import com.platform.quartz.entity.QuartzJobDetails;
 import com.platform.utils.layui.LayuiEntity;
-import com.platform.utils.layui.Table;
+import com.platform.utils.layui.LayuiTable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class JobDetaiServiceTest {
 
     @Test
     public void findPageTest() {
-        LayuiEntity<QuartzJobDetails> entity = jobDetaiService.findPage(new Table(1, 10));
+        LayuiEntity<QuartzJobDetails> entity = jobDetaiService.findPage(new LayuiTable(1, 10));
         System.out.println(entity);
     }
 

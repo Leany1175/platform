@@ -1,7 +1,10 @@
 package com.platform.quartz.controller;
 
+import com.platform.quartz.service.JobDetaiService;
+import com.platform.utils.layui.LayuiTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,9 @@ public class JobController {
 
 	private static Logger logger = LoggerFactory.getLogger(JobController.class);
 
+	@Autowired
+	private JobDetaiService jobDetaiService;
+
 	/**
 	 * 任务管理界面
 	 * @return 路径
@@ -25,13 +31,13 @@ public class JobController {
 	}
 
 	/**
-	 * TODO 任务列表
+	 * 任务列表
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/datalist", method = RequestMethod.GET)
-	public Object datalist() {
+	public Object datalist(LayuiTable table) {
 		logger.info("任务列表");
-		return new Object();
+		return jobDetaiService.findPage(table);
 	}
 
 }

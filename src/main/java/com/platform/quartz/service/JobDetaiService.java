@@ -2,7 +2,7 @@ package com.platform.quartz.service;
 
 import com.platform.quartz.entity.QuartzJobDetails;
 import com.platform.utils.layui.LayuiEntity;
-import com.platform.utils.layui.Table;
+import com.platform.utils.layui.LayuiTable;
 
 public interface JobDetaiService{
 
@@ -11,6 +11,6 @@ public interface JobDetaiService{
      * @param table 当前页 + 条数
      * @return 查询结果
      */
-    LayuiEntity<QuartzJobDetails> findPage(Table table);
+    LayuiEntity<QuartzJobDetails> findPage(LayuiTable table);
 
 }

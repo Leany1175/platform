@@ -4,7 +4,7 @@ import com.platform.quartz.entity.QuartzJobDetails;
 import com.platform.quartz.repository.JobDetailRepository;
 import com.platform.quartz.service.JobDetaiService;
 import com.platform.utils.layui.LayuiEntity;
-import com.platform.utils.layui.Table;
+import com.platform.utils.layui.LayuiTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class JobDetaiServiceImpl implements JobDetaiService {
     private JobDetailRepository jobDetailRepository;
 
     @Override
-    public LayuiEntity<QuartzJobDetails> findPage(Table table) {
+    public LayuiEntity<QuartzJobDetails> findPage(LayuiTable table) {
         logger.info("任务详情分页查询:{}", table);
         // 分页查询
         Page<QuartzJobDetails> page = jobDetailRepository.findAll(new PageRequest(table.getPage() - 1, table.getLimit()));

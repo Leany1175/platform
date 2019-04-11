@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 /**
  * layui表单接收数据
  */
-public class Table implements Serializable{
+public class LayuiTable implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	/** 当前页 */
@@ -15,10 +15,10 @@ public class Table implements Serializable{
 	/** 默认条数 */
 	private Integer limit = 10;
 
-	public Table() {
+	public LayuiTable() {
 	}
 
-	public Table(Integer page, Integer limit) {
+	public LayuiTable(Integer page, Integer limit) {
 		this.page = page;
 		this.limit = limit;
 	}
