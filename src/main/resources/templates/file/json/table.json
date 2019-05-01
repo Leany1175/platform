@@ -1,0 +1,51 @@
+{
+	"code": 0,
+	"count": 100,
+	"data": [
+		{
+			"id": 1,
+			"promission": "drwxr-xr-x",
+			"owner": "root",
+			"group": "supergroup",
+			"size": "0B",
+			"lastModified": "2010-11-11 00:00:00",
+			"replication": 0,
+			"blockSize": "0B",
+			"name": "demo"
+		},
+		{
+			"id": 2,
+			"promission": "drwxr-xr-x",
+			"owner": "root",
+			"group": "supergroup",
+			"size": "0B",
+			"lastModified": "2010-11-11 00:00:00",
+			"replication": 0,
+			"blockSize": "0B",
+			"name": "demo1"
+		},
+		{
+			"id": 3,
+			"promission": "drwxr-xr-x",
+			"owner": "root",
+			"group": "supergroup",
+			"size": "0B",
+			"lastModified": "2010-11-11 00:00:00",
+			"replication": 0,
+			"blockSize": "0B",
+			"name": "demo2"
+		},
+		{
+			"id": 4,
+			"promission": "drwxr-xr-x",
+			"owner": "root",
+			"group": "supergroup",
+			"size": "0B",
+			"lastModified": "2010-11-11 00:00:00",
+			"replication": 0,
+			"blockSize": "0B",
+			"name": "demo3"
+		}
+	],
+	"msg": ""
+}
