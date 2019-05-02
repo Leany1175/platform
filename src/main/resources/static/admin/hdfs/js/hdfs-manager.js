@@ -236,12 +236,7 @@ layui
 					username: username
 				};
 
-				
-				
-				// Dtree.changeTreeNodeAdd("refresh");
 				ajax.post("/admin/hdfs/save", data, function(result) {
-					// console.log(result);
-					
 					// 重置表单
 					$("#form-node")[0].reset();
 					// 关闭窗体
