@@ -3,6 +3,9 @@ package com.platform.service;
 import com.alibaba.fastjson.JSON;
 import com.platform.PlatformApplication;
 import com.platform.entity.TreeBean;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,8 @@ public class TreeServiceTest {
 
     @Test
     public void rootTest() {
-        TreeBean treeBean = treeService.root();
-        System.out.println(JSON.toJSONString(treeBean, true));
+        List<TreeBean> treeBeanList = treeService.root();
+        System.out.println(JSON.toJSONString(treeBeanList, true));
     }
 
 }

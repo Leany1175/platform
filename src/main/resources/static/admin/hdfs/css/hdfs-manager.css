@@ -1,0 +1,51 @@
+.left-contrainer {
+	padding-top: 10px;
+}
+
+.rigth-contrainer {
+	padding-right: 10px;
+}
+
+.inp {
+	height: 26px;
+}
+
+.input {
+	padding: 0px 10px;
+	border: 1px;
+	border-radius: 1px;
+	font-size: 12px;
+}
+
+.btn {
+	width: 26px;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #FFFFFF;
+}
+
+.btn-search {
+	background-color: #1E9FFF;
+}
+
+.btn-mkdir {
+	background-color: #FFB800;
+}
+
+.btn-upload {
+	background-color: #5FB878;
+}
+
+.btn-delete {
+	background-color: #FF5722;
+}
+
+.btn-download {
+	background-color: #009688;
+}
+
+.form-container {
+	display: none;
+	padding: 20px 20px 0px 0px;
+}

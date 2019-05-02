@@ -1,10 +1,16 @@
 package com.platform.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 树
@@ -52,12 +58,12 @@ public class TreeBean implements Serializable {
         this.title = title;
     }
 
-    public boolean isLast() {
+    public boolean getIsLast() {
         return isLast;
     }
 
-    public void setLast(boolean last) {
-        isLast = last;
+    public void setLast(boolean isLast) {
+        this.isLast = isLast;
     }
 
     public Integer getLevel() {

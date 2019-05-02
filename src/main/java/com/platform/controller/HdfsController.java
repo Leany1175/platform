@@ -1,6 +1,10 @@
 package com.platform.controller;
 
-import com.platform.utils.ajax.Result;
+import java.io.IOException;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -8,22 +12,28 @@ import org.apache.hadoop.fs.Path;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
+import com.platform.utils.ajax.Result;
 
 @Controller
 @Scope("prototype")
+@RequestMapping("/admin/hdfs")
 public class HdfsController {
 
     @Value("${hdfs.address}")
     private String hdfsAddr;
+
+    /**
+     * 管理界面
+     * @return
+     */
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public String page() {
+        return "admin/hdfs/hdfs-manager";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/ls", method = RequestMethod.GET)

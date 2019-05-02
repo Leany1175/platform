@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>文件管理</title>
+		<link rel="stylesheet" href="/layui-v2.4.5/css/layui.css" />
+		<link rel="stylesheet" href="/layui-v2.4.5/plugins/dtree/css/dtree.css" />
+		<link rel="stylesheet" href="/layui-v2.4.5/plugins/dtree/font/dtreefont.css" />
+		<link rel="stylesheet" href="/admin/hdfs/css/hdfs-manager.css" />
+		
+	</head>
+
+	<body>
+
+		<div class="layui-row">
+			<div class="layui-col-xs2 left-contrainer">
+				<ul id="tree" class="dtree" data-id="0"></ul>
+			</div>
+			<div class="layui-col-xs10 rigth-contrainer">
+				<div id="tools" style="display: none;">
+					<input type="text" class="layui-inline inp input" id="filepath" placeholder="文件路径" />
+					<input type="text" class="layui-inline inp input" id="pattern" placeholder="文件过滤" />
+					<button title="搜索" class="inp btn btn-search">
+						<i class="layui-icon layui-icon-search"></i>
+					</button>
+					<button title="新建文件夹" class="inp btn btn-mkdir">
+						<i class="layui-icon layui-icon-add-1"></i>
+					</button>
+					<button title="删除" class="inp btn btn-delete">
+						<i class="layui-icon layui-icon-delete"></i>
+					</button>
+					<button title="上传" class="inp btn btn-upload">
+						<i class="layui-icon layui-icon-upload"></i>
+					</button>
+					<button title="下载" class="inp btn btn-download">
+						<i class="layui-icon layui-icon-download-circle"></i>
+					</button>
+				</div>
+				<div id="data-table" lay-filter="data-table"></div>
+			</div>
+		</div>
+
+		<script type="text/html" id="toolbar">
+			<button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" title="删除">
+				<i class="layui-icon layui-icon-delete"></i>
+			</button>
+		</script>
+
+		<!-- 树 表单 -->
+		<div class="form-container" id="save-node">
+			<form class="layui-form" lay-filter="form-node" id="form-node">
+				<input type="hidden" name="catalogId" id="catalogId" value="" />
+				<div class="layui-form-item">
+					<label class="layui-form-label">目录</label>
+					<div class="layui-input-block">
+						<input type="text" name="catalog" id="catalog" disabled="disabled" class="layui-input" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">name</label>
+					<div class="layui-input-block">
+						<input type="text" name="name" id="name" class="layui-input" placeholder="节点或目录名称" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">目录</label>
+					<div class="layui-input-block">
+						<input type="checkbox" id="isCatalog" name="isCatalog" lay-skin="switch" lay-filter="node-status" lay-text="节点|目录" />
+					</div>
+				</div>
+				<div class="node-or-leaf" style="display: none;">
+					<div class="layui-form-item">
+						<label class="layui-form-label">IP</label>
+						<div class="layui-input-block">
+							<input type="text" name="ip" id="ip" class="layui-input" placeholder="输入主节点IP" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">端口</label>
+						<div class="layui-input-block">
+							<input type="text" name="port" id="port" class="layui-input" placeholder="输入主节点端口" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">操作用户</label>
+						<div class="layui-input-block">
+							<input type="text" name="username" id="username" class="layui-input" placeholder="输入操作用户" />
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="form-container" id="form-mkdir">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<label class="layui-form-label">文件夹名</label>
+					<div class="layui-input-block">
+						<input type="text" name="dir" id="dir" class="layui-input" placeholder="在这里输入文件夹名" />
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<script src="/layui-v2.4.5/layui.js"></script>
+		<script src="/admin/hdfs/js/hdfs-manager.js"></script>
+	</body>
+</html>

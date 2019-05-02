@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>数据表格</title>
+		<link rel="stylesheet" href="../layui-v2.4.5/css/layui.css" />
+	</head>
+	
+	<body>
+		
+		<div class="container">
+			<div id="data-table"></div>
+		</div>
+		
+		<script src="../layui-v2.4.5/layui.js"></script>
+		<script>
+			layui.use(["table", "jquery"], function() {
+				var table = layui.table
+					$ = layui.jquery;
+				
+				table.render({
+					elem: "#data-table",
+					url: "json/table.json?page=1&limit=10",
+					page: true,
+					cols: [[
+						{
+							field: "id",
+							title: "ID"
+						},
+						{
+							field: "name",
+							title: "姓名"
+						},
+						{
+							field: "sex",
+							title: "性别"
+						},
+						{
+							field: "age",
+							title: "年龄"
+						}
+					]]
+				});	
+				
+			});
+		</script>
+		
+	</body>
+</html>

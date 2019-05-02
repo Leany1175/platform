@@ -1,14 +1,14 @@
 package com.platform.service.impl;
 
-import com.platform.entity.TreeBean;
-import com.platform.repository.TreeRepository;
-import com.platform.service.TreeService;
-import org.apache.commons.collections.bag.TreeBag;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.platform.entity.TreeBean;
+import com.platform.repository.TreeRepository;
+import com.platform.service.TreeService;
 
 @Service
 public class TreeServiceImpl implements TreeService {
@@ -17,13 +17,17 @@ public class TreeServiceImpl implements TreeService {
     private TreeRepository treeRepository;
 
     @Override
-    public TreeBean root() {
+    public List<TreeBean> root() {
         // 查询所有
         List<TreeBean> list = treeRepository.findAll();
         // 查找根节点
         TreeBean root = findRoot(list);
-        TreeBean treeBean = findChildren(root, list);
-        return treeBean;
+        // 填充子节点
+        findChildren(root, list);
+        
+        List<TreeBean> treeBeanList = new ArrayList<>();
+        treeBeanList.add(root);
+        return treeBeanList;
     }
 
     private TreeBean findChildren(TreeBean treeBean, List<TreeBean> list) {
