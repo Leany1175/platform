@@ -1,6 +1,7 @@
 package com.platform.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,8 +37,16 @@ public class TreeBean implements Serializable {
     @Column(name = "level")
     private Integer level;
 
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", length = 32)
     private String parentId;
+
+    /** 创建时间 */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /** 上次更新 */
+    @Column(name = "last_update")
+    private Date lastUpdate;
 
     @Transient
     private List<TreeBean> children;
@@ -62,7 +71,7 @@ public class TreeBean implements Serializable {
         return isLast;
     }
 
-    public void setLast(boolean isLast) {
+    public void setIsLast(boolean isLast) {
         this.isLast = isLast;
     }
 
@@ -88,5 +97,21 @@ public class TreeBean implements Serializable {
 
     public void setChildren(List<TreeBean> children) {
         this.children = children;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

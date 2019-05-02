@@ -82,7 +82,7 @@ layui
 							icon: "dtree-icon-jia1",
 							title: "新增",
 							handler: function(node) {
-								console.log(node);
+								// 默认目录
 								$("#catalog").val(node.context);
 
 								var add = layer.open({
@@ -218,7 +218,7 @@ layui
 
 				// 开关状态
 				var isCatalog = $("#isCatalog").next().attr("class")
-					.indexOf("layui-form-onswitch") != -1;
+					.indexOf("layui-form-onswitch") == -1;
 
 				var name = $("#name").val();
 				var ip = $("#ip").val();
@@ -226,6 +226,7 @@ layui
 				var username = $("#username").val();
 
 				var data = {
+					catalogId: catalogId,
 					isCatalog: isCatalog,
 					parentId: node.nodeId,
 					level: node.level,
@@ -235,15 +236,21 @@ layui
 					username: username
 				};
 
-				console.log(data);
-				// 重置表单
-				$("#form-node")[0].reset();
-				// 关闭窗体
-				layer.close(openLayer);
-				// 重新加载树
-				dtree.reload(Dtree);
-				// 隐藏
-				$(".node-or-leaf").css("display", "none");
+				
+				
+				// Dtree.changeTreeNodeAdd("refresh");
+				ajax.post("/admin/hdfs/save", data, function(result) {
+					// console.log(result);
+					
+					// 重置表单
+					$("#form-node")[0].reset();
+					// 关闭窗体
+					layer.close(openLayer);
+					// 重新加载树
+					dtree.reload(Dtree);
+					// 隐藏
+					$(".node-or-leaf").css("display", "none");
+				});
 
 				// TODO 提交表单
 				// $.ajax({
