@@ -1,5 +1,5 @@
 layui.config({
-	base: "/layui/extends/" //静态资源所在路径
+	base: "/layui-v2.4.5/plugins/" //静态资源所在路径
 }).use(["form", "validate", "ajax"], function() {
 	var form = layui.form,
 		validate = layui.validate,
