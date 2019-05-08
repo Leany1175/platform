@@ -6,5 +6,4 @@
 *.log
 .classpath
 .project
-platform.iml
-/bin/
+*.iml

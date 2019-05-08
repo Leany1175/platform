@@ -6,4 +6,4 @@
 *.log
 .classpath
 .project
-platform.iml
+*.iml
