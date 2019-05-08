@@ -132,10 +132,6 @@
     <build>
         <finalName>platform</finalName>
 
-        <filters>
-            <filter>src/main/filters/config-${environment}.properties</filter>
-        </filters>
-
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

@@ -15,6 +15,10 @@
     <build>
         <finalName>platform</finalName>
 
+        <filters>
+            <filter>src/main/filters/config-${environment}.properties</filter>
+        </filters>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
