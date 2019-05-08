@@ -9,8 +9,12 @@
 	</head>
 	
 	<body>
-		<header>
+		<header class="layui-row">
 			<h3>大屏制作</h3>
+			<div class="preview">
+				<i class="layui-icon layui-icon-release"></i>
+				预览
+			</div>
 		</header>
 		<div class="row">
 			<!-- left -->
@@ -77,36 +81,52 @@
 				</div>
 				
 				<!-- 图层 -->
-				<!-- <div class="layui-row margin-top10">
-					<div class="layui-row">
+				<!-- <div class="layui-row margin-top10 div-layers">
+					<div class="layui-row div-layer">
 						<div class="layui-col-xs10">
-							图层名称
+							<p class="layer-name">图层名称图层名称图层名称图层名称图层名称</p>
 						</div>
-						<div class="layui-col-xs2">
+						<div class="layui-col-xs2 div-icon-delete">
 							<i class="layui-icon layui-icon-delete"></i>
 						</div>
 					</div>
-					<div class="layui-row">
+					<div class="layui-row div-layer">
 						<div class="layui-col-xs10">
 							图层名称
 						</div>
-						<div class="layui-col-xs2">
+						<div class="layui-col-xs2 div-icon-delete">
 							<i class="layui-icon layui-icon-delete"></i>
 						</div>
 					</div>
-					<div class="layui-row">
+					<div class="layui-row div-layer">
 						<div class="layui-col-xs10">
 							图层名称
 						</div>
-						<div class="layui-col-xs2">
+						<div class="layui-col-xs2 div-icon-delete">
 							<i class="layui-icon layui-icon-delete"></i>
 						</div>
 					</div>
-					<div class="layui-row">
+					<div class="layui-row div-layer">
+						<div class="layui-col-xs10">
+							<p class="layer-name">图层名称图层名称图层名称图层名称图层名称</p>
+						</div>
+						<div class="layui-col-xs2 div-icon-delete">
+							<i class="layui-icon layui-icon-delete"></i>
+						</div>
+					</div>
+					<div class="layui-row div-layer">
 						<div class="layui-col-xs10">
 							图层名称
 						</div>
-						<div class="layui-col-xs2">
+						<div class="layui-col-xs2 div-icon-delete">
+							<i class="layui-icon layui-icon-delete"></i>
+						</div>
+					</div>
+					<div class="layui-row div-layer">
+						<div class="layui-col-xs10">
+							图层名称
+						</div>
+						<div class="layui-col-xs2 div-icon-delete">
 							<i class="layui-icon layui-icon-delete"></i>
 						</div>
 					</div>
@@ -119,9 +139,21 @@
 				<div class="center-canvas">
 					<canvas id="target"></canvas>
 				</div>
-				<div class="layui-row">
-					已保存
-					<p>进度条</p>
+				<div class="layui-row footer">
+					<div class="layui-col-xs10">
+						已保存
+					</div>
+					<div class="layui-col-xs2">
+						<div class="layui-col-xs2">
+							缩小
+						</div>
+						<div class="layui-col-xs8">
+							<div id="slider"></div>
+						</div>
+						<div class="layui-col-xs2">
+							放大
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -142,7 +174,7 @@
 						<div class="layui-colla-item">
 							<h2 class="layui-colla-title">页面背景</h2>
 							<div class="layui-colla-content layui-show">
-								<div class="layui-row">
+								<div class="layui-row style-div-line">
 									<div class="layui-col-xs4">
 										页面纯色
 									</div>
@@ -150,15 +182,12 @@
 										<div id="color-choose"></div>
 									</div>
 								</div>
-								<div class="layui-row">
+								<div class="layui-row style-div-line margin-top10">
 									<div class="layui-col-xs4">
 										背景图片
 									</div>
 									<div class="layui-col-xs8">
-										<div class="layui-upload-drag" id="test10">
-											<i class="layui-icon"></i>
-											<p>点击上传，或将文件拖拽到此处</p>
-										</div>
+										<img class="img-upload" src="img/upload.png" title="上传图片" />
 									</div>
 								</div>
 							</div>
@@ -172,13 +201,13 @@
 						<div class="layui-colla-item">
 							<h2 class="layui-colla-title">数据集名</h2>
 							<div class="layui-colla-content layui-show">
-								<div>
+								<div class="echart">
 									<p>图片标题</p>
 									<div>
 										<img src="img/images.png" width="100%" />
 									</div>
 								</div>
-								<div>
+								<div class="echart">
 									<p>图片标题</p>
 									<div>
 										<img src="img/images.png" width="100%" />
@@ -187,15 +216,69 @@
 							</div>
 						</div>
 						<div class="layui-colla-item">
-							<h2 class="layui-colla-title">数据集名</h2>
+							<h2 class="layui-colla-title">名数据</h2>
 							<div class="layui-colla-content layui-show">
-								<div>
+								<div class="echart">
 									<p>图片标题</p>
 									<div>
 										<img src="img/images.png" width="100%" />
 									</div>
 								</div>
-								<div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
+									<p>图片标题</p>
+									<div>
+										<img src="img/images.png" width="100%" />
+									</div>
+								</div>
+								<div class="echart">
 									<p>图片标题</p>
 									<div>
 										<img src="img/images.png" width="100%" />

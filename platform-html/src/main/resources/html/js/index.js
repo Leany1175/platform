@@ -1,8 +1,9 @@
-layui.use(["jquery", "element", "colorpicker", "upload"], function() {
+layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 	var $ = layui.jquery,
 		element = layui.element,
 		colorpicker = layui.colorpicker,
-		upload = layui.upload;
+		upload = layui.upload,
+		slider = layui.slider;
 	
 // 	// 开始拖动元素时触发
 // 	document.addEventListener("dragstart", function(
@@ -126,5 +127,10 @@ layui.use(["jquery", "element", "colorpicker", "upload"], function() {
 	// TODO 背景图片选择
 	upload.render();
 
+	// TODO 放大与缩小
+	slider.render({
+		elem: "#slider"
+	});
+	
 
 });

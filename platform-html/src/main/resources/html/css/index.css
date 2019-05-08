@@ -27,6 +27,20 @@ header{
 
 header h3{
 	font-weight: bold;
+	font-size: 18px;
+}
+
+.preview{
+	float: right;
+	position: relative;
+    top: -50px;
+    right: 40px;
+	cursor: pointer;
+	height: 0px;
+}
+
+.preview:hover{
+	color: #5FB878;
 }
 
 canvas {
@@ -72,14 +86,61 @@ canvas {
 	box-shadow: 0px 5px 5px #888888;
 }
 
-/****************************/
-.charts {
-	/* overflow: hidden; */
-	height: 100%;
+.footer{
+	background-color: #FFFFFF;
+	height: 30px;
+	line-height: 30px;
 }
 
-.chart {
-	/* position: absolute; */
+.div-layers{
+	padding: 0px 20px;
 }
 
-/****************************/
+.div-layer{
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+.div-icon-delete{
+	text-align: center;
+}
+
+.div-layer .layui-icon-delete{
+	color: red;
+	cursor: pointer;
+}
+
+.div-layer .layer-name{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+
+.div-layer .layui-icon-delete:hover{
+	color: #1E9FFF;
+}
+
+.style-div-line{
+	line-height: 40px;
+}
+
+.img-upload{
+	width: 100%;
+	border: 1px dashed #ababab;
+	cursor: pointer;
+}
+
+.echart{
+	margin-top: 10px;
+}
+
+/* .echart p{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+} */
+
+.echart:first-child{
+	margin-top: 0px;
+}
