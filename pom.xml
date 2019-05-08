@@ -7,7 +7,11 @@
     <groupId>com.platform</groupId>
     <artifactId>platform</artifactId>
     <version>1.0-SNAPSHOTS</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>platform-web</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,11 +100,11 @@
             <version>${quartz.version}</version>
         </dependency>
         <!-- oracle -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>${oracle.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- hadoop-common -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -114,13 +118,13 @@
             <version>${hadoop.version}</version>
         </dependency>
         
-        <dependency>
+        <!--<dependency>
             <groupId>jdk.tools</groupId>
             <artifactId>jdk.tools</artifactId>
             <version>1.8</version>
             <scope>system</scope>
             <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
-    	</dependency>
+    	</dependency>-->
     	
     </dependencies>
 
@@ -184,7 +188,7 @@
                 </configuration>
             </plugin>
             <!-- spring boot 打包插件 -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
@@ -200,7 +204,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
 
         </plugins>
     </build>
