@@ -1,5 +1,8 @@
-layui.use(["jquery"], function() {
-	var $ = layui.jquery;
+layui.use(["jquery", "element", "colorpicker", "upload"], function() {
+	var $ = layui.jquery,
+		element = layui.element,
+		colorpicker = layui.colorpicker,
+		upload = layui.upload;
 	
 // 	// 开始拖动元素时触发
 // 	document.addEventListener("dragstart", function(
@@ -108,7 +111,20 @@ layui.use(["jquery"], function() {
 	
 	// console.log(charts.length);
 
-
+	
+	// 背景颜色选择器
+	colorpicker.render({
+		elem: "#color-choose",
+		change: function(color) { //选择
+			console.log("change:" + color);
+		},
+		done: function(color) {
+			console.log("done:" + color);
+		}
+	});
+	
+	// TODO 背景图片选择
+	upload.render();
 
 
 });
