@@ -75,7 +75,7 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 
 
 	// 目标容器
-	var target = document.getElementById("target");
+	var target = document.getElementById("target-canvas");
 	// 源容器
 	var sources = document.getElementsByClassName("chart");
 	
@@ -129,7 +129,37 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 
 	// TODO 放大与缩小
 	slider.render({
-		elem: "#slider"
+		elem: "#slider",
+		min: 50,
+		max: 150,
+		value: 100,
+		setTips: function(value) {
+			return value + "%";
+		},
+		change: function(value) {
+			console.log(value);
+		}
+	});
+	
+	// 点击事件
+	$(".div-base").click(function() {
+		// 先隐藏
+		$(this).parent().find(".div-base").each(function(e, elem) {
+			$(this).removeClass("active");
+		});
+		
+		var bind = $(this).attr("data-bind");
+		var divs = $(this).parent().parent().find(".content-container");
+		
+		for (var i = 0; i < divs.length; i++) {
+			if ($(divs[i]).attr("data-bind") == bind) {
+				$(divs[i]).show();
+				// active
+				$(this).addClass("active");
+			} else {
+				$(divs[i]).hide();
+			}
+		}
 	});
 	
 
