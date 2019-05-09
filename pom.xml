@@ -184,6 +184,19 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+            <!-- 打包源码 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- spring boot 打包插件 -->
             <!-- <plugin>
                 <groupId>org.springframework.boot</groupId>
