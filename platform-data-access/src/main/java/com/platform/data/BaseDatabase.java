@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.platform.data.builder.AggregationBuilder;
 import com.platform.data.builder.QueryBuilder;
 import com.platform.data.builder.TableBuilder;
+import com.platform.data.entity.Table;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public abstract class BaseDatabase implements IDatabase{
     }
 
     @Override
-    public void createTable(TableBuilder tableBuilder) throws SQLException {
+    public void createTable(Table table) throws SQLException {
 
     }
 

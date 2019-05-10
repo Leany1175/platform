@@ -1,6 +1,8 @@
 package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.platform.data.entity.Column;
+import com.platform.data.entity.Table;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -33,6 +35,8 @@ public class IDatabaseTest {
 
     @Test
     public void createTableTest() throws SQLException{
+        Table table = new Table("user_info")
+                .addColumn(new Column("id", ""));
 
 //        oracle.createTable();
     }
