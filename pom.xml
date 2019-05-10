@@ -12,6 +12,7 @@
     <modules>
         <module>platform-web</module>
         <module>platform-html</module>
+        <module>platform-data-access</module>
     </modules>
 
     <properties>
