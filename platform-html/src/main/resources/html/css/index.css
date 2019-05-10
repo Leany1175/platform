@@ -183,3 +183,7 @@ canvas {
 .echart:first-child{
 	margin-top: 0px;
 }
+
+.dom-base-component{
+	cursor: copy;
+}

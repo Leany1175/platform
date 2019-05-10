@@ -82,7 +82,7 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 	for (var i = 0; i < sources.length; i++) {
 		// 开始
 		sources[i].ondragstart = function(event) {
-			console.log("ondragstart")
+			console.log("ondragstart");
 		}
 		// 结束
 		sources[i].ondragend = function() {
@@ -98,10 +98,23 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 	
 	// 进入目标容器
 	target.ondragenter = function(event) {
-		console.log("ondragenter");
 		// 复制
 		event.dataTransfer.dropEffect = "copy";
+		
+		console.log(event.dataTransfer.getData("text"));
 	}
+	
+	// 基础组件
+	var bases = document.getElementsByClassName("dom-base-component");
+	for (var i = 0; i < bases.length; i++) {
+		
+		// 开始
+		bases[i].ondragstart = function(event) {
+			event.dataTransfer.setData("text/plain", event.target.id);
+		}
+		
+	}
+	
 // 	target.ondragleave = function() {
 // 		console.log("ondragleave")
 // 	}
