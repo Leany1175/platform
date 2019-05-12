@@ -33,7 +33,7 @@
 					<div class="layui-collapse">
 						<div class="layui-colla-item">
 							<h2 class="layui-colla-title">基础组件</h2>
-							<div class="layui-colla-content layui-show dom-base-component" draggable="true">
+							<div class="layui-colla-content layui-show dom-base-component" id="title" draggable="true">
 								<div class="layui-row">
 									<div class="layui-col-xs1">
 										<i class="layui-icon layui-icon-add-1"></i>
@@ -281,7 +281,8 @@
 			<div class="layui-col-xs8 config center">
 				<!-- TODO 滚动条 -->
 				<div class="center-canvas">
-					<canvas id="target-canvas"></canvas>
+					<!-- <canvas id="target-canvas"></canvas> -->
+					<canvas id="target-container" width="400px" height="400px"></canvas>
 				</div>
 				<div class="layui-row footer">
 					<div class="layui-col-xs-offset10 layui-col-xs2">

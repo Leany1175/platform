@@ -5,127 +5,6 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 		upload = layui.upload,
 		slider = layui.slider;
 	
-// 	// 开始拖动元素时触发
-// 	document.addEventListener("dragstart", function(
-// 		console.log(event.target);
-// 		event.dataTransfer.effectAllowed = "all";
-// 		// console.log("dragstart");
-// 	}, false);
-// 	
-// 	// 用户完成元素拖动后触发
-// 	document.addEventListener("dragend", function() {
-// 		// console.log("dragend");
-// 	}, false);
-// 	
-// 	// 拖动时
-// 	document.addEventListener("drag", function(event) {
-// 		// event.preventDefault();
-// 		event.dataTransfer.dropEffect = "none";
-// 		// console.log(event);
-// 		event.dataTransfer.effectAllowed = "none";
-// 	}, false);
-// 
-// 	// 当被鼠标拖动的对象进入其容器范围内时触发此事件
-// 	document.addEventListener("dragenter", function(event) {
-// 		// console.log("dragenter");
-// 		console.log(event);
-// 		if ("canvas" == event.target.id) {
-// 			event.dataTransfer.dropEffect = "none";
-// 			// event.dataTransfer.effectAllowed = "copy";
-// 			console.log("canvas")
-// 		} else {
-// 			event.dataTransfer.dropEffect = "none";
-// 		}
-// 	}, false);
-// 	
-// 	// 当某被拖动的对象在另一对象容器范围内拖动时触发此事件
-// 	document.addEventListener("dragover", function(event) {
-// 		event.preventDefault();
-// 		// console.log("dragover");
-// 	}, false);
-// 	
-// 	//  当被鼠标拖动的对象离开其容器范围内时触发此事件
-// 	document.addEventListener("dragleave", function() {
-// 		// console.log("dragleave");
-// 		if ("canvas" == event.target.id) {
-// 			event.dataTransfer.dropEffect = "none";
-// 			event.dataTransfer.effectAllowed = "none";
-// 		}
-// 	}, false);
-
-// 	var charts = document.getElementsByClassName("chart");
-// 	for (var i = 0; i < charts.length; i++) {
-// 		
-// 		charts[i].ondragstart = function(event) {
-// 			event.dataTransfer.effectAllowed = "copy";
-// 			event.dataTransfer.dropEffect = "copy";
-// 			console.log(event.target)
-// 			console.log("dragstart");
-// 		}
-// 	}
-// 	
-// 	// 目标容器
-// 	var canvas = document.getElementById("canvas");
-// 	
-// 	canvas.ondragenter = function(event) {
-// 		event.dataTransfer.dropEffect = "copy";
-// 		event.dataTransfer.effectAllowed = "copy";
-// 		console.log("ondragenter");
-// 	}
-
-
-	// 目标容器
-	var target = document.getElementById("target-canvas");
-	// 源容器
-	var sources = document.getElementsByClassName("chart");
-	
-	for (var i = 0; i < sources.length; i++) {
-		// 开始
-		sources[i].ondragstart = function(event) {
-			console.log("ondragstart");
-		}
-		// 结束
-		sources[i].ondragend = function() {
-			console.log("dragend");
-		}
-	}
-	
-	// 在目标容器上拖动
-	target.ondragover = function(event) {
-		console.log("ondragover");
-		event.preventDefault();
-	}
-	
-	// 进入目标容器
-	target.ondragenter = function(event) {
-		// 复制
-		event.dataTransfer.dropEffect = "copy";
-		
-		console.log(event.dataTransfer.getData("text"));
-	}
-	
-	// 基础组件
-	var bases = document.getElementsByClassName("dom-base-component");
-	for (var i = 0; i < bases.length; i++) {
-		
-		// 开始
-		bases[i].ondragstart = function(event) {
-			event.dataTransfer.setData("text/plain", event.target.id);
-		}
-		
-	}
-	
-// 	target.ondragleave = function() {
-// 		console.log("ondragleave")
-// 	}
-// 	target.ondrop = function(event) {
-// 		console.log("ondrop");
-// 	}
-
-	
-	// console.log(charts.length);
-
-	
 	// 背景颜色选择器
 	colorpicker.render({
 		elem: "#color-choose",
@@ -138,7 +17,7 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 	});
 	
 	// TODO 背景图片选择
-	upload.render();
+	// upload.render();
 
 	// TODO 放大与缩小
 	slider.render({
@@ -154,7 +33,7 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 		}
 	});
 	
-	// 点击事件
+	// 选项卡切换
 	$(".div-base").click(function() {
 		// 先隐藏
 		$(this).parent().find(".div-base").each(function(e, elem) {
@@ -175,5 +54,114 @@ layui.use(["jquery", "element", "colorpicker", "upload", "slider"], function() {
 		}
 	});
 	
+	// canvas
+	var canvas = document.getElementById("target-container");
+	var context = canvas.getContext("2d");
+	
+	// 初始化宽高
+	resizeCanvas();
+
+	// 目标容器
+	var target = document.getElementById("target-container");
+	// 在目标容器上拖动
+	target.ondragover = function(event) {
+		event.preventDefault();
+		
+		// 清空画布
+		context.clearRect(0, 0, $(target).attr("width"), $(target).attr("height"));
+		
+		// console.log(context);
+		// console.log(event);
+		// console.log("dragover");
+		context.beginPath();
+		context.strokeStyle = "gray";
+		// 虚线
+		context.setLineDash([5]);
+		context.moveTo(event.layerX, 0);
+		context.lineTo(event.layerX, event.layerY);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(0, event.layerY);
+		context.lineTo(event.layerX, event.layerY);
+		context.stroke();
+		
+		// console.log(event.dataTransfer.getData("id"));
+	}
+	// 拖动
+	target.ondrop = function(event) {
+		console.log("drop");
+		event.preventDefault();
+		console.log("id:" + event.dataTransfer.getData("id"));
+	}
+	
+	// 标题
+	var title = document.getElementById("title");
+	title.ondragstart = function(event) {
+		console.log("title - event");
+		event.dataTransfer.setData("Text", "null");
+		event.dataTransfer.setData("width", "300");
+		event.dataTransfer.setData("height", "200");
+	}
+	
+	// 进入目标容器
+	target.ondragenter = function(event) {
+		// 复制
+		event.dataTransfer.dropEffect = "copy";
+		// console.log(event);
+	}
+	
+// 	// 基础组件
+// 	var bases = document.getElementsByClassName("dom-base-component");
+// 	for (var i = 0; i < bases.length; i++) {
+// 		// 开始
+// 		bases[i].ondragstart = function(event) {
+// 			console.log("dragstart");
+// 		}
+// 	}
+	
+	
+// 	// 源容器
+// 	var sources = document.getElementsByClassName("chart");
+// 	
+// 	for (var i = 0; i < sources.length; i++) {
+// 		// 开始
+// 		sources[i].ondragstart = function(event) {
+// 			console.log("ondragstart");
+// 		}
+// 		// 结束
+// 		sources[i].ondragend = function() {
+// 			console.log("dragend");
+// 		}
+// 	}
+// 		
+// 	
+// 	
+// 	// 进入目标容器
+// 	target.ondragenter = function(event) {
+// 		// 复制
+// 		event.dataTransfer.dropEffect = "copy";
+// 		
+// 		console.log(event.dataTransfer.getData("text"));
+// 	}
+		
+	
+		
+	// 	target.ondragleave = function() {
+	// 		console.log("ondragleave")
+	// 	}
+	// 	target.ondrop = function(event) {
+	// 		console.log("ondrop");
+	// 	}
+	
+		
+		// console.log(charts.length);
+
+	function resizeCanvas() {
+		// 初始化canvas宽高
+		var canvas = document.getElementById("target-container");
+		$(canvas).attr("width", $(canvas).width());
+		$(canvas).attr("height", $(canvas).height());
+	}
 
 });
