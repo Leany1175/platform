@@ -10,7 +10,7 @@ import java.util.List;
 public class TableBuilders {
 
     /** 表结构 */
-    private TableConstruction table;
+    private TableConstruction table = new TableConstruction();
 
     /**
      * 设置表名
@@ -22,8 +22,25 @@ public class TableBuilders {
         return this;
     }
 
+    /**
+     * 添加列
+     * @param columnBuilders 列建造者
+     * @return this
+     */
+    public TableBuilders addColumn(ColumnBuilders columnBuilders) {
+        table.getColumnList().add(columnBuilders.build());
+        return this;
+    }
 
-    public TableBuilders addColumn() {
+    /**
+     * 添加列
+     * @param columnBuilders 列建造者
+     * @return this
+     */
+    public TableBuilders addColumn(ColumnBuilders... columnBuilders) {
+        for (ColumnBuilders builders : columnBuilders) {
+            addColumn(builders);
+        }
         return this;
     }
 
@@ -34,12 +51,31 @@ public class TableBuilders {
         return table;
     }
 
+    /**
+     * 构建
+     * @param tableBuilder 表建造者
+     * @return SQL语句
+     */
     public String buildSql(ITableBuilder tableBuilder) {
-        return tableBuilder.build(table);
+        return buildSql(tableBuilder, false);
     }
 
+    /**
+     * 构建
+     * @param tableBuilder 表建造者
+     * @param format 是否格式化
+     * @return SQL语句
+     */
+    public String buildSql(ITableBuilder tableBuilder, boolean format) {
+        return tableBuilder.build(table, format);
+    }
+
+    /**
+     * TODO 重写toString()
+     * @return
+     */
     @Override
     public String toString() {
-        return JSON.toJSONString(this);
+        return JSON.toJSONString(table);
     }
 }

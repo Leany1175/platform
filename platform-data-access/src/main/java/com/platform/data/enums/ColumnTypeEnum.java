@@ -8,8 +8,17 @@ public enum ColumnTypeEnum {
     INTEGER, // 整型
     FLOAT, // 浮点
     DOUBLE, // 双精度浮点
-    NUMBER, // 数字
+    DECIMAL, // 数字
     DATE, // 时间
     TIMESTAMP // 时间戳
+    ;
 
+    /**
+     * 小写
+     * @return 小写
+     */
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
+    }
 }

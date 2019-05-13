@@ -3,7 +3,6 @@ package com.platform.data.entity;
 import com.platform.data.enums.ColumnTypeEnum;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class ColumnConstruction implements Serializable {
 
@@ -15,11 +14,21 @@ public class ColumnConstruction implements Serializable {
     private int length;
     /** 列精度,针对decimal */
     private int precision;
+    /** 默认值 */
+    private Object defaultValue;
     /** 允许为null */
     private boolean isNull = true;
 
     public String getColumnName() {
         return columnName;
+    }
+
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public void setColumnName(String columnName) {

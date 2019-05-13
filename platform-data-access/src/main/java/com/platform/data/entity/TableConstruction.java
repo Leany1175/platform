@@ -14,6 +14,15 @@ public class TableConstruction implements Serializable {
     /** 列 集合 */
     private List<ColumnConstruction> columnList = new ArrayList<>();
 
+
+    public List<ColumnConstruction> getColumnList() {
+        return columnList;
+    }
+
+    public void setColumnList(List<ColumnConstruction> columnList) {
+        this.columnList = columnList;
+    }
+
     public String getTableName() {
         return tableName;
     }
