@@ -3,7 +3,6 @@ package com.platform.data;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.platform.data.builder.AggregationBuilder;
 import com.platform.data.builder.QueryBuilder;
-import com.platform.data.builder.TableBuilder;
 import com.platform.data.entity.Table;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;

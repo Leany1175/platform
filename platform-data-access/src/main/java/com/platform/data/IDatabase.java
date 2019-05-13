@@ -2,13 +2,10 @@ package com.platform.data;
 
 import com.platform.data.builder.AggregationBuilder;
 import com.platform.data.builder.QueryBuilder;
-import com.platform.data.builder.TableBuilder;
 import com.platform.data.entity.Table;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
