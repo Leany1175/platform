@@ -78,18 +78,19 @@ public class JdbcUtils {
     public static boolean executeUpdate(DataSource dataSource, String sql) {
         Connection conn = null;
         PreparedStatement ps = null;
-        int count = 0;
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
-            count = ps.executeUpdate();
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            logger.error("SQL语句执行失败:{}", sql);
+            logger.error("SQL语句执行失败:{}", sql, e);
+            e.printStackTrace();
         } finally {
             close(ps);
             close(conn);
         }
-        return count == 0;
+        return false;
     }
 
 }

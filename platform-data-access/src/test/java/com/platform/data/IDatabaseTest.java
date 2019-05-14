@@ -58,8 +58,14 @@ public class IDatabaseTest {
 //        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
         System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
 
-        mysql.createTable(tableBuilder);
-        oracle.createTable(tableBuilder);
+        System.out.println(mysql.createTable(tableBuilder));
+        System.out.println(oracle.createTable(tableBuilder));
+    }
+
+    @Test
+    public void dropTableTest() {
+        System.out.println(mysql.dropTable("user_info"));
+        System.out.println(oracle.dropTable("user_info"));
     }
 
 }

@@ -52,8 +52,8 @@ public abstract class BaseDatabase implements IDatabase{
     }
 
     @Override
-    public void dropTable(String tableName) throws SQLException {
-
+    public boolean dropTable(String tableName) {
+        return JdbcUtils.executeUpdate(dataSource, "drop table " + tableName);
     }
 
     @Override

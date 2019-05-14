@@ -50,9 +50,8 @@ public interface IDatabase {
 	/**
 	 * 删除表
 	 * @param tableName 表名
-	 * @exception SQLException 异常
 	 */
-	void dropTable(String tableName) throws SQLException;
+	boolean dropTable(String tableName);
 
 	/**
 	 * 查询
