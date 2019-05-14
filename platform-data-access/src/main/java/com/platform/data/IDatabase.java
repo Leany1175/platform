@@ -2,7 +2,7 @@ package com.platform.data;
 
 import com.platform.data.builder.AggregationBuilder;
 import com.platform.data.builder.QueryBuilder;
-import com.platform.data.entity.Table;
+import com.platform.data.builder.TableBuilders;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -43,10 +43,10 @@ public interface IDatabase {
 
 	/**
 	 * 创建表
-	 * @param table 表信息
+	 * @param tableBuilders 表建造者
 	 * @exception SQLException 创建表失败
 	 */
-	void createTable(Table table) throws SQLException;
+	void createTable(TableBuilders tableBuilders) throws SQLException;
 
 	/**
 	 * 删除表

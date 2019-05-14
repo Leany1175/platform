@@ -1,5 +1,6 @@
 package com.platform.data;
 
+import com.platform.data.builder.TableBuilders;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,5 +36,10 @@ public class OracleDatabase extends BaseDatabase {
         // 关闭
         JdbcUtils.close(conn, ps, rs);
         return tableSet;
+    }
+
+    @Override
+    public void createTable(TableBuilders tableBuilders) throws SQLException {
+
     }
 }

@@ -1,10 +1,9 @@
 package com.platform.data;
 
-import java.sql.SQLException;
+import com.platform.data.builder.TableBuilders;
 
 import javax.sql.DataSource;
-
-import com.platform.data.entity.Table;
+import java.sql.SQLException;
 
 public class MysqlDatabase extends BaseDatabase {
 
@@ -13,7 +12,8 @@ public class MysqlDatabase extends BaseDatabase {
     }
 
     @Override
-    public void createTable(Table tableBuilder) throws SQLException {
-        super.createTable(tableBuilder);
+    public void createTable(TableBuilders tableBuilders) throws SQLException {
+
     }
+
 }
