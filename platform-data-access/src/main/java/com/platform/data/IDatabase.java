@@ -53,19 +53,19 @@ public interface IDatabase {
 	 */
 	boolean dropTable(String tableName);
 
-	/**
-	 * 查询
-	 * @param queryBuilder 查询条件
-	 * @return 查询结果
-	 * @exception SQLException 异常
-	 */
-	IQueryResult query(QueryBuilder queryBuilder) throws SQLException;
-
-	/**
-	 * TODO 聚合
-	 * @param aggregationBuilder 条件
-	 */
-	IAggregationResult aggregation(AggregationBuilder aggregationBuilder);
+//	/**
+//	 * 查询
+//	 * @param queryBuilder 查询条件
+//	 * @return 查询结果
+//	 * @exception SQLException 异常
+//	 */
+//	IQueryResult query(QueryBuilder queryBuilder) throws SQLException;
+//
+//	/**
+//	 * TODO 聚合
+//	 * @param aggregationBuilder 条件
+//	 */
+//	IAggregationResult aggregation(AggregationBuilder aggregationBuilder);
 
 	/**
 	 * 导出

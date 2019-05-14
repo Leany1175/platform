@@ -56,15 +56,15 @@ public abstract class BaseDatabase implements IDatabase{
         return JdbcUtils.executeUpdate(dataSource, "drop table " + tableName);
     }
 
-    @Override
-    public IQueryResult query(QueryBuilder queryBuilder) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public IAggregationResult aggregation(AggregationBuilder aggregationBuilder) {
-        return null;
-    }
+//    @Override
+//    public IQueryResult query(QueryBuilder queryBuilder) throws SQLException {
+//        return null;
+//    }
+//
+//    @Override
+//    public IAggregationResult aggregation(AggregationBuilder aggregationBuilder) {
+//        return null;
+//    }
 
     @Override
     public File export(ExportOption option, String... tableName) {
