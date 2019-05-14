@@ -2,6 +2,7 @@ package com.platform.data;
 
 import com.platform.data.builder.MysqlTableBuilder;
 import com.platform.data.builder.TableBuilders;
+import com.platform.data.db.MysqlTable;
 import com.platform.data.util.JdbcUtils;
 
 import javax.sql.DataSource;
@@ -16,6 +17,11 @@ public class MysqlDatabase extends BaseDatabase {
     @Override
     public boolean createTable(TableBuilders tableBuilders) {
         return JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new MysqlTableBuilder()));
+    }
+
+    @Override
+    public ITable getTable(String tableName) {
+        return new MysqlTable(dataSource, tableName);
     }
 
 }

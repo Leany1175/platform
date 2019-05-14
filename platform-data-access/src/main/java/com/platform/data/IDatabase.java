@@ -37,9 +37,8 @@ public interface IDatabase {
 	 * TODO 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
-	 * @exception SQLException 异常
 	 */
-	ITable getTable(String tableName) throws SQLException;
+	ITable getTable(String tableName) ;
 
 	/**
 	 * 创建表

@@ -46,10 +46,10 @@ public abstract class BaseDatabase implements IDatabase{
         return tableSet;
     }
 
-    @Override
-    public ITable getTable(String tableName) throws SQLException {
-        return null;
-    }
+//    @Override
+//    public ITable getTable(String tableName) throws SQLException {
+//        return null;
+//    }
 
     @Override
     public boolean dropTable(String tableName) {

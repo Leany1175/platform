@@ -3,6 +3,8 @@ package com.platform.data;
 import com.platform.data.builder.MysqlTableBuilder;
 import com.platform.data.builder.OracleTableBuilder;
 import com.platform.data.builder.TableBuilders;
+import com.platform.data.db.MysqlTable;
+import com.platform.data.db.OracleTable;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,4 +46,10 @@ public class OracleDatabase extends BaseDatabase {
     public boolean createTable(TableBuilders tableBuilders) {
         return JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
     }
+
+    @Override
+    public ITable getTable(String tableName) {
+        return new OracleTable(dataSource, tableName);
+    }
+
 }

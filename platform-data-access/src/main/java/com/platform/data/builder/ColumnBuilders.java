@@ -7,6 +7,12 @@ public class ColumnBuilders {
 
     private ColumnConstruction column = new ColumnConstruction();
 
+    public ColumnBuilders() {}
+
+    public ColumnBuilders(ColumnConstruction column) {
+        this.column = column;
+    }
+
     /**
      * 保存列名
      * @param columnName 列名
@@ -73,6 +79,15 @@ public class ColumnBuilders {
      */
     public ColumnConstruction build() {
         return column;
+    }
+
+    /**
+     * 构建sql语句
+     * @param columnBuilder 列建造者
+     * @return sql语句
+     */
+    public String build(IColumnBuilder columnBuilder) {
+        return columnBuilder.build(column);
     }
 
 }

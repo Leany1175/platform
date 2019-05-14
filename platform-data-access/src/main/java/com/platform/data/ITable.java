@@ -1,18 +1,20 @@
 package com.platform.data;
 
+import com.platform.data.builder.ColumnBuilders;
+
 public interface ITable {
 
-//	/**
-//	 * 获取表名
-//	 */
-//	String getTableName();
-//
-//	/**
-//	 * 添加列
-//	 * @param columnBuilder 列
-//	 * @exception SQLException 异常
-//	 */
-//	void addColumn(IColumnBuilder columnBuilder) throws SQLException;
+	/**
+	 * 获取表名
+	 */
+	String getTableName();
+
+	/**
+	 * 添加列
+	 * @param columnBuilder 列
+	 * @return 添加列
+	 */
+	boolean addColumn(ColumnBuilders columnBuilder);
 //
 //	/**
 //	 * 更改列
