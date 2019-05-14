@@ -1,14 +1,5 @@
 package com.platform.data;
 
-//import com.platform.data.builder.IAggregationBuilder;
-//import com.platform.data.builder.IColumnBuilder;
-//import com.platform.data.entity.Column;
-//import com.platform.data.entity.Row;
-
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-
 public interface ITable {
 
 //	/**

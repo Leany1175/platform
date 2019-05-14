@@ -45,10 +45,10 @@ public class IDatabaseTest {
                 .tableName("user_info")
                 .addColumn(
                         new ColumnBuilders().columnName("user_id").columnType(ColumnTypeEnum.INTEGER).isNull(false),
-                        new ColumnBuilders().columnName("sex_1").columnType(ColumnTypeEnum.CHAR),
+                        new ColumnBuilders().columnName("sex_1").columnType(ColumnTypeEnum.CHAR).length(4),
                         new ColumnBuilders().columnName("name").columnType(ColumnTypeEnum.STRING).length(32),
-                        new ColumnBuilders().columnName("sex").columnType(ColumnTypeEnum.INTEGER).defaultValue(0),
-                        new ColumnBuilders().columnName("age").columnType(ColumnTypeEnum.INTEGER).defaultValue(18),
+                        new ColumnBuilders().columnName("sex").columnType(ColumnTypeEnum.INTEGER).length(11).defaultValue(0),
+                        new ColumnBuilders().columnName("age").columnType(ColumnTypeEnum.INTEGER).length(4).defaultValue(18),
                         new ColumnBuilders().columnName("height").columnType(ColumnTypeEnum.DECIMAL).length(10).precision(5),
                         new ColumnBuilders().columnName("width").columnType(ColumnTypeEnum.FLOAT),
                         new ColumnBuilders().columnName("width_1").columnType(ColumnTypeEnum.DOUBLE),
@@ -58,8 +58,8 @@ public class IDatabaseTest {
                 );
         System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), false));
         System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), true));
-//        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
-//        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
+        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
+        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
     }
 
 }

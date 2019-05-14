@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 public class ColumnConstruction implements Serializable {
 
-    /** 列名 */
+	private static final long serialVersionUID = 1L;
+	/** 列名 */
     private String columnName;
     /** 列类型 */
     private ColumnTypeEnum columnTypeEnum;

@@ -1,6 +1,5 @@
 package com.platform.data.builder;
 
-import com.platform.data.entity.Column;
 import com.platform.data.entity.ColumnConstruction;
 import com.platform.data.enums.ColumnTypeEnum;
 

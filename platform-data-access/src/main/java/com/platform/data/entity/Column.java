@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Column implements Serializable {
 
-    /** 列名 */
+	private static final long serialVersionUID = 1L;
+	/** 列名 */
     private String columnName;
     /** 列类型名 */
     private String columnType;

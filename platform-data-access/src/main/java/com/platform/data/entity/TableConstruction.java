@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class TableConstruction implements Serializable {
 
-    /** 表名 */
+	private static final long serialVersionUID = 1L;
+	/** 表名 */
     private String tableName;
     /** 列 集合 */
     private List<ColumnConstruction> columnList = new ArrayList<>();

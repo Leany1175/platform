@@ -1,11 +1,7 @@
 package com.platform.data.builder;
 
 import com.alibaba.fastjson.JSON;
-import com.platform.data.entity.Column;
 import com.platform.data.entity.TableConstruction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TableBuilders {
 
