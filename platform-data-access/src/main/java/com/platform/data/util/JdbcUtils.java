@@ -3,6 +3,7 @@ package com.platform.data.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,6 +67,29 @@ public class JdbcUtils {
         close(rs);
         close(ps);
         close(conn);
+    }
+
+    /**
+     * 执行SQL
+     * @param dataSource 数据源
+     * @param sql sql脚本
+     * @return 是否成功
+     */
+    public static boolean executeUpdate(DataSource dataSource, String sql) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql);
+            count = ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("SQL语句执行失败:{}", sql);
+        } finally {
+            close(ps);
+            close(conn);
+        }
+        return count == 0;
     }
 
 }

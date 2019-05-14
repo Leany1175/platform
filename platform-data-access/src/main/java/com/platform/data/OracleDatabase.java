@@ -1,5 +1,7 @@
 package com.platform.data;
 
+import com.platform.data.builder.MysqlTableBuilder;
+import com.platform.data.builder.OracleTableBuilder;
 import com.platform.data.builder.TableBuilders;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
@@ -39,7 +41,7 @@ public class OracleDatabase extends BaseDatabase {
     }
 
     @Override
-    public void createTable(TableBuilders tableBuilders) throws SQLException {
-
+    public boolean createTable(TableBuilders tableBuilders) {
+        return JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
     }
 }

@@ -38,9 +38,6 @@ public class IDatabaseTest {
 
     @Test
     public void createTableTest() throws SQLException{
-//        Table table = new Table("user_info")
-//                .addColumn(new Column("id", ""));
-
         TableBuilders tableBuilder = new TableBuilders()
                 .tableName("user_info")
                 .addColumn(
@@ -56,10 +53,13 @@ public class IDatabaseTest {
                         new ColumnBuilders().columnName("description").columnType(ColumnTypeEnum.TEXT),
                         new ColumnBuilders().columnName("create_time").columnType(ColumnTypeEnum.TIMESTAMP)
                 );
-        System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), false));
+//        System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), false));
         System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), true));
-        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
+//        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
         System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
+
+        mysql.createTable(tableBuilder);
+        oracle.createTable(tableBuilder);
     }
 
 }
