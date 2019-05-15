@@ -81,9 +81,9 @@ public class IDatabaseTest {
         String tableName = "user_info";
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(32).defaultValue("test").isNull(false);
 
-//        ITable mysqlTable = mysql.getTable(tableName);
-//        System.out.println(mysqlTable.getTableName());
-//        System.out.println(mysqlTable.addColumn(columnBuilders));
+        ITable mysqlTable = mysql.getTable(tableName);
+        System.out.println(mysqlTable.getTableName());
+        System.out.println(mysqlTable.addColumn(columnBuilders));
 
         ITable oracleTable = oracle.getTable(tableName);
         System.out.println(oracleTable.getTableName());

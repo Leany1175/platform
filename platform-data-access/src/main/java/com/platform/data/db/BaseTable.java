@@ -41,8 +41,7 @@ public abstract class BaseTable implements ITable {
                 .append(TABLE_NAME)
                 .append(" add column ")
                 .append(columnBuilder.build(createBuilder()));
-        // TODO
-        System.out.println(buffer.toString());
+
         logger.debug("新增列,SQL:{}", buffer.toString());
         return JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
