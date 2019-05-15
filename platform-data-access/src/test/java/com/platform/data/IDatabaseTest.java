@@ -105,6 +105,7 @@ public class IDatabaseTest {
     @Test
     public void renameColumnTest() {
 
+
     }
 
 }
