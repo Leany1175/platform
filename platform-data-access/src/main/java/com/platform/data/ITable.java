@@ -11,18 +11,25 @@ public interface ITable {
 
 	/**
 	 * 添加列
-	 * @param columnBuilder 列
+	 * @param columnBuilders 列
 	 * @return 添加列
 	 */
-	boolean addColumn(ColumnBuilders columnBuilder);
-//
-//	/**
-//	 * 更改列
-//	 * @param columnBuilder 列
-//	 * @exception SQLException 异常
-//	 */
-//	void modifyColumn(IColumnBuilder columnBuilder) throws SQLException;
-//
+	boolean addColumn(ColumnBuilders columnBuilders);
+
+	/**
+	 * 更新列,不包括列名
+	 * @param columnBuilders 列
+	 */
+	boolean modifyColumn(ColumnBuilders columnBuilders);
+
+	/**
+	 * 列重命名
+	 * @param oldName 原来列名
+	 * @param newName 新列名
+	 * @return 成功返回true
+	 */
+	boolean renameColumn(String oldName, String newName);
+
 //	/**
 //	 * 更改列
 //	 * @param oldColumn 需要修改的列名

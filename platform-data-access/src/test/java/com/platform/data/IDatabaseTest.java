@@ -39,7 +39,7 @@ public class IDatabaseTest {
     @Test
     public void createTableTest() throws SQLException{
         TableBuilders tableBuilder = new TableBuilders()
-                .tableName("user_info")
+                .tableName("user_info0")
                 .addColumn(
                         new ColumnBuilders().columnName("user_id").columnType(ColumnTypeEnum.INTEGER).isNull(false),
                         new ColumnBuilders().columnName("sex_1").columnType(ColumnTypeEnum.CHAR).length(4),
@@ -77,8 +77,8 @@ public class IDatabaseTest {
 
 
     @Test
-    public void getTableTest() {
-        String tableName = "user_info";
+    public void addColumnTest() {
+        String tableName = "user_info0";
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(32).defaultValue("test").isNull(false);
 
         ITable mysqlTable = mysql.getTable(tableName);
@@ -88,6 +88,18 @@ public class IDatabaseTest {
         ITable oracleTable = oracle.getTable(tableName);
         System.out.println(oracleTable.getTableName());
         System.out.println(oracleTable.addColumn(columnBuilders));
+    }
+
+    @Test
+    public void modifyColumnTest() {
+        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(64);
+        String tableName = "user_info0";
+
+        ITable mysqlTable = mysql.getTable(tableName);
+        System.out.println(mysqlTable.modifyColumn(columnBuilders));
+
+        ITable oracleTable = oracle.getTable(tableName);
+        System.out.println(oracleTable.modifyColumn(columnBuilders));
     }
 
 }

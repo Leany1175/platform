@@ -23,11 +23,24 @@ public class OracleTable extends BaseTable{
     }
 
     @Override
-    public boolean addColumn(ColumnBuilders columnBuilder) {
-        StringBuffer buffer = new StringBuffer("alter table user_info add (")
-                .append(columnBuilder.build(createBuilder()))
+    public boolean addColumn(ColumnBuilders columnBuilders) {
+        StringBuffer buffer = new StringBuffer("alter table ")
+                .append(TABLE_NAME)
+                .append(" add (")
+                .append(columnBuilders.build(createBuilder()))
                 .append(")");
         logger.debug("添加列:{}", buffer);
+        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public boolean modifyColumn(ColumnBuilders columnBuilders) {
+        StringBuffer buffer = new StringBuffer("alter table ")
+                .append(TABLE_NAME)
+                .append(" modify (")
+                .append(columnBuilders.build(createBuilder()))
+                .append(")");
+        logger.debug("修改列:{}", buffer);
         return JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 

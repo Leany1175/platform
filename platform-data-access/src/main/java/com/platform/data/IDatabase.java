@@ -34,7 +34,7 @@ public interface IDatabase {
 	}
 
 	/**
-	 * TODO 获取表对象
+	 * 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
 	 */

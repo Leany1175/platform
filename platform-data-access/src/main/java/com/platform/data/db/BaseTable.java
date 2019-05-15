@@ -36,14 +36,29 @@ public abstract class BaseTable implements ITable {
     }
 
     @Override
-    public boolean addColumn(ColumnBuilders columnBuilder) {
+    public boolean addColumn(ColumnBuilders columnBuilders) {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" add column ")
-                .append(columnBuilder.build(createBuilder()));
+                .append(columnBuilders.build(createBuilder()));
 
         logger.debug("新增列,SQL:{}", buffer.toString());
         return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public boolean modifyColumn(ColumnBuilders columnBuilders) {
+        StringBuffer buffer = new StringBuffer("alter table ")
+                .append(TABLE_NAME)
+                .append(" modify ")
+                .append(columnBuilders.build(createBuilder()));
+        logger.debug("更新列:{}", buffer);
+        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public boolean renameColumn(String oldName, String newName) {
+        return false;
     }
 
     public void setDataSource(DataSource dataSource) {
