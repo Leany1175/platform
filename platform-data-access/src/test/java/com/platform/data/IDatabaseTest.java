@@ -102,4 +102,9 @@ public class IDatabaseTest {
         System.out.println(oracleTable.modifyColumn(columnBuilders));
     }
 
+    @Test
+    public void renameColumnTest() {
+
+    }
+
 }
