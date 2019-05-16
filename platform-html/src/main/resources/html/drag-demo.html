@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" />
+		<title></title>
+		
+		<style>
+			#source{
+				
+			}
+			#target{
+				border: 1px solid red;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div>
+		    <p id="source" draggable="true">
+				Select this element, drag it to the Drop Zone and then release the selection to move the element.
+			</p>
+		 </div>
+		 <div id="target">Drop Zone</div>
+		
+		
+		<script>
+			var source = document.getElementById("source");
+			var target = document.getElementById("target");
+			
+			source.ondragstart = function(event) {
+				console.log("dragstart");
+				event.currentTarget.style.border = "1px dashed blue";
+				
+				event.dataTransfer.setData("id", event.target.id);
+				event.dataTransfer.setData("name", "demo");
+			}
+			
+			
+			target.ondragover = function(event) {
+				/* console.log("dragover"); */
+				event.preventDefault();
+			}
+			target.ondrop = function(event) {
+				console.log("drop");
+				event.preventDefault();
+				
+				var data = event.dataTransfer.getData("id");
+				console.log(data);
+				console.log(event.dataTransfer.getData("name"));
+				
+				event.dataTransfer.clearData();
+			}
+// 			target.ondragenter = function(event) {
+// 				console.log("------------dragenter------------------")
+// 				var data = event.dataTransfer.getData("text");
+// 				console.log(data);
+// 				console.log("------------dragenter------------------")
+// 			}
+		</script>
+	</body>
+</html>

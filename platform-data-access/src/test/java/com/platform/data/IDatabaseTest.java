@@ -1,11 +1,13 @@
 package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.platform.data.builder.ColumnBuilders;
-import com.platform.data.builder.MysqlTableBuilder;
-import com.platform.data.builder.OracleTableBuilder;
-import com.platform.data.builder.TableBuilders;
+import com.platform.data.builder.column.ColumnBuilders;
+import com.platform.data.mysql.MysqlDatabase;
+import com.platform.data.mysql.MysqlTableBuilder;
+import com.platform.data.oracle.OracleTableBuilder;
+import com.platform.data.builder.table.TableBuilders;
 import com.platform.data.enums.ColumnTypeEnum;
+import com.platform.data.oracle.OracleDatabase;
 import org.junit.Test;
 
 import java.sql.SQLException;

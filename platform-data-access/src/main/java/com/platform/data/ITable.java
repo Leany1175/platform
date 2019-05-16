@@ -1,6 +1,8 @@
 package com.platform.data;
 
-import com.platform.data.builder.ColumnBuilders;
+import com.platform.data.builder.column.ColumnBuilders;
+import com.platform.data.other.IQueryBuilder;
+import com.platform.data.other.ISearchResult;
 
 import java.sql.SQLException;
 
@@ -55,13 +57,13 @@ public interface ITable {
 //	 */
 //	List<Column> columnList() throws SQLException;
 
-//	/**
-//	 * 查询
-//	 * @param queryBuilder 查询条件
-//	 * @return 查询结果
-//	 * @exception SQLException 异常
-//	 */
-//	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
+	/**
+	 * 查询
+	 * @param queryBuilder 查询条件
+	 * @return 查询结果
+	 * @exception SQLException 异常
+	 */
+	ISearchResult query(IQueryBuilder queryBuilder) throws SQLException;
 
 //	/**
 //	 * 查询所有
