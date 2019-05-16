@@ -34,20 +34,12 @@ public interface ITable {
 	 */
 	void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException;
 
-//	/**
-//	 * 更改列
-//	 * @param oldColumn 需要修改的列名
-//	 * @param columnBuilder 列
-//	 * @exception SQLException 异常
-//	 */
-//	void modifyColumn(String oldColumn, IColumnBuilder columnBuilder) throws SQLException;
-//
-//	/**
-//	 * 删除列
-//	 * @param columnName 列名
-//	 * @exception SQLException 异常
-//	 */
-//	void deleteColumn(String columnName) throws SQLException;
+	/**
+	 * 删除列
+	 * @param columnName 列名
+	 * @exception SQLException 异常
+	 */
+	void dropColumn(String columnName) throws SQLException;
 //
 //	/**
 //	 * 列数

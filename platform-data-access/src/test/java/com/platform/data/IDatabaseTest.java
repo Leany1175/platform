@@ -114,4 +114,15 @@ public class IDatabaseTest {
         oracleTable.renameColumn("test_column_name", columnBuilders);
     }
 
+    @Test
+    public void dropColumnTest() throws SQLException{
+        String tableName = "user_info";
+
+        ITable mysqlTable = mysql.getTable(tableName);
+        mysqlTable.dropColumn("test_column_name_1");
+
+        ITable oracleTable = oracle.getTable(tableName);
+        oracleTable.dropColumn("test_column_name_1");
+    }
+
 }

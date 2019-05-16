@@ -5,7 +5,9 @@ import com.platform.data.ITable;
 import com.platform.data.builder.ColumnBuilders;
 import com.platform.data.builder.IColumnBuilder;
 import com.platform.data.entity.ColumnConstruction;
+import com.platform.data.entity.Table;
 import com.platform.data.util.JdbcUtils;
+import jdk.nashorn.internal.scripts.JD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +68,16 @@ public abstract class BaseTable implements ITable {
                 .append(" to ")
                 .append(columnBuilders.build().getColumnName());
         logger.debug("更改列名:{}", buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public void dropColumn(String columnName) throws SQLException {
+        StringBuffer buffer = new StringBuffer("alter table ")
+                .append(TABLE_NAME)
+                .append("  drop column ")
+                .append(columnName);
+        logger.debug("删除列:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
