@@ -57,8 +57,15 @@ public abstract class BaseTable implements ITable {
     }
 
     @Override
-    public boolean renameColumn(String oldName, String newName) {
-        return false;
+    public boolean renameColumn(String columnName, ColumnBuilders columnBuilders) {
+        StringBuffer buffer = new StringBuffer("alter table ")
+                .append(TABLE_NAME)
+                .append(" rename column ")
+                .append(columnName)
+                .append(" to ")
+                .append(columnBuilders.build().getColumnName());
+        logger.debug("更改列名:{}", buffer.toString());
+        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     public void setDataSource(DataSource dataSource) {

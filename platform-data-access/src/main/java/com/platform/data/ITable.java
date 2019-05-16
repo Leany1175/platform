@@ -24,11 +24,11 @@ public interface ITable {
 
 	/**
 	 * 列重命名
-	 * @param oldName 原来列名
-	 * @param newName 新列名
+	 * @param columnName 原来列名
+	 * @param columnBuilders 新
 	 * @return 成功返回true
 	 */
-	boolean renameColumn(String oldName, String newName);
+	boolean renameColumn(String columnName, ColumnBuilders columnBuilders);
 
 //	/**
 //	 * 更改列

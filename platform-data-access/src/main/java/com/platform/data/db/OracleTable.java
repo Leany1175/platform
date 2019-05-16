@@ -43,9 +43,4 @@ public class OracleTable extends BaseTable{
         logger.debug("修改列:{}", buffer);
         return JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
-
-    //    @Override
-//    public boolean addColumn(ColumnBuilders columnBuilder) {
-//        return false;
-//    }
 }
