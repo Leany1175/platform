@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 public abstract class BaseTable implements ITable {
 
@@ -36,28 +37,28 @@ public abstract class BaseTable implements ITable {
     }
 
     @Override
-    public boolean addColumn(ColumnBuilders columnBuilders) {
+    public void addColumn(ColumnBuilders columnBuilders) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" add column ")
                 .append(columnBuilders.build(createBuilder()));
 
         logger.debug("新增列,SQL:{}", buffer.toString());
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public boolean modifyColumn(ColumnBuilders columnBuilders) {
+    public void modifyColumn(ColumnBuilders columnBuilders) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" modify ")
                 .append(columnBuilders.build(createBuilder()));
         logger.debug("更新列:{}", buffer);
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public boolean renameColumn(String columnName, ColumnBuilders columnBuilders) {
+    public void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" rename column ")
@@ -65,7 +66,7 @@ public abstract class BaseTable implements ITable {
                 .append(" to ")
                 .append(columnBuilders.build().getColumnName());
         logger.debug("更改列名:{}", buffer.toString());
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     public void setDataSource(DataSource dataSource) {

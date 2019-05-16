@@ -58,14 +58,14 @@ public class IDatabaseTest {
 //        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
         System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
 
-        System.out.println(mysql.createTable(tableBuilder));
-        System.out.println(oracle.createTable(tableBuilder));
+        mysql.createTable(tableBuilder);
+        oracle.createTable(tableBuilder);
     }
 
     @Test
-    public void dropTableTest() {
-        System.out.println(mysql.dropTable("user_info"));
-        System.out.println(oracle.dropTable("user_info"));
+    public void dropTableTest() throws SQLException{
+        mysql.dropTable("user_info");
+        oracle.dropTable("user_info");
     }
 
 
@@ -77,41 +77,41 @@ public class IDatabaseTest {
 
 
     @Test
-    public void addColumnTest() {
+    public void addColumnTest() throws SQLException{
         String tableName = "user_info";
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(32).defaultValue("test").isNull(false);
 
         ITable mysqlTable = mysql.getTable(tableName);
         System.out.println(mysqlTable.getTableName());
-        System.out.println(mysqlTable.addColumn(columnBuilders));
+        mysqlTable.addColumn(columnBuilders);
 
         ITable oracleTable = oracle.getTable(tableName);
         System.out.println(oracleTable.getTableName());
-        System.out.println(oracleTable.addColumn(columnBuilders));
+        oracleTable.addColumn(columnBuilders);
     }
 
     @Test
-    public void modifyColumnTest() {
+    public void modifyColumnTest() throws SQLException{
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(64);
         String tableName = "user_info";
 
         ITable mysqlTable = mysql.getTable(tableName);
-        System.out.println(mysqlTable.modifyColumn(columnBuilders));
+        mysqlTable.modifyColumn(columnBuilders);
 
         ITable oracleTable = oracle.getTable(tableName);
-        System.out.println(oracleTable.modifyColumn(columnBuilders));
+        oracleTable.modifyColumn(columnBuilders);
     }
 
     @Test
-    public void renameColumnTest() {
+    public void renameColumnTest() throws SQLException{
         String tableName = "user_info";
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name_1").columnType(ColumnTypeEnum.STRING).length(64);
 
         ITable mysqlTable = mysql.getTable(tableName);
-        System.out.println(mysqlTable.renameColumn("test_column_name", columnBuilders));
+        mysqlTable.renameColumn("test_column_name", columnBuilders);
 
         ITable oracleTable = oracle.getTable(tableName);
-        System.out.println(oracleTable.renameColumn("test_column_name", columnBuilders));
+        oracleTable.renameColumn("test_column_name", columnBuilders);
     }
 
 }

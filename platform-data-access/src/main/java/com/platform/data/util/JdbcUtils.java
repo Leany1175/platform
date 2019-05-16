@@ -74,23 +74,22 @@ public class JdbcUtils {
      * @param dataSource 数据源
      * @param sql sql脚本
      * @return 是否成功
+     * @exception SQLException sql执行失败
      */
-    public static boolean executeUpdate(DataSource dataSource, String sql) {
+    public static void executeUpdate(DataSource dataSource, String sql) throws SQLException{
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
             ps.executeUpdate();
-            return true;
         } catch (SQLException e) {
             logger.error("SQL语句执行失败:{}", sql, e);
-            e.printStackTrace();
+            throw e;
         } finally {
             close(ps);
             close(conn);
         }
-        return false;
     }
 
 }

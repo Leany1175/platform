@@ -37,20 +37,23 @@ public interface IDatabase {
 	 * 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
+	 * @exception SQLException 异常
 	 */
-	ITable getTable(String tableName) ;
+	ITable getTable(String tableName) throws SQLException;
 
 	/**
 	 * 创建表
 	 * @param tableBuilders 表建造者
+	 * @exception SQLException 异常
 	 */
-	boolean createTable(TableBuilders tableBuilders);
+	void createTable(TableBuilders tableBuilders) throws SQLException;
 
 	/**
 	 * 删除表
 	 * @param tableName 表名
+	 * @exception SQLException 异常
 	 */
-	boolean dropTable(String tableName);
+	void dropTable(String tableName) throws SQLException;
 
 //	/**
 //	 * 查询

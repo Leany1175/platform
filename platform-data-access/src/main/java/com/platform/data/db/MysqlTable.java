@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 public class MysqlTable extends BaseTable{
 
@@ -23,7 +24,7 @@ public class MysqlTable extends BaseTable{
     }
 
     @Override
-    public boolean renameColumn(String columnName, ColumnBuilders columnBuilders) {
+    public void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" change column ")
@@ -31,7 +32,7 @@ public class MysqlTable extends BaseTable{
                 .append(" ")
                 .append(columnBuilders.build(createBuilder()));
         logger.debug("更改列名:{}", buffer);
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
 }

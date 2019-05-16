@@ -30,19 +30,26 @@ public abstract class BaseDatabase implements IDatabase{
 
     @Override
     public Set<String> getAllTableName() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        DatabaseMetaData metaData = conn.getMetaData();
-        logger.info("数据库获取所有表名");
-        ResultSet rs = metaData.getTables(null, null, null, new String[] { "TABLE" });
-
         Set<String> tableSet = new HashSet<>();
-        while (rs.next()) {
-            tableSet.add(rs.getString("TABLE_NAME"));
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            DatabaseMetaData metaData = conn.getMetaData();
+            rs = metaData.getTables(null, null, null, new String[] { "TABLE" });
+            while (rs.next()) {
+                tableSet.add(rs.getString("TABLE_NAME"));
+            }
+
+            logger.debug("数据库获取所有表名结果:{}", tableSet);
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            // 关闭
+            JdbcUtils.close(rs);
+            JdbcUtils.close(conn);
         }
-        logger.info("数据库获取所有表名结果:{}", tableSet);
-        // 关闭
-        JdbcUtils.close(rs);
-        JdbcUtils.close(conn);
+
         return tableSet;
     }
 
@@ -52,8 +59,8 @@ public abstract class BaseDatabase implements IDatabase{
 //    }
 
     @Override
-    public boolean dropTable(String tableName) {
-        return JdbcUtils.executeUpdate(dataSource, "drop table " + tableName);
+    public void dropTable(String tableName) throws SQLException{
+        JdbcUtils.executeUpdate(dataSource, "drop table " + tableName);
     }
 
 //    @Override

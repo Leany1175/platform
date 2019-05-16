@@ -27,24 +27,33 @@ public class OracleDatabase extends BaseDatabase {
 
     @Override
     public Set<String> getAllTableName() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        PreparedStatement ps = conn.prepareStatement("select t.table_name from user_tables t");
-        logger.info("数据库获取所有表名");
-        ResultSet rs = ps.executeQuery();
-
+        // TODO jdbc query
         Set<String> tableSet = new HashSet<>();
-        while (rs.next()) {
-            tableSet.add(rs.getString("table_name"));
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement("select t.table_name from user_tables t");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                tableSet.add(rs.getString("table_name"));
+            }
+
+            logger.debug("数据库获取所有表名结果:{}", tableSet);
+
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            // 关闭
+            JdbcUtils.close(conn, ps, rs);
         }
-        logger.info("数据库获取所有表名结果:{}", tableSet);
-        // 关闭
-        JdbcUtils.close(conn, ps, rs);
         return tableSet;
     }
 
     @Override
-    public boolean createTable(TableBuilders tableBuilders) {
-        return JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
+    public void createTable(TableBuilders tableBuilders) throws SQLException{
+        JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
     }
 
     @Override

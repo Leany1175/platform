@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 public class OracleTable extends BaseTable{
 
@@ -23,24 +24,24 @@ public class OracleTable extends BaseTable{
     }
 
     @Override
-    public boolean addColumn(ColumnBuilders columnBuilders) {
+    public void addColumn(ColumnBuilders columnBuilders) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" add (")
                 .append(columnBuilders.build(createBuilder()))
                 .append(")");
         logger.debug("添加列:{}", buffer);
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public boolean modifyColumn(ColumnBuilders columnBuilders) {
+    public void modifyColumn(ColumnBuilders columnBuilders) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" modify (")
                 .append(columnBuilders.build(createBuilder()))
                 .append(")");
         logger.debug("修改列:{}", buffer);
-        return JdbcUtils.executeUpdate(dataSource, buffer.toString());
+        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 }

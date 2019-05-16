@@ -15,8 +15,8 @@ public class MysqlDatabase extends BaseDatabase {
     }
 
     @Override
-    public boolean createTable(TableBuilders tableBuilders) {
-        return JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new MysqlTableBuilder()));
+    public void createTable(TableBuilders tableBuilders) throws SQLException{
+        JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new MysqlTableBuilder()));
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.platform.data;
 
 import com.platform.data.builder.ColumnBuilders;
 
+import java.sql.SQLException;
+
 public interface ITable {
 
 	/**
@@ -13,22 +15,24 @@ public interface ITable {
 	 * 添加列
 	 * @param columnBuilders 列
 	 * @return 添加列
+	 * @exception SQLException 异常
 	 */
-	boolean addColumn(ColumnBuilders columnBuilders);
+	void addColumn(ColumnBuilders columnBuilders) throws SQLException;
 
 	/**
 	 * 更新列,不包括列名
 	 * @param columnBuilders 列
+	 * @exception SQLException 异常
 	 */
-	boolean modifyColumn(ColumnBuilders columnBuilders);
+	void modifyColumn(ColumnBuilders columnBuilders) throws SQLException;
 
 	/**
 	 * 列重命名
 	 * @param columnName 原来列名
 	 * @param columnBuilders 新
-	 * @return 成功返回true
+	 * @exception SQLException 异常
 	 */
-	boolean renameColumn(String columnName, ColumnBuilders columnBuilders);
+	void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException;
 
 //	/**
 //	 * 更改列
