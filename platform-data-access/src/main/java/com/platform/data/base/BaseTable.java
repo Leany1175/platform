@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public abstract class BaseTable implements ITable {
@@ -90,6 +92,68 @@ public abstract class BaseTable implements ITable {
 
     @Override
     public int insert(Row row) throws SQLException {
+        // sql语句
+        String sql = insertSql(row);
+        logger.debug("insert sql:{}", sql);
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        // 受影响行数
+        int count = 0;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql.toString());
+            // 设值
+            prepareValue(ps, row);
+            count = ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("insert failed", e);
+            throw e;
+        } finally {
+            JdbcUtils.close(ps);
+            JdbcUtils.close(conn);
+        }
+        return count;
+    }
+
+    @Override
+    public int[] insert(List<Row> rows) throws SQLException{
+        if (rows == null || rows.size() == 0) {
+            throw new NullPointerException("至少插入一行");
+        }
+        String sql = insertSql(rows.get(0));
+        logger.debug("批量插入SQL语句:{}", sql);
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int[] count = null;
+        try {
+            conn = dataSource.getConnection();
+            conn.setAutoCommit(false);
+            ps = conn.prepareStatement(sql);
+            for (Row row : rows) {
+                prepareValue(ps, row);
+                ps.addBatch();
+            }
+            // 批量执行
+            count = ps.executeBatch();
+            // 事务提交
+            conn.commit();
+            conn.setAutoCommit(true);
+        } catch (SQLException e) {
+            conn.rollback();
+            logger.error("批量插入失败,回滚", e);
+            throw e;
+        }
+        return count;
+    }
+
+    /**
+     * 插入SQL语句,value部分用"?"代替
+     * @param row 行
+     * @return SQL语句
+     */
+    protected String insertSql(Row row) {
         if (row == null || row.size() == 0) {
             throw new NullPointerException("插入的行至少一列");
         }
@@ -109,30 +173,22 @@ public abstract class BaseTable implements ITable {
                 .append(") values(")
                 .append(values.delete(0, 2))
                 .append(")");
-        logger.debug("insert sql:{}", sql);
+        return sql.toString();
+    }
 
-        Connection conn = null;
-        PreparedStatement ps = null;
-        // 受影响行数
-        int count = 0;
-        try {
-            conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql.toString());
-            // 下标,从1开始
-            int i = 1;
-            for (Map.Entry<String, Object> entry : row.entrySet()) {
-                ps.setObject(i, entry.getValue());
-                i++;
-            }
-            count = ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("insert failed", e);
-            throw e;
-        } finally {
-            JdbcUtils.close(ps);
-            JdbcUtils.close(conn);
+    /**
+     * 预编译设值
+     * @param ps 与编译
+     * @param row 行
+     * @exception SQLException 失败
+     */
+    protected void prepareValue(PreparedStatement ps, Row row) throws SQLException{
+        // 下标,从1开始
+        int i = 1;
+        for (Map.Entry<String, Object> entry : row.entrySet()) {
+            ps.setObject(i, entry.getValue());
+            i++;
         }
-        return count;
     }
 
     public void setDataSource(DataSource dataSource) {

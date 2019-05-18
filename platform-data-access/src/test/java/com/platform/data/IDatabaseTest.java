@@ -1,6 +1,7 @@
 package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.fastjson.JSON;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.entity.Row;
 import com.platform.data.mysql.MysqlDatabase;
@@ -13,7 +14,9 @@ import com.platform.data.query.QueryBuilder;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class IDatabaseTest {
 
@@ -147,13 +150,50 @@ public class IDatabaseTest {
     public void insertTest() throws SQLException{
         String tableName = "user_info";
 
-        ITable mysqlTable = mysql.getTable(tableName);
         Row row = new Row()
                 .add("user_id", 1)
                 .add("name", "张三")
-                .add("create_time", new Date());
+                .add("create_time", new Date())
+                .add("birth_date", new Date())
+                .add("sex", 0);
 
-        mysqlTable.insert(row);
+//        ITable mysqlTable = mysql.getTable(tableName);
+//        mysqlTable.insert(row);
+
+        ITable oracleTable = oracle.getTable(tableName);
+        oracleTable.insert(row);
+    }
+
+    @Test
+    public void insertMoreTest() throws SQLException{
+        String tableName = "user_info";
+
+
+        Row row = new Row()
+                .add("user_id", 2)
+                .add("name", "李四")
+                .add("sex", 0)
+                .add("create_time", new Date());
+        Row row1 = new Row()
+                .add("user_id", 3)
+                .add("name", "王二")
+                .add("sex", 0)
+                .add("create_time", new Date());
+        Row row2 = new Row()
+                .add("user_id", 4)
+                .add("name", "麻子")
+                .add("sex", 1)
+                .add("create_time", new Date());
+        List<Row> rowList = new ArrayList<>();
+        rowList.add(row);
+        rowList.add(row1);
+        rowList.add(row2);
+
+        ITable mysqlTable = mysql.getTable(tableName);
+        System.out.println(JSON.toJSONString(mysqlTable.insert(rowList)));
+
+        ITable oracleTable = oracle.getTable(tableName);
+        System.out.println(JSON.toJSONString(oracleTable.insert(rowList)));
     }
 
 }

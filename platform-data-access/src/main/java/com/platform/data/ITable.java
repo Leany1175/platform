@@ -6,6 +6,8 @@ import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 
 public interface ITable {
 
@@ -102,13 +104,14 @@ public interface ITable {
 	 * @exception SQLException 异常
 	 */
 	int insert(Row row) throws SQLException;
-//
-//	/**
-//	 * 批量添加或更新
-//	 * @param rows 行
-//	 * @return 收影响行数
-//	 */
-//	int executeUpdate(Collection<Row> rows);
+
+	/**
+	 * 批量添加或更新, 要求每一行 key相等,并且key个数相等
+	 * @param rows 行
+	 * @return 收影响行数
+	 * @exception SQLException 失败
+	 */
+	int[] insert(List<Row> rows) throws SQLException;
 //
 //	/**
 //	 * 删除
