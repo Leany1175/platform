@@ -1,7 +1,7 @@
 package com.platform.data;
 
 import com.platform.data.builder.column.ColumnBuilders;
-import com.platform.data.query.IQueryBuilder;
+import com.platform.data.entity.Row;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
 
@@ -95,13 +95,13 @@ public interface ITable {
 //	 */
 //	IAggregationResult aggregation(IAggregationBuilder aggregationBuilder, IWhereClause whereClause);
 //
-//	/**
-//	 * 添加或更新
-//	 * @param row 行
-//	 * @return 受影响行数
-//	 * @exception SQLException 异常
-//	 */
-//	int executeUpdate(Row row) throws SQLException;
+	/**
+	 * 添加或更新
+	 * @param row 行
+	 * @return 受影响行数
+	 * @exception SQLException 异常
+	 */
+	int insert(Row row) throws SQLException;
 //
 //	/**
 //	 * 批量添加或更新

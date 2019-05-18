@@ -2,6 +2,7 @@ package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.platform.data.builder.column.ColumnBuilders;
+import com.platform.data.entity.Row;
 import com.platform.data.mysql.MysqlDatabase;
 import com.platform.data.mysql.MysqlTableBuilder;
 import com.platform.data.oracle.OracleTableBuilder;
@@ -12,6 +13,7 @@ import com.platform.data.query.QueryBuilder;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 public class IDatabaseTest {
 
@@ -136,6 +138,22 @@ public class IDatabaseTest {
         QueryBuilder queryBuilder = new QueryBuilder();
         mysqlTable.query(queryBuilder);
 
+    }
+
+
+
+
+    @Test
+    public void insertTest() throws SQLException{
+        String tableName = "user_info";
+
+        ITable mysqlTable = mysql.getTable(tableName);
+        Row row = new Row()
+                .add("user_id", 1)
+                .add("name", "张三")
+                .add("create_time", new Date());
+
+        mysqlTable.insert(row);
     }
 
 }

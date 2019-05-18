@@ -3,7 +3,7 @@ package com.platform.data.base;
 import com.platform.data.ITable;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
-import com.platform.data.query.IQueryBuilder;
+import com.platform.data.entity.Row;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
 import com.platform.data.util.JdbcUtils;
@@ -11,7 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 public abstract class BaseTable implements ITable {
 
@@ -83,6 +86,53 @@ public abstract class BaseTable implements ITable {
     @Override
     public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
         return null;
+    }
+
+    @Override
+    public int insert(Row row) throws SQLException {
+        if (row == null || row.size() == 0) {
+            throw new NullPointerException("插入的行至少一列");
+        }
+        // 列
+        StringBuffer keys = new StringBuffer();
+        // 值, 用"?"替代
+        StringBuffer values = new StringBuffer();
+        row.forEach((key, value) -> {
+            keys.append(" ,").append(key);
+            values.append(" ,").append("?");
+        });
+        // 拼接sql语句
+        StringBuffer sql = new StringBuffer("insert into ")
+                .append(TABLE_NAME)
+                .append("(")
+                .append(keys.delete(0, 2))
+                .append(") values(")
+                .append(values.delete(0, 2))
+                .append(")");
+        logger.debug("insert sql:{}", sql);
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        // 受影响行数
+        int count = 0;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql.toString());
+            // 下标,从1开始
+            int i = 1;
+            for (Map.Entry<String, Object> entry : row.entrySet()) {
+                ps.setObject(i, entry.getValue());
+                i++;
+            }
+            count = ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("insert failed", e);
+            throw e;
+        } finally {
+            JdbcUtils.close(ps);
+            JdbcUtils.close(conn);
+        }
+        return count;
     }
 
     public void setDataSource(DataSource dataSource) {
