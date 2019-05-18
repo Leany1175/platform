@@ -3,8 +3,9 @@ package com.platform.data.base;
 import com.platform.data.ITable;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
-import com.platform.data.other.IQueryBuilder;
-import com.platform.data.other.ISearchResult;
+import com.platform.data.query.IQueryBuilder;
+import com.platform.data.query.ISearchResult;
+import com.platform.data.query.QueryBuilder;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +81,7 @@ public abstract class BaseTable implements ITable {
     }
 
     @Override
-    public ISearchResult query(IQueryBuilder queryBuilder) throws SQLException {
+    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
         return null;
     }
 

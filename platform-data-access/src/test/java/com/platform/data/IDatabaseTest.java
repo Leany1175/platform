@@ -8,6 +8,7 @@ import com.platform.data.oracle.OracleTableBuilder;
 import com.platform.data.builder.table.TableBuilders;
 import com.platform.data.enums.ColumnTypeEnum;
 import com.platform.data.oracle.OracleDatabase;
+import com.platform.data.query.QueryBuilder;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -125,6 +126,16 @@ public class IDatabaseTest {
 
         ITable oracleTable = oracle.getTable(tableName);
         oracleTable.dropColumn("test_column_name_1");
+    }
+
+    @Test
+    public void queryTest() throws SQLException{
+        String tableName = "user_info";
+
+        ITable mysqlTable = mysql.getTable(tableName);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        mysqlTable.query(queryBuilder);
+
     }
 
 }
