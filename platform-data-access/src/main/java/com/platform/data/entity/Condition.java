@@ -12,7 +12,7 @@ import java.util.Map;
 public class Condition implements Serializable {
 
     /** 开始条数 */
-    private int start = 0;
+    private int from = 0;
     /** 展示条数 */
     private int size = 20;
     /** 排序条件 */
@@ -22,12 +22,12 @@ public class Condition implements Serializable {
     /** TODO 聚合条件 */
     private Map<String, Object> aggMap = new HashMap<>();
 
-    public int getStart() {
-        return start;
+    public int getFrom() {
+        return from;
     }
 
-    public void setStart(int start) {
-        this.start = start;
+    public void setFrom(int from) {
+        this.from = from;
     }
 
     public int getSize() {
