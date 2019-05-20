@@ -32,7 +32,7 @@ public class IDatabaseTest {
         oracleDataSource.setUsername("test");
         oracleDataSource.setPassword("123456");
 
-        mysqlDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8&useSSL=true");
+        mysqlDataSource.setUrl("jdbc:mysql://192.168.240.128:3306/test?characterEncoding=utf8&useSSL=true");
         mysqlDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         mysqlDataSource.setUsername("root");
         mysqlDataSource.setPassword("123456");
@@ -67,7 +67,7 @@ public class IDatabaseTest {
         System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
 
         mysql.createTable(tableBuilder);
-        oracle.createTable(tableBuilder);
+//        oracle.createTable(tableBuilder);
     }
 
     @Test
@@ -137,9 +137,16 @@ public class IDatabaseTest {
     public void queryTest() throws SQLException{
         String tableName = "user_info";
 
-        ITable mysqlTable = mysql.getTable(tableName);
-        QueryBuilder queryBuilder = new QueryBuilder();
-        mysqlTable.query(queryBuilder);
+        QueryBuilder queryBuilder = new QueryBuilder()
+                .like("name", "张三")
+                .like("name1", "张三")
+                .enablePage(true);
+
+//        ITable mysqlTable = mysql.getTable(tableName);
+//        mysqlTable.query(queryBuilder);
+
+        ITable oracleTable = oracle.getTable(tableName);
+        oracleTable.query(queryBuilder);
 
     }
 
@@ -157,11 +164,11 @@ public class IDatabaseTest {
                 .add("birth_date", new Date())
                 .add("sex", 0);
 
-//        ITable mysqlTable = mysql.getTable(tableName);
-//        mysqlTable.insert(row);
+        ITable mysqlTable = mysql.getTable(tableName);
+        mysqlTable.insert(row);
 
-        ITable oracleTable = oracle.getTable(tableName);
-        oracleTable.insert(row);
+//        ITable oracleTable = oracle.getTable(tableName);
+//        oracleTable.insert(row);
     }
 
     @Test
