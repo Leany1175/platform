@@ -1,6 +1,10 @@
 package com.platform.data.query;
 
-import com.platform.data.IMetaData;
+import com.platform.data.entity.ColumnConstruction;
+import com.platform.data.entity.Row;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ISearchResult {
 
@@ -14,10 +18,12 @@ public interface ISearchResult {
      * 列信息
      * @return 列
      */
-    IMetaData getMetaData();
+    List<ColumnConstruction> getSchema();
 
     // TODO 获取所有行
+    List<Row> getRows();
 
     // TODO 聚合统计结果
+    Object getAggregate();
 
 }
