@@ -15,6 +15,8 @@ public class Condition implements Serializable {
     private int from = 0;
     /** 展示条数 */
     private int size = 20;
+    /** 默认使用分页查询 */
+    private boolean enablePage = true;
     /** 排序条件 */
     private List<ConditionBean> sortList = new ArrayList<>();
     /** 查询条件 */
@@ -40,6 +42,14 @@ public class Condition implements Serializable {
 
     public List<ConditionBean> getSortList() {
         return sortList;
+    }
+
+    public boolean isEnablePage() {
+        return enablePage;
+    }
+
+    public void setEnablePage(boolean enablePage) {
+        this.enablePage = enablePage;
     }
 
     public void setSortList(List<ConditionBean> sortList) {

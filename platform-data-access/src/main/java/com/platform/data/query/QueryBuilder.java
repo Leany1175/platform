@@ -119,9 +119,23 @@ public class QueryBuilder {
         return this;
     }
 
-    @Deprecated
+    /**
+     * 是否启用分页查询
+     * @param enabled true代表分页查询
+     * @return this
+     */
+    public QueryBuilder enablePage(boolean enabled) {
+        condition.setEnablePage(enabled);
+        return this;
+    }
+
+    /**
+     * 构建SQL语句
+     * @param queryBuilder 条件
+     * @return value用?替代
+     */
     public String build(IQueryBuilder queryBuilder) {
-        return null;
+        return queryBuilder.buildQuery(condition);
     }
 
     /**

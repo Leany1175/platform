@@ -4,6 +4,7 @@ import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.base.BaseTable;
 import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.entity.Row;
+import com.platform.data.query.IQueryBuilder;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,11 @@ public class OracleTable extends BaseTable {
     @Override
     protected IColumnBuilder createBuilder() {
         return new OracleColumnBuilder();
+    }
+
+    @Override
+    protected IQueryBuilder createQueryBuild() {
+        return new OracleQueryBuilder();
     }
 
     @Override
