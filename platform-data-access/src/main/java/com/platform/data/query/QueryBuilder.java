@@ -99,6 +99,26 @@ public class QueryBuilder {
         return this;
     }
 
+    /**
+     * 开始
+     * @param from 开始条数
+     * @return this
+     */
+    public QueryBuilder from(int from) {
+        condition.setFrom(from);
+        return this;
+    }
+
+    /**
+     * 条数
+     * @param size 查询条数
+     * @return this
+     */
+    public QueryBuilder size(int size) {
+        condition.setSize(size);
+        return this;
+    }
+
     @Deprecated
     public String build(IQueryBuilder queryBuilder) {
         return null;
