@@ -13,18 +13,12 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
     public String buildQuery(Condition condition) {
         StringBuffer buffer = new StringBuffer("select * from ???");
 
-        List<ConditionBean> queryList = condition.getQueryList();
-        List<String> list = new ArrayList<>(queryList.size());
-        queryList.forEach(bean -> list.add(analysisCondition(bean)));
-
         // 过滤条件
-        String filter = String.join(" and ", list);
+        String filter = filter(condition.getQueryList());
         if (filter != null && !"".equals(filter)) {
             buffer.append(" where ").append(filter);
         }
-        // TODO 分页
-
-        return buffer.toString();
+        return buffer.append(condition.isEnablePage() ? " limit ?, ?" : "").toString();
     }
 
     @Override
@@ -32,13 +26,24 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
         return null;
     }
 
+    /**
+     * 过滤条件
+     * @param queryList 条件
+     */
+    protected String filter(List<ConditionBean> queryList) {
+        List<String> list = new ArrayList<>(queryList.size());
+        queryList.forEach(bean -> list.add(analysisCondition(bean)));
+
+        // 过滤条件
+        return String.join(" and ", list);
+    }
 
     /**
      * 条件解析
      * @param condition 条件
      * @return sql "?" 代替值
      */
-    protected String analysisCondition(ConditionBean condition) {
+    private String analysisCondition(ConditionBean condition) {
         switch (condition.getType()) {
             case  ConditionBean.TYPE_LIKE:
                 return condition.getKey() + " like ?";
