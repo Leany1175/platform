@@ -144,6 +144,9 @@ public abstract class BaseTable implements ITable {
             conn.rollback();
             logger.error("批量插入失败,回滚", e);
             throw e;
+        } finally {
+            JdbcUtils.close(ps);
+            JdbcUtils.close(conn);
         }
         return count;
     }
