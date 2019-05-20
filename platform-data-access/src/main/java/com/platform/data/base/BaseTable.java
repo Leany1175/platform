@@ -3,6 +3,8 @@ package com.platform.data.base;
 import com.platform.data.ITable;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
+import com.platform.data.entity.Condition;
+import com.platform.data.entity.ConditionBean;
 import com.platform.data.entity.Row;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
@@ -13,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +91,54 @@ public abstract class BaseTable implements ITable {
 
     @Override
     public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
+        // 条件
+        Condition condition = queryBuilder.build();
+        List<ConditionBean> queryList = condition.getQueryList();
+        List<String> list = new ArrayList<>(queryList.size());
+
+        List<Object> values = new ArrayList<>();
+        queryList.forEach(bean -> {
+            list.add(analysisCondition(bean));
+            if (bean.getValue1() != null) {
+                values.add(bean.getValue1());
+                if (bean.getValue2() != null) {
+                    values.add(bean.getValue2());
+                }
+            }
+        });
+        // 过滤条件
+        String filter = String.join(" and ", list);
+        StringBuffer sql = new StringBuffer("select * from ")
+                .append(TABLE_NAME);
+        if (filter != null && !"".equals(filter)) {
+            sql.append(" where ").append(filter);
+        }
+        // TODO 缺少  分页、排序、聚合等
+        System.out.println(sql);
+        logger.debug("query sql:{}", sql);
+        // TODO prepare ?
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql.toString());
+            // ? set value
+            for (int i = 0, len = values.size(); i < len; i++) {
+                ps.setObject(i + 1, values.get(i));
+            }
+            // 查询
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                // TODO 结果
+                System.out.println(rs);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            JdbcUtils.close(conn, ps, rs);
+        }
+
         return null;
     }
 
@@ -191,6 +243,20 @@ public abstract class BaseTable implements ITable {
         for (Map.Entry<String, Object> entry : row.entrySet()) {
             ps.setObject(i, entry.getValue());
             i++;
+        }
+    }
+
+    /**
+     * 条件解析
+     * @param condition 条件
+     * @return sql "?" 代替值
+     */
+    protected String analysisCondition(ConditionBean condition) {
+        switch (condition.getType()) {
+            case  ConditionBean.TYPE_LIKE:
+                return condition.getKey() + " like ?";
+            default:
+                throw new NullPointerException("未知过滤条件");
         }
     }
 

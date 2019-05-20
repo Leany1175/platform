@@ -20,10 +20,10 @@ public class ConditionBean implements Serializable {
     public final static String TYPE_ASC = "TYPE_ASC";
     public final static String TYPE_DESC = "TYPE_DESC";
 
-    /** 字段名 */
-    private String key;
     /** 查询类型 */
     private String type;
+    /** 字段名 */
+    private String key;
     /** 值1 */
     private Object value1;
     /** 值2 */
@@ -32,34 +32,22 @@ public class ConditionBean implements Serializable {
     public ConditionBean() {
     }
 
-    public ConditionBean(String key) {
+    public ConditionBean(String type, String key) {
+        this.type = type;
         this.key = key;
     }
 
-    public ConditionBean(String key, String type) {
-        this.key = key;
+    public ConditionBean(String type, String key, Object value1) {
         this.type = type;
-    }
-
-    public ConditionBean(String key, String type, Object value1) {
         this.key = key;
-        this.type = type;
         this.value1 = value1;
     }
 
-    public ConditionBean(String key, String type, Object value1, Object value2) {
-        this.key = key;
+    public ConditionBean(String type, String key, Object value1, Object value2) {
         this.type = type;
+        this.key = key;
         this.value1 = value1;
         this.value2 = value2;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getType() {
@@ -68,6 +56,14 @@ public class ConditionBean implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Object getValue1() {

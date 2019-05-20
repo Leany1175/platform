@@ -95,12 +95,21 @@ public class QueryBuilder {
      * @return this
      */
     public QueryBuilder like(String field, String value) {
-        condition.getQueryList().add(new ConditionBean(ConditionBean.TYPE_LIKE, field, "'%" + value + "%'"));
+        condition.getQueryList().add(new ConditionBean(ConditionBean.TYPE_LIKE, field, "%" + value + "%"));
         return this;
     }
 
+    @Deprecated
     public String build(IQueryBuilder queryBuilder) {
         return null;
+    }
+
+    /**
+     * 条件
+     * @return 条件
+     */
+    public Condition build() {
+        return condition;
     }
 
 }
