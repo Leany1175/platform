@@ -142,10 +142,10 @@ public class IDatabaseTest {
                 .like("name1", "张三")
                 .desc("create_time")
                 .asc("sex")
-                .enablePage(false);
+                .enablePage(true);
 
-//        ITable mysqlTable = mysql.getTable(tableName);
-//        mysqlTable.query(queryBuilder);
+        ITable mysqlTable = mysql.getTable(tableName);
+        mysqlTable.query(queryBuilder);
 
         ITable oracleTable = oracle.getTable(tableName);
         oracleTable.query(queryBuilder);

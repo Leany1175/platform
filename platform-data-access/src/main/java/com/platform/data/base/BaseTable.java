@@ -98,7 +98,11 @@ public abstract class BaseTable implements ITable {
 
     @Override
     public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
-        ISearchResult result = new SearchResult();
+        // 查询结果
+        SearchResult result = new SearchResult();
+        // 表名
+        result.setTableName(TABLE_NAME);
+
         // sql查询语句, select * from ??? where ...
         String sql = queryBuilder.build(createQueryBuild());
         sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);

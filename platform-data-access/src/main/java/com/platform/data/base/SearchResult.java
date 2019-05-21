@@ -8,6 +8,14 @@ import java.util.List;
 
 public class SearchResult implements ISearchResult {
 
+    /** 表名 */
+    private String tableName;
+    /** 列信息 */
+    private List<ColumnConstruction> schema;
+    /** 行 */
+    private List<Row> rows;
+
+
     @Override
     public String tableName() {
         return null;
@@ -28,4 +36,15 @@ public class SearchResult implements ISearchResult {
         return null;
     }
 
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public void setSchema(List<ColumnConstruction> schema) {
+        this.schema = schema;
+    }
+
+    public void setRows(List<Row> rows) {
+        this.rows = rows;
+    }
 }

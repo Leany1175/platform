@@ -15,9 +15,11 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
 
         // 过滤条件
         String filter = filter(condition.getQueryList());
-        if (filter != null && !"".equals(filter)) {
-            buffer.append(" where ").append(filter);
-        }
+        buffer.append(filter == null || "".equals(filter) ? "" : " where " + filter);
+        // 排序条件
+        String sort = sort(condition.getSortList());
+        buffer.append(sort == null || "".equals(sort) ? "" : " order by " + sort);
+
         return buffer.append(condition.isEnablePage() ? " limit ?, ?" : "").toString();
     }
 
