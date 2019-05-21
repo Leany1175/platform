@@ -30,11 +30,8 @@ public class OracleQueryBuilder extends BaseQueryBuilder {
                         .append(filter)
                         .append(") where r > ? and r <= ?").toString();
             }
-        } else { // 普通查询
-
-
         }
-        // TODO return 返回结果
+        // 返回结果
         return super.buildQuery(condition);
     }
 
