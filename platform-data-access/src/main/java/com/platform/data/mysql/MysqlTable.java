@@ -7,6 +7,7 @@ import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.base.BaseTable;
 import com.platform.data.entity.ColumnConstruction;
 import com.platform.data.entity.Condition;
+import com.platform.data.entity.ConditionBean;
 import com.platform.data.query.IQueryBuilder;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
@@ -19,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlTable extends BaseTable {
@@ -51,46 +53,32 @@ public class MysqlTable extends BaseTable {
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
-    @Override
-    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
-        // 查询结果
-        SearchResult result = new SearchResult();
-        // 表名
-        result.setTableName(TABLE_NAME);
+    /**
+     * 预编译设值
+     * @param ps 与编译
+     * @param condition 条件
+     * @exception SQLException 失败
+     */
+    protected void prepareValue(PreparedStatement ps, Condition condition) throws SQLException{
+        // 查询条件
+        List<ConditionBean> conditionList = condition.getQueryList();
 
-        // sql查询语句, select * from ??? where ...
-        String sql = queryBuilder.build(createQueryBuild());
-        sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
-        logger.debug("query sql:{}", sql);
-
-        List<Object> objectList = queryBuilder.values();
-
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql);
-            // ? set value
-            for (int i = 0, len = objectList.size(); i < len; i++) {
-                ps.setObject(i + 1, objectList.get(i));
+        List<Object> values = new ArrayList<>();
+        // 查询条件
+        conditionList.forEach(bean -> {
+            if (bean.getValue1() != null) {
+                values.add(bean.getValue1());
             }
-
-            // 解析列
-            List<ColumnConstruction> columnList = analyzeColumn(ps);
-            System.out.println(JSON.toJSONString(columnList, true));
-            // 查询
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                // TODO 结果
-                System.out.println(rs.getObject(1));
+            if (bean.getValue2() != null) {
+                values.add(bean.getValue2());
             }
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            JdbcUtils.close(conn, ps, rs);
+        });
+
+        // ? set value
+        for (int i = 0, len = values.size(); i < len; i++) {
+            ps.setObject(i + 1, values.get(i));
         }
-        return result;
+
     }
 
 }

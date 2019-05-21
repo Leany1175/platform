@@ -18,17 +18,17 @@ public class SearchResult implements ISearchResult {
 
     @Override
     public String tableName() {
-        return null;
+        return tableName;
     }
 
     @Override
     public List<ColumnConstruction> getSchema() {
-        return null;
+        return schema;
     }
 
     @Override
     public List<Row> getRows() {
-        return null;
+        return rows;
     }
 
     @Override

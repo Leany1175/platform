@@ -19,10 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class BaseTable implements ITable {
 
@@ -97,53 +94,44 @@ public abstract class BaseTable implements ITable {
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
-//    @Override
-//    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
-//        // 查询结果
-//        SearchResult result = new SearchResult();
-//        // 表名
-//        result.setTableName(TABLE_NAME);
-//
-//        // sql查询语句, select * from ??? where ...
-//        String sql = queryBuilder.build(createQueryBuild());
-//        sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
-//        logger.debug("query sql:{}", sql);
-//
-//        List<Object> objectList = queryBuilder.values();
-//        Condition condition = queryBuilder.build();
-//
-//        Connection conn = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        try {
-//            conn = dataSource.getConnection();
-//            ps = conn.prepareStatement(sql);
-//            // ? set value
-//            for (int i = 0, len = objectList.size(); i < len; i++) {
-//                ps.setObject(i + 1, objectList.get(i));
-//            }
-//            // 分页
-//            if (queryBuilder.build().isEnablePage()) {
-//                ps.setObject(objectList.size() + 1, condition.getFrom());
-//                ps.setObject(objectList.size() + 2, condition.getSize());
-//            }
-//            // 解析列
-//            List<ColumnConstruction> columnList = analyzeColumn(ps);
-//            System.out.println(JSON.toJSONString(columnList));
-//            // 查询
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                // TODO 结果
-//                System.out.println(rs.getObject(1));
-//            }
-//        } catch (SQLException e) {
-//            throw e;
-//        } finally {
-//            JdbcUtils.close(conn, ps, rs);
-//        }
-//
-//        return result;
-//    }
+    @Override
+    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
+        // 查询结果
+        SearchResult result = new SearchResult();
+
+        // 表名
+        result.setTableName(TABLE_NAME);
+
+        // sql查询语句, select * from ??? where ...
+        String sql = queryBuilder.build(createQueryBuild());
+        sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
+        logger.debug("query sql:{}", sql);
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql);
+
+            // 预编译设值
+            prepareValue(ps, queryBuilder.build());
+
+            // 解析列
+            result.setSchema(analyzeColumn(ps));
+
+            // 查询
+            rs = ps.executeQuery();
+            // 结果解析
+            result.setRows(analyzeResult(rs, result.getSchema()));
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            JdbcUtils.close(conn, ps, rs);
+        }
+
+        return result;
+    }
 
     @Override
     public int insert(Row row) throws SQLException {
@@ -250,6 +238,41 @@ public abstract class BaseTable implements ITable {
     }
 
     /**
+     * 预编译设值
+     * @param ps 与编译
+     * @param condition 条件
+     * @exception SQLException 失败
+     */
+    protected void prepareValue(PreparedStatement ps, Condition condition) throws SQLException{
+        // 查询条件
+        List<ConditionBean> conditionList = condition.getQueryList();
+
+        List<Object> values = new ArrayList<>();
+        // 查询条件
+        conditionList.forEach(bean -> {
+            if (bean.getValue1() != null) {
+                values.add(bean.getValue1());
+            }
+            if (bean.getValue2() != null) {
+                values.add(bean.getValue2());
+            }
+        });
+        // 分页条件
+        if (condition.isEnablePage()) {
+            // 开始条数
+            ps.setInt(values.size() + 1, condition.getFrom());
+            // 查询条数
+            ps.setInt(values.size() + 2, condition.getSize());
+        }
+
+        // ? set value
+        for (int i = 0, len = values.size(); i < len; i++) {
+            ps.setObject(i + 1, values.get(i));
+        }
+
+    }
+
+    /**
      * 解析列
      * @param ps 预编译
      * @return 列
@@ -304,6 +327,30 @@ public abstract class BaseTable implements ITable {
                 break;
         }
         return ColumnTypeEnum.TEXT;
+    }
+
+    /**
+     * 结果解析
+     * @param rs 结果街
+     * @param columnList 列集合
+     * @return 结果
+     * @exception SQLException 解析异常
+     */
+    protected List<Row> analyzeResult(ResultSet rs, List<ColumnConstruction> columnList) throws SQLException{
+        List<String> schema = new ArrayList<>(columnList.size());
+        // 列名
+        columnList.forEach(column -> schema.add(column.getColumnName()));
+
+        // 返回结果
+        List<Row> rowList = new LinkedList<>();
+        while (rs.next()) {
+            Row row = new Row();
+            for (String name : schema) {
+                row.put(name, rs.getObject(name));
+            }
+            rowList.add(row);
+        }
+        return rowList;
     }
 
     public void setDataSource(DataSource dataSource) {

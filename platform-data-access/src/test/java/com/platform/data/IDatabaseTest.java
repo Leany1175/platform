@@ -143,8 +143,8 @@ public class IDatabaseTest {
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.query(queryBuilder);
 
-//        ITable oracleTable = oracle.getTable(tableName);
-//        oracleTable.query(queryBuilder);
+        ITable oracleTable = oracle.getTable(tableName);
+        oracleTable.query(queryBuilder);
 
     }
 
