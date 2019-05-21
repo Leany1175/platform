@@ -5,6 +5,8 @@ import com.platform.data.base.BaseTable;
 import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.entity.Row;
 import com.platform.data.query.IQueryBuilder;
+import com.platform.data.query.ISearchResult;
+import com.platform.data.query.QueryBuilder;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,11 @@ public class OracleTable extends BaseTable {
                 .append(")");
         logger.debug("修改列:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
+        return null;
     }
 
     /**

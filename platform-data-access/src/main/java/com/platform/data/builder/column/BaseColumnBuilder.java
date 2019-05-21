@@ -13,11 +13,9 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
     protected String createObjectColumn(ColumnConstruction column) {
         if (column.getColumnTypeEnum() == ColumnTypeEnum.CHAR) { // 字符
             return createCharColumn(column);
-        } else if (column.getColumnTypeEnum() == ColumnTypeEnum.STRING) { // 字符串
+        } else if (column.getColumnTypeEnum() == ColumnTypeEnum.TEXT) { // 字符串
             return createVarcharColumn(column);
-        } else if (column.getColumnTypeEnum() == ColumnTypeEnum.TEXT) { // 大文本
-            return createTextColumn(column);
-        } else if (column.getColumnTypeEnum() == ColumnTypeEnum.INTEGER) { // 整型
+        }  else if (column.getColumnTypeEnum() == ColumnTypeEnum.INTEGER) { // 整型
             return createIntegerColumn(column);
         } else if (column.getColumnTypeEnum() == ColumnTypeEnum.FLOAT) { // 单精度浮点
             return createFloatColumn(column);
@@ -53,19 +51,6 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
                 .append("(")
                 .append(column.getLength())
                 .append(")");
-
-        defaultAndNull(buffer, column);
-        return buffer.toString();
-    }
-
-    /**
-     * 大文本
-     * @param column 列信息
-     * @return sql
-     */
-    protected String createTextColumn(ColumnConstruction column) {
-        StringBuffer buffer = new StringBuffer(column.getColumnName())
-                .append(" blob");
 
         defaultAndNull(buffer, column);
         return buffer.toString();

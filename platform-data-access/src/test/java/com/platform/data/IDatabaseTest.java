@@ -45,8 +45,6 @@ public class IDatabaseTest {
     public void test() throws SQLException{
         Connection conn = mysqlDataSource.getConnection();
         PreparedStatement ps = conn.prepareStatement("select * from user_info limit 0, 10");
-//        ps.setInt(1, 0);
-//        ps.setInt(2, 10);
         ps.getMetaData();
         ps.executeQuery();
     }
@@ -64,14 +62,13 @@ public class IDatabaseTest {
                 .addColumn(
                         new ColumnBuilders().columnName("id").columnType(ColumnTypeEnum.INTEGER).isNull(false),
                         new ColumnBuilders().columnName("sex").columnType(ColumnTypeEnum.CHAR).length(4),
-                        new ColumnBuilders().columnName("name").columnType(ColumnTypeEnum.STRING).length(32),
+                        new ColumnBuilders().columnName("name").columnType(ColumnTypeEnum.TEXT).length(32),
                         new ColumnBuilders().columnName("age").columnType(ColumnTypeEnum.INTEGER).length(4).defaultValue(18),
                         new ColumnBuilders().columnName("width").columnType(ColumnTypeEnum.FLOAT),
                         new ColumnBuilders().columnName("height").columnType(ColumnTypeEnum.DOUBLE),
                         new ColumnBuilders().columnName("weight").columnType(ColumnTypeEnum.DECIMAL).length(10).precision(4),
                         new ColumnBuilders().columnName("birth_date").columnType(ColumnTypeEnum.DATE),
-                        new ColumnBuilders().columnName("create_time").columnType(ColumnTypeEnum.TIMESTAMP),
-                        new ColumnBuilders().columnName("description").columnType(ColumnTypeEnum.TEXT)
+                        new ColumnBuilders().columnName("create_time").columnType(ColumnTypeEnum.TIMESTAMP)
                 );
 
         mysql.createTable(tableBuilder);
@@ -88,7 +85,7 @@ public class IDatabaseTest {
 
     @Test
     public void addColumnTest() throws SQLException{
-        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(32).defaultValue("test").isNull(false);
+        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.TEXT).length(32).defaultValue("test").isNull(false);
 
         ITable mysqlTable = mysql.getTable(tableName);
         System.out.println(mysqlTable.getTableName());
@@ -101,7 +98,7 @@ public class IDatabaseTest {
 
     @Test
     public void modifyColumnTest() throws SQLException{
-        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(64);
+        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.TEXT).length(64);
         String tableName = "user_info";
 
         ITable mysqlTable = mysql.getTable(tableName);
@@ -114,7 +111,7 @@ public class IDatabaseTest {
     @Test
     public void renameColumnTest() throws SQLException{
         String tableName = "user_info";
-        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name_1").columnType(ColumnTypeEnum.STRING).length(64);
+        ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name_1").columnType(ColumnTypeEnum.TEXT).length(64);
 
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.renameColumn("test_column_name", columnBuilders);
@@ -125,8 +122,6 @@ public class IDatabaseTest {
 
     @Test
     public void dropColumnTest() throws SQLException{
-        String tableName = "user_info";
-
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.dropColumn("test_column_name_1");
 
@@ -144,6 +139,7 @@ public class IDatabaseTest {
                 .asc("sex")
                 .enablePage(true);
 
+        // TODO 查询
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.query(queryBuilder);
 

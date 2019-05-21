@@ -3,8 +3,7 @@ package com.platform.data.enums;
 public enum ColumnTypeEnum {
 
     CHAR, // 字符
-    STRING, // 字符串
-    TEXT, // 大文本
+    TEXT, // 字符串
     INTEGER, // 整型
     FLOAT, // 浮点
     DOUBLE, // 双精度浮点

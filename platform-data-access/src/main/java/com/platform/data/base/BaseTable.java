@@ -9,6 +9,7 @@ import com.platform.data.entity.ColumnConstruction;
 import com.platform.data.entity.Condition;
 import com.platform.data.entity.ConditionBean;
 import com.platform.data.entity.Row;
+import com.platform.data.enums.ColumnTypeEnum;
 import com.platform.data.query.IQueryBuilder;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
@@ -96,53 +97,53 @@ public abstract class BaseTable implements ITable {
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
-    @Override
-    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
-        // 查询结果
-        SearchResult result = new SearchResult();
-        // 表名
-        result.setTableName(TABLE_NAME);
-
-        // sql查询语句, select * from ??? where ...
-        String sql = queryBuilder.build(createQueryBuild());
-        sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
-        logger.debug("query sql:{}", sql);
-
-        List<Object> objectList = queryBuilder.values();
-        Condition condition = queryBuilder.build();
-
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql);
-            // ? set value
-            for (int i = 0, len = objectList.size(); i < len; i++) {
-                ps.setObject(i + 1, objectList.get(i));
-            }
-            // 分页
-            if (queryBuilder.build().isEnablePage()) {
-                ps.setObject(objectList.size() + 1, condition.getFrom());
-                ps.setObject(objectList.size() + 2, condition.getSize());
-            }
-            // 解析列
-            List<ColumnConstruction> columnList = analyzeColumn(ps);
-            System.out.println(JSON.toJSONString(columnList));
-            // 查询
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                // TODO 结果
-                System.out.println(rs.getObject(1));
-            }
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            JdbcUtils.close(conn, ps, rs);
-        }
-
-        return result;
-    }
+//    @Override
+//    public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
+//        // 查询结果
+//        SearchResult result = new SearchResult();
+//        // 表名
+//        result.setTableName(TABLE_NAME);
+//
+//        // sql查询语句, select * from ??? where ...
+//        String sql = queryBuilder.build(createQueryBuild());
+//        sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
+//        logger.debug("query sql:{}", sql);
+//
+//        List<Object> objectList = queryBuilder.values();
+//        Condition condition = queryBuilder.build();
+//
+//        Connection conn = null;
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//        try {
+//            conn = dataSource.getConnection();
+//            ps = conn.prepareStatement(sql);
+//            // ? set value
+//            for (int i = 0, len = objectList.size(); i < len; i++) {
+//                ps.setObject(i + 1, objectList.get(i));
+//            }
+//            // 分页
+//            if (queryBuilder.build().isEnablePage()) {
+//                ps.setObject(objectList.size() + 1, condition.getFrom());
+//                ps.setObject(objectList.size() + 2, condition.getSize());
+//            }
+//            // 解析列
+//            List<ColumnConstruction> columnList = analyzeColumn(ps);
+//            System.out.println(JSON.toJSONString(columnList));
+//            // 查询
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                // TODO 结果
+//                System.out.println(rs.getObject(1));
+//            }
+//        } catch (SQLException e) {
+//            throw e;
+//        } finally {
+//            JdbcUtils.close(conn, ps, rs);
+//        }
+//
+//        return result;
+//    }
 
     @Override
     public int insert(Row row) throws SQLException {
@@ -263,10 +264,46 @@ public abstract class BaseTable implements ITable {
             ColumnConstruction column = new ColumnConstruction();
             // 列名
             column.setColumnName(metaData.getColumnName(i));
-
+            // 列类型
+            column.setColumnTypeEnum(analyzeColumnType(metaData.getColumnTypeName(i)));
+            // 长度
+            column.setLength(metaData.getColumnDisplaySize(i));
+            // 经度
+            column.setPrecision(metaData.getPrecision(i));
+            // 允许为空
+            column.setNull(metaData.isNullable(i) == 1);
             list.add(column);
         }
         return list;
+    }
+
+    /**
+     * 生成列类型枚举
+     * @param type 列类型
+     * @return 列类型, 默认TEXT
+     */
+    protected ColumnTypeEnum analyzeColumnType(String type) {
+        switch (type) {
+            case "INT":
+                return ColumnTypeEnum.INTEGER;
+            case "CHAR":
+                return ColumnTypeEnum.CHAR;
+            case "VARCHAR":
+                return ColumnTypeEnum.TEXT;
+            case "FLOAT":
+                return ColumnTypeEnum.FLOAT;
+            case "DOUBLE":
+                return ColumnTypeEnum.DOUBLE;
+            case "DECIMAL":
+                return ColumnTypeEnum.DECIMAL;
+            case "DATE":
+                return ColumnTypeEnum.DATE;
+            case "DATETIME":
+                return ColumnTypeEnum.TIMESTAMP;
+            default:
+                break;
+        }
+        return ColumnTypeEnum.TEXT;
     }
 
     public void setDataSource(DataSource dataSource) {

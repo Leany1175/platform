@@ -64,7 +64,6 @@ public class MysqlTable extends BaseTable {
         logger.debug("query sql:{}", sql);
 
         List<Object> objectList = queryBuilder.values();
-        Condition condition = queryBuilder.build();
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -79,7 +78,7 @@ public class MysqlTable extends BaseTable {
 
             // 解析列
             List<ColumnConstruction> columnList = analyzeColumn(ps);
-            System.out.println(JSON.toJSONString(columnList));
+            System.out.println(JSON.toJSONString(columnList, true));
             // 查询
             rs = ps.executeQuery();
             while (rs.next()) {
