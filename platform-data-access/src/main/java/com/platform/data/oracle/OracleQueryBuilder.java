@@ -22,7 +22,7 @@ public class OracleQueryBuilder extends BaseQueryBuilder {
                         .append(filter)
                         .append(" order by ")
                         .append(sort == null || "".equals(sort) ? "" : sort)
-                        .append(") tb) where r > 0 and r <= 10")
+                        .append(") tb) where r > ? and r <= ?")
                         .toString();
             } else { // 无排序
                 // select * from (select rownum r, tb.* from user_info tb) where r > 0 and r <= 10
