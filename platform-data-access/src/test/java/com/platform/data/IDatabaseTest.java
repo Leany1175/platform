@@ -139,7 +139,7 @@ public class IDatabaseTest {
                 .asc("sex")
                 .enablePage(true);
 
-        // TODO 查询
+        // 查询
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.query(queryBuilder);
 
