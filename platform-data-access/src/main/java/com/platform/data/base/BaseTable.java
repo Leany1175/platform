@@ -108,54 +108,35 @@ public abstract class BaseTable implements ITable {
         sql = sql.replaceAll("\\?\\?\\?", TABLE_NAME);
         logger.debug("query sql:{}", sql);
 
+        List<Object> objectList = queryBuilder.values();
+        Condition condition = queryBuilder.build();
 
-//        // 条件
-//        Condition condition = queryBuilder.build();
-//        List<ConditionBean> queryList = condition.getQueryList();
-//        List<String> list = new ArrayList<>(queryList.size());
-//
-//        List<Object> values = new ArrayList<>();
-//        queryList.forEach(bean -> {
-//            list.add(analysisCondition(bean));
-//            if (bean.getValue1() != null) {
-//                values.add(bean.getValue1());
-//                if (bean.getValue2() != null) {
-//                    values.add(bean.getValue2());
-//                }
-//            }
-//        });
-//        // 过滤条件
-//        String filter = String.join(" and ", list);
-//        StringBuffer sql = new StringBuffer("select * from ")
-//                .append(TABLE_NAME);
-//        if (filter != null && !"".equals(filter)) {
-//            sql.append(" where ").append(filter);
-//        }
-//        // TODO 缺少  分页、排序、聚合等
-//        System.out.println(sql);
-//        logger.debug("query sql:{}", sql);
-//        // TODO prepare ?
-//        Connection conn = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        try {
-//            conn = dataSource.getConnection();
-//            ps = conn.prepareStatement(sql.toString());
-//            // ? set value
-//            for (int i = 0, len = values.size(); i < len; i++) {
-//                ps.setObject(i + 1, values.get(i));
-//            }
-//            // 查询
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                // TODO 结果
-//                System.out.println(rs);
-//            }
-//        } catch (SQLException e) {
-//            throw e;
-//        } finally {
-//            JdbcUtils.close(conn, ps, rs);
-//        }
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql);
+            // ? set value
+            for (int i = 0, len = objectList.size(); i < len; i++) {
+                ps.setObject(i + 1, objectList.get(i));
+            }
+            // 排序
+            if (queryBuilder.build().isEnablePage()) {
+                ps.setInt(objectList.size() + 1, condition.getFrom());
+                ps.setInt(objectList.size() + 2, condition.getSize());
+            }
+            // 查询
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                // TODO 结果
+                System.out.println(rs);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            JdbcUtils.close(conn, ps, rs);
+        }
 
         return result;
     }

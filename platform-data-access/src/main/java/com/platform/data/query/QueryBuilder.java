@@ -3,10 +3,7 @@ package com.platform.data.query;
 import com.platform.data.entity.Condition;
 import com.platform.data.entity.ConditionBean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class QueryBuilder {
 
@@ -144,6 +141,23 @@ public class QueryBuilder {
      */
     public Condition build() {
         return condition;
+    }
+
+    /**
+     * 所有值 查询 + 排序
+     * @return 值
+     */
+    public List<Object> values() {
+        List<Object> list = new LinkedList<>();
+        condition.getQueryList().forEach(bean -> {
+            if (bean.getValue1() != null) {
+                list.add(bean.getValue1());
+            }
+            if (bean.getValue2() != null) {
+                list.add(bean.getValue2());
+            }
+        });
+        return list;
     }
 
 }
