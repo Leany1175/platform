@@ -140,6 +140,8 @@ public class IDatabaseTest {
         QueryBuilder queryBuilder = new QueryBuilder()
                 .like("name", "张三")
                 .like("name1", "张三")
+                .desc("create_time")
+                .asc("sex")
                 .enablePage(true);
 
 //        ITable mysqlTable = mysql.getTable(tableName);

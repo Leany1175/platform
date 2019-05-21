@@ -32,10 +32,23 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
      */
     protected String filter(List<ConditionBean> queryList) {
         List<String> list = new ArrayList<>(queryList.size());
-        queryList.forEach(bean -> list.add(analysisCondition(bean)));
+        queryList.forEach(bean -> list.add(analyseQuery(bean)));
 
         // 过滤条件
         return String.join(" and ", list);
+    }
+
+    /**
+     * 排序条件
+     * @param sortList 排序
+     * @return 排序条件
+     */
+    protected String sort(List<ConditionBean> sortList) {
+        List<String> list = new ArrayList<>(sortList.size());
+        sortList.forEach(bean -> list.add(analyseQuery(bean)));
+
+        // 过滤条件
+        return String.join(", ", list);
     }
 
     /**
@@ -43,12 +56,28 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
      * @param condition 条件
      * @return sql "?" 代替值
      */
-    private String analysisCondition(ConditionBean condition) {
+    protected String analyseQuery(ConditionBean condition) {
         switch (condition.getType()) {
             case  ConditionBean.TYPE_LIKE:
                 return condition.getKey() + " like ?";
             default:
                 throw new NullPointerException("未知过滤条件");
+        }
+    }
+
+    /**
+     * 排序解析
+     * @param condition 条件
+     * @return 排序条件
+     */
+    protected String analyseSort(ConditionBean condition) {
+        switch (condition.getType()) {
+            case ConditionBean.TYPE_DESC:
+                return condition.getKey() + " desc";
+            case ConditionBean.TYPE_ASC:
+                return condition.getKey() + " asc";
+            default:
+                throw new NullPointerException("未知排序条件");
         }
     }
 
