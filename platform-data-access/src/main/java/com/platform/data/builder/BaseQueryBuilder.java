@@ -45,7 +45,7 @@ public abstract class BaseQueryBuilder implements IQueryBuilder {
      */
     protected String sort(List<ConditionBean> sortList) {
         List<String> list = new ArrayList<>(sortList.size());
-        sortList.forEach(bean -> list.add(analyseQuery(bean)));
+        sortList.forEach(bean -> list.add(analyseSort(bean)));
 
         // 过滤条件
         return String.join(", ", list);
