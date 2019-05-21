@@ -153,7 +153,7 @@ public abstract class BaseTable implements ITable {
         int count = 0;
         try {
             conn = dataSource.getConnection();
-            ps = conn.prepareStatement(sql.toString());
+            ps = conn.prepareStatement(sql);
             // 设值
             prepareValue(ps, row);
             count = ps.executeUpdate();

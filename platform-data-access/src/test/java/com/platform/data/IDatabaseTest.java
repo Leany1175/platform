@@ -3,12 +3,10 @@ package com.platform.data;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSON;
 import com.platform.data.builder.column.ColumnBuilders;
-import com.platform.data.entity.Row;
-import com.platform.data.mysql.MysqlDatabase;
-import com.platform.data.mysql.MysqlTableBuilder;
-import com.platform.data.oracle.OracleTableBuilder;
 import com.platform.data.builder.table.TableBuilders;
+import com.platform.data.entity.Row;
 import com.platform.data.enums.ColumnTypeEnum;
+import com.platform.data.mysql.MysqlDatabase;
 import com.platform.data.oracle.OracleDatabase;
 import com.platform.data.query.QueryBuilder;
 import org.junit.Test;
@@ -25,6 +23,8 @@ public class IDatabaseTest {
 
     private IDatabase oracle = new OracleDatabase(oracleDataSource);
     private IDatabase mysql = new MysqlDatabase(mysqlDataSource);
+
+    private String tableName = "user_info";
 
     static {
         oracleDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:orcl");
@@ -47,27 +47,22 @@ public class IDatabaseTest {
     @Test
     public void createTableTest() throws SQLException{
         TableBuilders tableBuilder = new TableBuilders()
-                .tableName("user_info")
+                .tableName(tableName)
                 .addColumn(
-                        new ColumnBuilders().columnName("user_id").columnType(ColumnTypeEnum.INTEGER).isNull(false),
-                        new ColumnBuilders().columnName("sex_1").columnType(ColumnTypeEnum.CHAR).length(4),
+                        new ColumnBuilders().columnName("id").columnType(ColumnTypeEnum.INTEGER).isNull(false),
+                        new ColumnBuilders().columnName("sex").columnType(ColumnTypeEnum.CHAR).length(4),
                         new ColumnBuilders().columnName("name").columnType(ColumnTypeEnum.STRING).length(32),
-                        new ColumnBuilders().columnName("sex").columnType(ColumnTypeEnum.INTEGER).length(11).defaultValue(0),
                         new ColumnBuilders().columnName("age").columnType(ColumnTypeEnum.INTEGER).length(4).defaultValue(18),
-                        new ColumnBuilders().columnName("height").columnType(ColumnTypeEnum.DECIMAL).length(10).precision(5),
                         new ColumnBuilders().columnName("width").columnType(ColumnTypeEnum.FLOAT),
-                        new ColumnBuilders().columnName("width_1").columnType(ColumnTypeEnum.DOUBLE),
+                        new ColumnBuilders().columnName("height").columnType(ColumnTypeEnum.DOUBLE),
+                        new ColumnBuilders().columnName("weight").columnType(ColumnTypeEnum.DECIMAL).length(10).precision(4),
                         new ColumnBuilders().columnName("birth_date").columnType(ColumnTypeEnum.DATE),
-                        new ColumnBuilders().columnName("description").columnType(ColumnTypeEnum.TEXT),
-                        new ColumnBuilders().columnName("create_time").columnType(ColumnTypeEnum.TIMESTAMP)
+                        new ColumnBuilders().columnName("create_time").columnType(ColumnTypeEnum.TIMESTAMP),
+                        new ColumnBuilders().columnName("description").columnType(ColumnTypeEnum.TEXT)
                 );
-//        System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), false));
-        System.out.println(tableBuilder.buildSql(new MysqlTableBuilder(), true));
-//        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), false));
-        System.out.println(tableBuilder.buildSql(new OracleTableBuilder(), true));
 
         mysql.createTable(tableBuilder);
-//        oracle.createTable(tableBuilder);
+        oracle.createTable(tableBuilder);
     }
 
     @Test
@@ -78,15 +73,8 @@ public class IDatabaseTest {
 
 
 
-
-
-
-
-
-
     @Test
     public void addColumnTest() throws SQLException{
-        String tableName = "user_info";
         ColumnBuilders columnBuilders = new ColumnBuilders().columnName("test_column_name").columnType(ColumnTypeEnum.STRING).length(32).defaultValue("test").isNull(false);
 
         ITable mysqlTable = mysql.getTable(tableName);
@@ -156,20 +144,23 @@ public class IDatabaseTest {
 
     @Test
     public void insertTest() throws SQLException{
-        String tableName = "user_info";
 
         Row row = new Row()
-                .add("user_id", 1)
-                .add("name", "张三")
-                .add("create_time", new Date())
+                .add("id", 1)
+                .add("sex", 1)
+                .add("name", "张小三")
+                .add("age", 18)
+                .add("width", 66.6)
+                .add("height", 33.3)
+                .add("weight", 22.3)
                 .add("birth_date", new Date())
-                .add("sex", 0);
+                .add("create_time", new Date());
 
         ITable mysqlTable = mysql.getTable(tableName);
         mysqlTable.insert(row);
 
-//        ITable oracleTable = oracle.getTable(tableName);
-//        oracleTable.insert(row);
+        ITable oracleTable = oracle.getTable(tableName);
+        oracleTable.insert(row);
     }
 
     @Test
@@ -178,19 +169,34 @@ public class IDatabaseTest {
 
 
         Row row = new Row()
-                .add("user_id", 2)
+                .add("id", 1)
+                .add("sex", 1)
                 .add("name", "李四")
-                .add("sex", 0)
+                .add("age", 18)
+                .add("width", 66.6)
+                .add("height", 33.3)
+                .add("weight", 22.3)
+                .add("birth_date", new Date())
                 .add("create_time", new Date());
         Row row1 = new Row()
-                .add("user_id", 3)
-                .add("name", "王二")
-                .add("sex", 0)
+                .add("id", 1)
+                .add("sex", 1)
+                .add("name", "李四")
+                .add("age", 18)
+                .add("width", 66.6)
+                .add("height", 33.3)
+                .add("weight", 22.3)
+                .add("birth_date", new Date())
                 .add("create_time", new Date());
         Row row2 = new Row()
-                .add("user_id", 4)
-                .add("name", "麻子")
+                .add("id", 1)
                 .add("sex", 1)
+                .add("name", "李四")
+                .add("age", 18)
+                .add("width", 66.6)
+                .add("height", 33.3)
+                .add("weight", 22.3)
+                .add("birth_date", new Date())
                 .add("create_time", new Date());
         List<Row> rowList = new ArrayList<>();
         rowList.add(row);
