@@ -11,6 +11,9 @@ import com.platform.data.oracle.OracleDatabase;
 import com.platform.data.query.QueryBuilder;
 import org.junit.Test;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +39,16 @@ public class IDatabaseTest {
         mysqlDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         mysqlDataSource.setUsername("root");
         mysqlDataSource.setPassword("123456");
+    }
+
+    @Test
+    public void test() throws SQLException{
+        Connection conn = mysqlDataSource.getConnection();
+        PreparedStatement ps = conn.prepareStatement("select * from user_info limit 0, 10");
+//        ps.setInt(1, 0);
+//        ps.setInt(2, 10);
+        ps.getMetaData();
+        ps.executeQuery();
     }
 
     @Test
@@ -126,7 +139,7 @@ public class IDatabaseTest {
         String tableName = "user_info";
 
         QueryBuilder queryBuilder = new QueryBuilder()
-                .like("name", "张三")
+                .like("name", "张")
                 .desc("create_time")
                 .asc("sex")
                 .enablePage(true);

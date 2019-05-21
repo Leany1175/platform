@@ -1,8 +1,11 @@
 package com.platform.data.base;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.platform.data.ITable;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
+import com.platform.data.entity.ColumnConstruction;
 import com.platform.data.entity.Condition;
 import com.platform.data.entity.ConditionBean;
 import com.platform.data.entity.Row;
@@ -14,10 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -121,16 +121,19 @@ public abstract class BaseTable implements ITable {
             for (int i = 0, len = objectList.size(); i < len; i++) {
                 ps.setObject(i + 1, objectList.get(i));
             }
-            // 排序
+            // 分页
             if (queryBuilder.build().isEnablePage()) {
-                ps.setInt(objectList.size() + 1, condition.getFrom());
-                ps.setInt(objectList.size() + 2, condition.getSize());
+                ps.setObject(objectList.size() + 1, condition.getFrom());
+                ps.setObject(objectList.size() + 2, condition.getSize());
             }
+            // 解析列
+            List<ColumnConstruction> columnList = analyzeColumn(ps);
+            System.out.println(JSON.toJSONString(columnList));
             // 查询
             rs = ps.executeQuery();
             while (rs.next()) {
                 // TODO 结果
-                System.out.println(rs);
+                System.out.println(rs.getObject(1));
             }
         } catch (SQLException e) {
             throw e;
@@ -243,6 +246,27 @@ public abstract class BaseTable implements ITable {
             ps.setObject(i, entry.getValue());
             i++;
         }
+    }
+
+    /**
+     * 解析列
+     * @param ps 预编译
+     * @return 列
+     * @exception SQLException 获取元数据异常
+     */
+    protected List<ColumnConstruction> analyzeColumn(PreparedStatement ps) throws SQLException{
+        List<ColumnConstruction> list = new ArrayList<>();
+        ResultSetMetaData metaData = ps.getMetaData();
+        // 列数
+        int count = metaData.getColumnCount();
+        for (int i = 1; i < count + 1; i++) {
+            ColumnConstruction column = new ColumnConstruction();
+            // 列名
+            column.setColumnName(metaData.getColumnName(i));
+
+            list.add(column);
+        }
+        return list;
     }
 
     public void setDataSource(DataSource dataSource) {
