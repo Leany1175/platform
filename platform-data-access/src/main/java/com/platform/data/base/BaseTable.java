@@ -5,10 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.platform.data.ITable;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
-import com.platform.data.entity.ColumnConstruction;
-import com.platform.data.entity.Condition;
-import com.platform.data.entity.ConditionBean;
-import com.platform.data.entity.Row;
+import com.platform.data.entity.*;
 import com.platform.data.enums.ColumnTypeEnum;
 import com.platform.data.query.IQueryBuilder;
 import com.platform.data.query.ISearchResult;
@@ -97,10 +94,6 @@ public abstract class BaseTable implements ITable {
     @Override
     public ISearchResult query(QueryBuilder queryBuilder) throws SQLException {
         // 查询结果
-        SearchResult result = new SearchResult();
-
-        // 表名
-        result.setTableName(TABLE_NAME);
 
         // sql查询语句, select * from ??? where ...
         String sql = queryBuilder.build(createQueryBuild());
@@ -110,20 +103,27 @@ public abstract class BaseTable implements ITable {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+
+        // 查询结果
+        SearchResult result = new SearchResult();
+        TableConstruction table = new TableConstruction();
+        // 表名
+        table.setTableName(TABLE_NAME);
+        // 表信息
+        result.setSchema(table);
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
 
             // 预编译设值
             prepareValue(ps, queryBuilder.build());
-
-            // 解析列
-            result.setSchema(analyzeColumn(ps));
+            // 所有列
+            table.setColumnList(analyzeColumn(ps));
 
             // 查询
             rs = ps.executeQuery();
             // 结果解析
-            result.setRows(analyzeResult(rs, result.getSchema()));
+            result.setRows(analyzeResult(rs, table.getColumnList()));
         } catch (SQLException e) {
             throw e;
         } finally {

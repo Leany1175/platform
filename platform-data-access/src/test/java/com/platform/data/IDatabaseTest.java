@@ -35,7 +35,7 @@ public class IDatabaseTest {
         oracleDataSource.setUsername("test");
         oracleDataSource.setPassword("123456");
 
-        mysqlDataSource.setUrl("jdbc:mysql://192.168.240.128:3306/test?characterEncoding=utf8&useSSL=true");
+        mysqlDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8&useSSL=true");
         mysqlDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         mysqlDataSource.setUsername("root");
         mysqlDataSource.setPassword("123456");
@@ -145,7 +145,6 @@ public class IDatabaseTest {
 
         ITable oracleTable = oracle.getTable(tableName);
         oracleTable.query(queryBuilder);
-
     }
 
 

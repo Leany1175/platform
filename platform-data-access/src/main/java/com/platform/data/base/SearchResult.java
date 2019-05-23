@@ -2,49 +2,33 @@ package com.platform.data.base;
 
 import com.platform.data.entity.ColumnConstruction;
 import com.platform.data.entity.Row;
+import com.platform.data.entity.TableConstruction;
 import com.platform.data.query.ISearchResult;
 
 import java.util.List;
 
 public class SearchResult implements ISearchResult {
 
-    /** 表名 */
-    private String tableName;
-    /** 列信息 */
-    private List<ColumnConstruction> schema;
+    /** 表结构 */
+    private TableConstruction schema;
     /** 行 */
     private List<Row> rows;
 
+    public void setSchema(TableConstruction schema) {
+        this.schema = schema;
+    }
 
-    @Override
-    public String tableName() {
-        return tableName;
+    public void setRows(List<Row> rows) {
+        this.rows = rows;
     }
 
     @Override
-    public List<ColumnConstruction> getSchema() {
+    public TableConstruction getSchema() {
         return schema;
     }
 
     @Override
     public List<Row> getRows() {
         return rows;
-    }
-
-    @Override
-    public Object getAggregate() {
-        return null;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public void setSchema(List<ColumnConstruction> schema) {
-        this.schema = schema;
-    }
-
-    public void setRows(List<Row> rows) {
-        this.rows = rows;
     }
 }
