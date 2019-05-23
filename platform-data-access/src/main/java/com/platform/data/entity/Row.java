@@ -1,8 +1,10 @@
 package com.platform.data.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 行:key=列名,value=值
@@ -20,6 +22,27 @@ public class Row extends HashMap<String, Object> {
 	public Row add(String key, Object value) {
 		put(key, value);
 		return this;
+	}
+
+	/**
+	 * 返回所有key
+	 * @param split 分隔符
+	 * @return name分隔符sex分隔符age
+	 */
+	public String keyAsString(String split) {
+		List<String> keyList = new ArrayList<>(size());
+		this.forEach((key, value) -> keyList.add(key));
+		return String.join(split, keyList);
+	}
+
+	/**
+	 * 返回所有key
+	 * @return name, sex, age
+	 */
+	public String keyAsString() {
+		List<String> keyList = new ArrayList<>(size());
+		this.forEach((key, value) -> keyList.add(key));
+		return String.join(", ", keyList);
 	}
 
 	public String getString(String key) {

@@ -112,6 +112,35 @@ public interface ITable {
 	 * @exception SQLException 失败
 	 */
 	int[] insert(List<Row> rows) throws SQLException;
+
+	/**
+	 * 修改所有的行
+	 * @param row 行
+	 * @return 行数
+	 * @exception SQLException 异常
+	 */
+	int update(Row row) throws SQLException;
+
+	/**
+	 * 根据查询修改
+	 * @param row 行
+	 * @param queryBuilder 查询条件
+	 */
+	int update(Row row, QueryBuilder queryBuilder);
+
+	/**
+	 * 删除所有数据
+	 * @return 删除条数
+	 */
+	int delete();
+
+	/**
+	 * 根绝查询删除
+	 * @param queryBuilder 查询条件
+	 * @return 删除条数
+	 */
+	int delete(QueryBuilder queryBuilder);
+
 //
 //	/**
 //	 * 删除

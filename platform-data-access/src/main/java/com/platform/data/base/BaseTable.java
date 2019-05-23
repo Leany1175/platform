@@ -7,6 +7,7 @@ import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.entity.*;
 import com.platform.data.enums.ColumnTypeEnum;
+import com.platform.data.other.Table;
 import com.platform.data.query.IQueryBuilder;
 import com.platform.data.query.ISearchResult;
 import com.platform.data.query.QueryBuilder;
@@ -192,6 +193,58 @@ public abstract class BaseTable implements ITable {
             JdbcUtils.close(conn);
         }
         return count;
+    }
+
+    @Override
+    public int update(Row row) throws SQLException{
+        if (row == null || row.size() == 0) {
+            throw new NullPointerException("row must not null or empty");
+        }
+
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        StringBuffer update = new StringBuffer();
+        row.forEach((key, value) -> update.append(", ").append(key).append(" = ?"));
+        StringBuffer buffer = new StringBuffer("update ")
+                .append(TABLE_NAME)
+                .append(" set ")
+                .append(update.delete(0, 2));
+        logger.debug("update row sql:{}", buffer);
+
+        // TODO SQL
+//        try {
+//            conn = dataSource.getConnection();
+//            ps = conn.prepareStatement("");
+//
+//        } catch (SQLException e) {
+//            // 回滚
+//            conn.rollback();
+//            logger.error("update row faild", e);
+//            throw e;
+//        } finally {
+//            // 关闭
+//            JdbcUtils.close(ps);
+//            JdbcUtils.close(conn);
+//        }
+
+        return count;
+    }
+
+    @Override
+    public int update(Row row, QueryBuilder queryBuilder) {
+        return 0;
+    }
+
+    @Override
+    public int delete() {
+        return 0;
+    }
+
+    @Override
+    public int delete(QueryBuilder queryBuilder) {
+        return 0;
     }
 
     /**

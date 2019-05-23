@@ -147,7 +147,26 @@ public class IDatabaseTest {
         oracleTable.query(queryBuilder);
     }
 
+    @Test
+    public void updateTest() throws SQLException{
 
+//        QueryBuilder queryBuilder = new QueryBuilder()
+//                .like("name", "张")
+//                .desc("create_time")
+//                .asc("sex")
+//                .enablePage(true);
+
+        Row row = new Row()
+                .add("name", "张三")
+                .add("sex", 0);
+
+        // 查询
+        ITable mysqlTable = mysql.getTable(tableName);
+        mysqlTable.update(row);
+
+//        ITable oracleTable = oracle.getTable(tableName);
+//        oracleTable.query(queryBuilder);
+    }
 
 
     @Test

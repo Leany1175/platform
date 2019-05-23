@@ -147,6 +147,7 @@ public class QueryBuilder {
      * 所有值 查询 + 排序
      * @return 值
      */
+    @Deprecated
     public List<Object> values() {
         List<Object> list = new LinkedList<>();
         condition.getQueryList().forEach(bean -> {
