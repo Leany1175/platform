@@ -211,6 +211,7 @@ public abstract class BaseTable implements ITable {
                 .append(TABLE_NAME)
                 .append(" set ")
                 .append(update.delete(0, 2));
+
         logger.debug("update row sql:{}", buffer);
 
         // TODO SQL

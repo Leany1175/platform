@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/index.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-row" id="container-header">
+				<div class="mui-col-xs-10">
+					<input type="text" class="header-input" placeholder="在这里输入地址" v-model="url" />
+				</div>
+				<div class="mui-col-xs-2">
+					<input type="button" class="header-btn" value="跳转" @tap="open_url" />
+				</div>
+			</div>
+		</header>
+
+		<script src="js/mui.js"></script>
+		<script src="js/util.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+
+</html>
