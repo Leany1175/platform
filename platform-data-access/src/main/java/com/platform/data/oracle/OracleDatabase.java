@@ -1,5 +1,6 @@
 package com.platform.data.oracle;
 
+import com.platform.data.builder.table.TableBuilder;
 import com.platform.data.builder.table.TableBuilders;
 import com.platform.data.base.BaseDatabase;
 import com.platform.data.ITable;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class OracleDatabase extends BaseDatabase {
@@ -25,8 +27,8 @@ public class OracleDatabase extends BaseDatabase {
 
     @Override
     public Set<String> getAllTableName() throws SQLException {
-        // TODO jdbc query
-        Set<String> tableSet = new HashSet<>();
+        // jdbc query
+        Set<String> tableSet = new LinkedHashSet<>();
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -38,12 +40,12 @@ public class OracleDatabase extends BaseDatabase {
                 tableSet.add(rs.getString("table_name"));
             }
 
-            logger.debug("数据库获取所有表名结果:{}", tableSet);
+            logger.debug("table names:{}", tableSet);
 
         } catch (SQLException e) {
             throw e;
         } finally {
-            // 关闭
+            // close
             JdbcUtils.close(conn, ps, rs);
         }
         return tableSet;
@@ -51,7 +53,12 @@ public class OracleDatabase extends BaseDatabase {
 
     @Override
     public void createTable(TableBuilders tableBuilders) throws SQLException{
-        JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
+//        JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
+    }
+
+    @Override
+    public void createTable(TableBuilder tableBuilder) throws SQLException {
+
     }
 
     @Override

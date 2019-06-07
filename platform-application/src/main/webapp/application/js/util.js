@@ -47,8 +47,8 @@ var util = {
 				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
 				// append到当前父webview
 				self.append(sub);
-        // 初始化隐藏
-        sub.hide();
+				// 初始化隐藏
+				sub.hide();
 			}
 		}
 	},

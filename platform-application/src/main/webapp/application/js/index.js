@@ -1,6 +1,5 @@
 mui.plusReady(function() {
 
-
 	new Vue({
 		el: "#container-header",
 		data: {
@@ -16,16 +15,13 @@ mui.plusReady(function() {
 			}
 		}
 	});
-	
-	
-
 
 	var self = plus.webview.currentWebview(),
 		leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
 
 	// browser
 	var browser = plus.webview.create("https://www.baidu.com", "browser", {
-		top: "46px",// mui标题栏默认高度为45px；
+		top: "45px",// mui标题栏默认高度为45px；
 		bottom: "0px"// 默认为0px，可不定义；
 	});
 	self.append(browser);

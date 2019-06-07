@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.entity.TableConstruction;
 
+@Deprecated
 public class TableBuilders {
 
     /** 表结构 */
@@ -48,24 +49,24 @@ public class TableBuilders {
         return table;
     }
 
-    /**
-     * 构建
-     * @param tableBuilder 表建造者
-     * @return SQL语句
-     */
-    public String buildSql(ITableBuilder tableBuilder) {
-        return buildSql(tableBuilder, false);
-    }
+//    /**
+//     * 构建
+//     * @param tableBuilder 表建造者
+//     * @return SQL语句
+//     */
+//    public String buildSql(ITableBuilder tableBuilder) {
+//        return buildSql(tableBuilder, false);
+//    }
 
-    /**
-     * 构建
-     * @param tableBuilder 表建造者
-     * @param format 是否格式化
-     * @return SQL语句
-     */
-    public String buildSql(ITableBuilder tableBuilder, boolean format) {
-        return tableBuilder.build(table, format);
-    }
+//    /**
+//     * 构建
+//     * @param tableBuilder 表建造者
+//     * @param format 是否格式化
+//     * @return SQL语句
+//     */
+//    public String buildSql(ITableBuilder tableBuilder, boolean format) {
+//        return tableBuilder.build(table, format);
+//    }
 
     /**
      * TODO 重写toString()

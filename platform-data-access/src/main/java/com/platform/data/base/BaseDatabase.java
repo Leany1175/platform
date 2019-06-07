@@ -2,6 +2,7 @@ package com.platform.data.base;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.platform.data.IDatabase;
+import com.platform.data.builder.table.TableBuilder;
 import com.platform.data.other.ExportOption;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public abstract class BaseDatabase implements IDatabase {
@@ -28,7 +30,7 @@ public abstract class BaseDatabase implements IDatabase {
 
     @Override
     public Set<String> getAllTableName() throws SQLException {
-        Set<String> tableSet = new HashSet<>();
+        Set<String> tableSet = new LinkedHashSet<>();
         Connection conn = null;
         ResultSet rs = null;
         try {
@@ -39,11 +41,11 @@ public abstract class BaseDatabase implements IDatabase {
                 tableSet.add(rs.getString("TABLE_NAME"));
             }
 
-            logger.debug("数据库获取所有表名结果:{}", tableSet);
+            logger.debug("table names:{}", tableSet);
         } catch (SQLException e) {
             throw e;
         } finally {
-            // 关闭
+            // close
             JdbcUtils.close(rs);
             JdbcUtils.close(conn);
         }
@@ -52,6 +54,11 @@ public abstract class BaseDatabase implements IDatabase {
     }
 
 //    @Override
+//    public void createTable(TableBuilder tableBuilder) throws SQLException {
+//
+//    }
+
+    //    @Override
 //    public ITable getTable(String tableName) throws SQLException {
 //        return null;
 //    }

@@ -1,9 +1,17 @@
 package com.platform.data.builder.table;
 
-import com.platform.data.entity.TableConstruction;
-
 public interface ITableBuilder {
 
-    String build(TableConstruction construction, boolean format);
+    /**
+     * create table sql
+     * @param tableBuilder table
+     * @param format is format
+     * @return sql
+     */
+    String build(TableBuilder tableBuilder, boolean format);
+
+    default String build(TableBuilder tableBuilder) {
+        return build(tableBuilder, false);
+    }
 
 }

@@ -87,7 +87,8 @@ public class ColumnBuilders {
      * @return sql语句
      */
     public String build(IColumnBuilder columnBuilder) {
-        return columnBuilder.build(column);
+//        return columnBuilder.build(column);
+        return null;
     }
 
 }

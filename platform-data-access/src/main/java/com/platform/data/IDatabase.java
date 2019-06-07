@@ -1,5 +1,6 @@
 package com.platform.data;
 
+import com.platform.data.builder.table.TableBuilder;
 import com.platform.data.builder.table.TableBuilders;
 import com.platform.data.other.ExportOption;
 
@@ -8,32 +9,32 @@ import java.sql.SQLException;
 import java.util.Set;
 
 /**
- * 数据库
+ * database
  */
 public interface IDatabase {
 
 	/**
-	 * 返回所有表名
-	 * @return 表名
-	 * @exception SQLException 数据库连接异常
+	 * get all table name
+	 * @return table names
+	 * @exception SQLException error
 	 */
 	Set<String> getAllTableName() throws SQLException;
 
 	/**
-	 * 表名是否存在
-	 * @param tableName 表名
-	 * @return true:表示改表存在
-	 * @throws SQLException 异常
+	 * Verify that the table name exists
+	 * @param tableName table name
+	 * @return true:exists
+	 * @throws SQLException error
 	 */
 	default boolean existsTable(String tableName) throws SQLException {
 		if (tableName == null || tableName.trim().isEmpty()) {
-			throw new NullPointerException("表名不能为空");
+			throw new NullPointerException("Table name is not allowed to be empty");
 		}
 		return getAllTableName().contains(tableName);
 	}
 
 	/**
-	 * 获取表对象
+	 * TODO 获取表对象
 	 * @param tableName 表名
 	 * @return 表对象
 	 * @exception SQLException 异常
@@ -41,14 +42,22 @@ public interface IDatabase {
 	ITable getTable(String tableName) throws SQLException;
 
 	/**
-	 * 创建表
+	 * TODO 创建表
 	 * @param tableBuilders 表建造者
 	 * @exception SQLException 异常
 	 */
+	@Deprecated
 	void createTable(TableBuilders tableBuilders) throws SQLException;
 
 	/**
-	 * 删除表
+	 * TODO 创建表
+	 * @param tableBuilder 表
+	 * @throws SQLException 一串
+	 */
+	void createTable(TableBuilder tableBuilder) throws SQLException;
+
+	/**
+	 * TODO 删除表
 	 * @param tableName 表名
 	 * @exception SQLException 异常
 	 */
@@ -69,14 +78,14 @@ public interface IDatabase {
 //	IAggregationResult aggregation(AggregationBuilder aggregationBuilder);
 
 	/**
-	 * 导出
+	 * TODO 导出
 	 * @param option 导出选项
 	 * @return 文件对象
 	 */
 	File export(ExportOption option, String... tableName);
 
 	/**
-	 * 导入文件
+	 * TODO 导入文件
 	 * @param option 导入参数
 	 * @param file 文件对象
 	 */
