@@ -42,16 +42,16 @@ public interface IDatabase {
 	ITable getTable(String tableName) throws SQLException;
 
 	/**
-	 * TODO 创建表
-	 * @param tableBuilder 表
-	 * @throws SQLException 一串
+	 * create table
+	 * @param tableBuilder table
+	 * @throws SQLException exeception
 	 */
 	void createTable(TableBuilder tableBuilder) throws SQLException;
 
 	/**
-	 * TODO 删除表
-	 * @param tableName 表名
-	 * @exception SQLException 异常
+	 * delete table
+	 * @param tableName name
+	 * @exception SQLException exeception
 	 */
 	void dropTable(String tableName) throws SQLException;
 

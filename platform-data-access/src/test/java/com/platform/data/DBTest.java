@@ -199,5 +199,10 @@ public class DBTest {
 //        }
 //    }
 
+    @Test
+    public void dropTableTest() throws SQLException{
+        mysqlDatabase.dropTable("demo_table");
+        oracleDatabase.dropTable("demo_table");
+    }
 
 }
