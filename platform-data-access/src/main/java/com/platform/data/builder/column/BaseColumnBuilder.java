@@ -48,7 +48,7 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
             case Types.VARBINARY:
                 return createVarBinaryColumn(columnMeta);
             case Types.LONGVARBINARY:
-                return createLongVarcharColumn(columnMeta);
+                return createLongVarbinaryColumn(columnMeta);
             case Types.NULL:
                 return createNullColumn(columnMeta);
             case Types.OTHER:
@@ -136,11 +136,11 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
      */
     protected String createColumnLength(ColumnMeta column) {
         StringBuffer buffer = new StringBuffer(column.getColumnName())
-                .append(" ?");
+                .append(" ?(")
+                .append(column.getLength())
+                .append(column.getPrecision() > 0 ? "," + column.getPrecision() : "")
+                .append(")");
 
-        if (column.getLength() > 0) {
-            buffer.append("(").append(column.getLength()).append(")");
-        }
         defaultAndNull(buffer, column);
         return buffer.toString();
     }
@@ -192,7 +192,7 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
     }
 
     protected String createDecimalColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "decimal");
+        return replaceWith(createColumnLength(columnMeta), "decimal");
     }
 
     protected String createCharColumn(ColumnMeta columnMeta) {
@@ -224,11 +224,11 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
     }
 
     protected String createVarBinaryColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "varbinary");
+        return replaceWith(createColumnLength(columnMeta), "varbinary");
     }
 
     protected String createLongVarbinaryColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "longvarbinary");
+        return replaceWith(createColumnLength(columnMeta), "longvarbinary");
     }
 
     protected String createNullColumn(ColumnMeta columnMeta) {
@@ -264,7 +264,7 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
     }
 
     protected String createRefColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "Ref");
+        return replaceWith(createColumn(columnMeta), "ref");
     }
 
     protected String createDatalinkColumn(ColumnMeta columnMeta) {
@@ -280,15 +280,15 @@ public abstract class BaseColumnBuilder implements IColumnBuilder {
     }
 
     protected String createNcharColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "nchar");
+        return replaceWith(createColumnLength(columnMeta), "nchar");
     }
 
     protected String createNVarcharColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "nvarchar");
+        return replaceWith(createColumnLength(columnMeta), "nvarchar");
     }
 
     protected String createLongNVarcharColumn(ColumnMeta columnMeta) {
-        return replaceWith(createColumn(columnMeta), "longnvarchar");
+        return replaceWith(createColumnLength(columnMeta), "longnvarchar");
     }
 
     protected String createNClobColumn(ColumnMeta columnMeta) {

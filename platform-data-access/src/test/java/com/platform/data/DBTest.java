@@ -53,16 +53,16 @@ public class DBTest {
                 new ColumnBuilder().columnName("column_7").columnType(Types.REAL),
                 new ColumnBuilder().columnName("column_8").columnType(Types.DOUBLE),
                 new ColumnBuilder().columnName("column_9").columnType(Types.NUMERIC),
-                new ColumnBuilder().columnName("column_10").columnType(Types.DECIMAL),
+                new ColumnBuilder().columnName("column_10").columnType(Types.DECIMAL).length(10).precision(3),
                 new ColumnBuilder().columnName("column_11").columnType(Types.CHAR),
-                new ColumnBuilder().columnName("column_12").columnType(Types.VARCHAR),
-                new ColumnBuilder().columnName("column_13").columnType(Types.LONGVARCHAR),
+                new ColumnBuilder().columnName("column_12").columnType(Types.VARCHAR).length(32),
+                new ColumnBuilder().columnName("column_13").columnType(Types.LONGVARCHAR).length(64),
                 new ColumnBuilder().columnName("column_14").columnType(Types.DATE),
                 new ColumnBuilder().columnName("column_15").columnType(Types.TIME),
                 new ColumnBuilder().columnName("column_16").columnType(Types.TIMESTAMP),
                 new ColumnBuilder().columnName("column_17").columnType(Types.BINARY),
-                new ColumnBuilder().columnName("column_18").columnType(Types.VARBINARY),
-                new ColumnBuilder().columnName("column_19").columnType(Types.LONGVARBINARY),
+                new ColumnBuilder().columnName("column_18").columnType(Types.VARBINARY).length(32),
+                new ColumnBuilder().columnName("column_19").columnType(Types.LONGVARBINARY).length(32),
                 new ColumnBuilder().columnName("column_20").columnType(Types.NULL),
                 new ColumnBuilder().columnName("column_21").columnType(Types.OTHER),
                 new ColumnBuilder().columnName("column_22").columnType(Types.JAVA_OBJECT),
@@ -75,9 +75,9 @@ public class DBTest {
                 new ColumnBuilder().columnName("column_29").columnType(Types.DATALINK),
                 new ColumnBuilder().columnName("column_30").columnType(Types.BOOLEAN),
                 new ColumnBuilder().columnName("column_31").columnType(Types.ROWID),
-                new ColumnBuilder().columnName("column_32").columnType(Types.NCHAR),
-                new ColumnBuilder().columnName("column_33").columnType(Types.NVARCHAR),
-                new ColumnBuilder().columnName("column_34").columnType(Types.LONGNVARCHAR),
+                new ColumnBuilder().columnName("column_32").columnType(Types.NCHAR).length(32),
+                new ColumnBuilder().columnName("column_33").columnType(Types.NVARCHAR).length(32),
+                new ColumnBuilder().columnName("column_34").columnType(Types.LONGNVARCHAR).length(32),
                 new ColumnBuilder().columnName("column_35").columnType(Types.NCLOB),
                 new ColumnBuilder().columnName("column_36").columnType(Types.SQLXML),
                 new ColumnBuilder().columnName("column_37").columnType(Types.REF_CURSOR),
@@ -106,20 +106,55 @@ public class DBTest {
         TableBuilder tableBuilder = new TableBuilder()
                 .tableName("demo_table")
                 .addColumn(
-                        columnBuilderList.get(0),
+//                        columnBuilderList.get(0),
 
-//                        columnBuilderList.get(1),
-//                        columnBuilderList.get(3),
-//                        columnBuilderList.get(4),
-//                        columnBuilderList.get(5),
+                        columnBuilderList.get(1),
+                        columnBuilderList.get(2),
+                        columnBuilderList.get(3),
+                        columnBuilderList.get(4),
+                        columnBuilderList.get(5),
 
-//                        columnBuilderList.get(6),
-//                        columnBuilderList.get(7),
-//                        columnBuilderList.get(8),
-//                        columnBuilderList.get(9),
-//                        columnBuilderList.get(10),
+                        columnBuilderList.get(6),
+                        columnBuilderList.get(7),
+                        columnBuilderList.get(8),
+                        columnBuilderList.get(9),
+                        columnBuilderList.get(10),
 
-                        columnBuilderList.get(10)
+                        columnBuilderList.get(11),
+                        columnBuilderList.get(12),
+                        columnBuilderList.get(13),
+                        columnBuilderList.get(14),
+                        columnBuilderList.get(15),
+
+                        columnBuilderList.get(16),
+                        columnBuilderList.get(17),
+                        columnBuilderList.get(18),
+                        columnBuilderList.get(19),
+                        columnBuilderList.get(20),
+
+                        columnBuilderList.get(21),
+                        columnBuilderList.get(22),
+                        columnBuilderList.get(23),
+                        columnBuilderList.get(24),
+                        columnBuilderList.get(25),
+
+                        columnBuilderList.get(26),
+                        columnBuilderList.get(27),
+                        columnBuilderList.get(28),
+                        columnBuilderList.get(29),
+                        columnBuilderList.get(30),
+
+                        columnBuilderList.get(31),
+                        columnBuilderList.get(32),
+                        columnBuilderList.get(33),
+                        columnBuilderList.get(34),
+                        columnBuilderList.get(35),
+
+                        columnBuilderList.get(36),
+                        columnBuilderList.get(37),
+                        columnBuilderList.get(38),
+
+                        columnBuilderList.get(0)
                 );
 
         ITableBuilder mysqlTableBuild = new MysqlTableBuilder();
