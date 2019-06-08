@@ -25,8 +25,13 @@ public class DBTest {
 
     private static TableBuilder tableBuilder;
     private static List<ColumnBuilder> columnBuilderList;
-    private static DruidDataSource mysqlDatasource = new DruidDataSource();;
+    private static DruidDataSource mysqlDatasource = new DruidDataSource();
     private static DruidDataSource oracleDatasource = new DruidDataSource();
+
+    private static String tableName = "demo_table";
+
+    private static ITable mysqlTalbe;
+    private static ITable oracleTalbe;
 
     static {
 
@@ -88,8 +93,15 @@ public class DBTest {
 
         /***** table *****/
         tableBuilder = new TableBuilder()
-                .tableName("users_info")
+                .tableName(tableName)
                 .addColumn(columnBuilderList);
+
+        try {
+            mysqlTalbe = mysqlDatabase.getTable(tableName);
+            oracleTalbe = oracleDatabase.getTable(tableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -103,65 +115,65 @@ public class DBTest {
 
     @Test
     public void createTableTest() throws SQLException{
-        TableBuilder tableBuilder = new TableBuilder()
-                .tableName("demo_table")
-                .addColumn(
-//                        columnBuilderList.get(0),
-
-                        columnBuilderList.get(1),
-                        columnBuilderList.get(2),
-                        columnBuilderList.get(3),
-                        columnBuilderList.get(4),
-                        columnBuilderList.get(5),
-
-                        columnBuilderList.get(6),
-                        columnBuilderList.get(7),
-                        columnBuilderList.get(8),
-                        columnBuilderList.get(9),
-                        columnBuilderList.get(10),
-
-                        columnBuilderList.get(11),
-                        columnBuilderList.get(12),
-                        columnBuilderList.get(13),
-                        columnBuilderList.get(14),
-                        columnBuilderList.get(15),
-
-                        columnBuilderList.get(16),
-                        columnBuilderList.get(17),
-                        columnBuilderList.get(18),
-                        columnBuilderList.get(19),
-                        columnBuilderList.get(20),
-
-                        columnBuilderList.get(21),
-                        columnBuilderList.get(22),
-                        columnBuilderList.get(23),
-                        columnBuilderList.get(24),
-                        columnBuilderList.get(25),
-
-                        columnBuilderList.get(26),
-                        columnBuilderList.get(27),
-                        columnBuilderList.get(28),
-                        columnBuilderList.get(29),
-                        columnBuilderList.get(30),
-
-                        columnBuilderList.get(31),
-                        columnBuilderList.get(32),
-                        columnBuilderList.get(33),
-                        columnBuilderList.get(34),
-                        columnBuilderList.get(35),
-
-                        columnBuilderList.get(36),
-                        columnBuilderList.get(37),
-                        columnBuilderList.get(38),
-
-                        columnBuilderList.get(0)
-                );
+//        TableBuilder tableBuilder = new TableBuilder()
+//                .tableName("demo_table")
+//                .addColumn(
+////                        columnBuilderList.get(0),
+//
+//                        columnBuilderList.get(1),
+//                        columnBuilderList.get(2),
+//                        columnBuilderList.get(3),
+//                        columnBuilderList.get(4),
+//                        columnBuilderList.get(5),
+//
+//                        columnBuilderList.get(6),
+//                        columnBuilderList.get(7),
+//                        columnBuilderList.get(8),
+//                        columnBuilderList.get(9),
+//                        columnBuilderList.get(10),
+//
+//                        columnBuilderList.get(11),
+//                        columnBuilderList.get(12),
+//                        columnBuilderList.get(13),
+//                        columnBuilderList.get(14),
+//                        columnBuilderList.get(15),
+//
+//                        columnBuilderList.get(16),
+//                        columnBuilderList.get(17),
+//                        columnBuilderList.get(18),
+//                        columnBuilderList.get(19),
+//                        columnBuilderList.get(20),
+//
+//                        columnBuilderList.get(21),
+//                        columnBuilderList.get(22),
+//                        columnBuilderList.get(23),
+//                        columnBuilderList.get(24),
+//                        columnBuilderList.get(25),
+//
+//                        columnBuilderList.get(26),
+//                        columnBuilderList.get(27),
+//                        columnBuilderList.get(28),
+//                        columnBuilderList.get(29),
+//                        columnBuilderList.get(30),
+//
+//                        columnBuilderList.get(31),
+//                        columnBuilderList.get(32),
+//                        columnBuilderList.get(33),
+//                        columnBuilderList.get(34),
+//                        columnBuilderList.get(35),
+//
+//                        columnBuilderList.get(36),
+//                        columnBuilderList.get(37),
+//                        columnBuilderList.get(38),
+//
+//                        columnBuilderList.get(0)
+//                );
 
 //        ITableBuilder mysqlTableBuilder = new MysqlTableBuilder();
 //        System.out.println(mysqlTableBuilder.build(tableBuilder, false));
 //        String sql1 = mysqlTableBuilder.build(tableBuilder, true);
 
-//        mysqlDatabase.createTable(tableBuilder);
+        mysqlDatabase.createTable(tableBuilder);
 
 
 //        ITableBuilder oracleTableBuilder = new OracleTableBuilder();
@@ -201,8 +213,17 @@ public class DBTest {
 
     @Test
     public void dropTableTest() throws SQLException{
-        mysqlDatabase.dropTable("demo_table");
-        oracleDatabase.dropTable("demo_table");
+        mysqlDatabase.dropTable(tableName);
+        oracleDatabase.dropTable(tableName);
     }
+
+    /*******************************************************************/
+    @Test
+    public void getTableNameTest() {
+        System.out.println(mysqlTalbe.getTableName());
+        System.out.println(oracleTalbe.getTableName());
+    }
+
+
 
 }

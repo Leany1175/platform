@@ -3,6 +3,7 @@ package com.platform.data.builder.column;
 import com.platform.data.enums.ColumnTypeEnum;
 import com.platform.data.entity.ColumnConstruction;
 
+@Deprecated
 public class ColumnBuilders {
 
     private ColumnConstruction column = new ColumnConstruction();

@@ -1,5 +1,6 @@
 package com.platform.data;
 
+import com.platform.data.builder.column.ColumnBuilder;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.entity.Row;
 import com.platform.data.query.ISearchResult;
@@ -11,18 +12,22 @@ import java.util.List;
 
 public interface ITable {
 
-	/**
-	 * 获取表名
-	 */
 	String getTableName();
 
 	/**
-	 * 添加列
-	 * @param columnBuilders 列
-	 * @return 添加列
-	 * @exception SQLException 异常
+	 * add column
+	 * @param columnBuilders column
+	 * @exception SQLException exeception
 	 */
+	@Deprecated
 	void addColumn(ColumnBuilders columnBuilders) throws SQLException;
+
+	/**
+	 * TODO add column
+	 * @param columnBuilder
+	 * @throws SQLException
+	 */
+	void addColumn(ColumnBuilder columnBuilder) throws SQLException;
 
 	/**
 	 * 更新列,不包括列名

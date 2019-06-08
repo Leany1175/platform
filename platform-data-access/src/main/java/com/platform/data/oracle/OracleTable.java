@@ -29,6 +29,11 @@ public class OracleTable extends BaseTable {
     }
 
     @Override
+    protected IColumnBuilder createColumnBuilder() {
+        return new OracleColumnBuilder();
+    }
+
+    @Override
     protected IColumnBuilder createBuilder() {
         return new OracleColumnBuilder();
     }

@@ -32,6 +32,11 @@ public class MysqlTable extends BaseTable {
     }
 
     @Override
+    protected IColumnBuilder createColumnBuilder() {
+        return new MysqlColumnBuilder();
+    }
+
+    @Override
     protected IColumnBuilder createBuilder() {
         return new MysqlColumnBuilder();
     }

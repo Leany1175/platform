@@ -79,7 +79,7 @@ public abstract class BaseDatabase implements IDatabase {
 //    }
 
     @Override
-    public File export(ExportOption option, String... tableName) {
+    public File exportFile(ExportOption option, String... tableName) {
         return null;
     }
 

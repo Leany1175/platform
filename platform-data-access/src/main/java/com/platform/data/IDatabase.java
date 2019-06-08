@@ -34,10 +34,10 @@ public interface IDatabase {
 	}
 
 	/**
-	 * TODO 获取表对象
-	 * @param tableName 表名
-	 * @return 表对象
-	 * @exception SQLException 异常
+	 * TODO table
+	 * @param tableName table name
+	 * @return table
+	 * @exception SQLException exception
 	 */
 	ITable getTable(String tableName) throws SQLException;
 
@@ -55,29 +55,15 @@ public interface IDatabase {
 	 */
 	void dropTable(String tableName) throws SQLException;
 
-//	/**
-//	 * 查询
-//	 * @param queryBuilder 查询条件
-//	 * @return 查询结果
-//	 * @exception SQLException 异常
-//	 */
-//	IQueryResult query(QueryBuilder queryBuilder) throws SQLException;
-//
-//	/**
-//	 * TODO 聚合
-//	 * @param aggregationBuilder 条件
-//	 */
-//	IAggregationResult aggregation(AggregationBuilder aggregationBuilder);
-
 	/**
-	 * TODO 导出
+	 * TODO export
 	 * @param option 导出选项
 	 * @return 文件对象
 	 */
-	File export(ExportOption option, String... tableName);
+	File exportFile(ExportOption option, String... tableName);
 
 	/**
-	 * TODO 导入文件
+	 * TODO import
 	 * @param option 导入参数
 	 * @param file 文件对象
 	 */

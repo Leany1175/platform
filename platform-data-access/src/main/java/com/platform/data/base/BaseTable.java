@@ -3,6 +3,7 @@ package com.platform.data.base;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.platform.data.ITable;
+import com.platform.data.builder.column.ColumnBuilder;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.entity.*;
@@ -36,7 +37,10 @@ public abstract class BaseTable implements ITable {
      * 生成列建造者
      * @return 列建造者
      */
+    @Deprecated
     protected abstract IColumnBuilder createBuilder();
+
+    protected abstract IColumnBuilder createColumnBuilder();
 
     /**
      * 生成查询建造者
@@ -58,6 +62,21 @@ public abstract class BaseTable implements ITable {
 
         logger.debug("新增列,SQL:{}", buffer.toString());
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
+    }
+
+    @Override
+    public void addColumn(ColumnBuilder columnBuilders) throws SQLException {
+        // TODO addColumn
+
+
+
+//        StringBuffer buffer = new StringBuffer("alter table ")
+//                .append(TABLE_NAME)
+//                .append(" add column ")
+//                .append(columnBuilders.build(createBuilder()));
+//
+//        logger.debug("新增列,SQL:{}", buffer.toString());
+//        JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
