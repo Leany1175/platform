@@ -4,6 +4,7 @@ import com.platform.data.builder.table.TableBuilder;
 import com.platform.data.builder.table.TableBuilders;
 import com.platform.data.base.BaseDatabase;
 import com.platform.data.ITable;
+import com.platform.data.mysql.MysqlTableBuilder;
 import com.platform.data.util.JdbcUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,13 +53,13 @@ public class OracleDatabase extends BaseDatabase {
     }
 
     @Override
-    public void createTable(TableBuilders tableBuilders) throws SQLException{
-//        JdbcUtils.executeUpdate(dataSource, tableBuilders.buildSql(new OracleTableBuilder()));
-    }
-
-    @Override
     public void createTable(TableBuilder tableBuilder) throws SQLException {
+        String oracle = new OracleTableBuilder().build(tableBuilder, true);
+        logger.debug("-------- oracle: create table sql --------");
+        logger.debug(oracle);
+        logger.debug("-------- oracle: create table sql --------");
 
+        JdbcUtils.executeUpdate(dataSource, oracle);
     }
 
     @Override

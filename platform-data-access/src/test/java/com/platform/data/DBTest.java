@@ -1,13 +1,13 @@
 package com.platform.data;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.platform.data.builder.column.ColumnBuilder;
 import com.platform.data.builder.table.ITableBuilder;
 import com.platform.data.builder.table.TableBuilder;
 import com.platform.data.mysql.MysqlDatabaseFactory;
 import com.platform.data.mysql.MysqlTableBuilder;
 import com.platform.data.oracle.OracleDatabaseFactory;
+import com.platform.data.oracle.OracleTableBuilder;
 import org.junit.Test;
 
 import java.sql.*;
@@ -157,39 +157,47 @@ public class DBTest {
                         columnBuilderList.get(0)
                 );
 
-        ITableBuilder mysqlTableBuild = new MysqlTableBuilder();
-//        System.out.println(mysqlTableBuild.build(tableBuilder, false));
-        String sql = mysqlTableBuild.build(tableBuilder, true);
-        System.out.println(sql);
+//        ITableBuilder mysqlTableBuilder = new MysqlTableBuilder();
+//        System.out.println(mysqlTableBuilder.build(tableBuilder, false));
+//        String sql1 = mysqlTableBuilder.build(tableBuilder, true);
 
+//        mysqlDatabase.createTable(tableBuilder);
+
+
+//        ITableBuilder oracleTableBuilder = new OracleTableBuilder();
+////        System.out.println(oracleTableBuilder.build(tableBuilder, false));
+//        String sql2 = oracleTableBuilder.build(tableBuilder, true);
+//        System.out.println(sql2);
+
+        oracleDatabase.createTable(tableBuilder);
 
         // TODO
-        executeUpdate("drop table demo_table");
-        executeUpdate(sql);
-        print();
+//        executeUpdate("drop table demo_table");
+//        executeUpdate(sql);
+//        print();
     }
 
-    private void executeUpdate(String sql) throws SQLException{
-        Connection conn = mysqlDatasource.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.executeUpdate();
-
-        ps.close();
-        conn.close();
-    }
-
-    private void print() throws SQLException{
-        Connection conn = mysqlDatasource.getConnection();
-        PreparedStatement ps = conn.prepareStatement("select * from demo_table");
-        ResultSetMetaData metaData = ps.getMetaData();
-        int count = metaData.getColumnCount();
-        for (int i = 1, len = count + 1; i < len; i++) {
-            System.out.println("getColumnName:" + metaData.getColumnName(i));
-            System.out.println("getColumnTypeName:" + metaData.getColumnTypeName(i));
-            System.out.println("getColumnClassName:" + metaData.getColumnClassName(i));
-            System.out.println("---------------------------------");
-        }
-    }
+//    private void executeUpdate(String sql) throws SQLException{
+//        Connection conn = oracleDatasource.getConnection();
+//        PreparedStatement ps = conn.prepareStatement(sql);
+//        ps.executeUpdate();
+//
+//        ps.close();
+//        conn.close();
+//    }
+//
+//    private void print() throws SQLException{
+//        Connection conn = oracleDatasource.getConnection();
+//        PreparedStatement ps = conn.prepareStatement("select * from demo_table");
+//        ResultSetMetaData metaData = ps.getMetaData();
+//        int count = metaData.getColumnCount();
+//        for (int i = 1, len = count + 1; i < len; i++) {
+//            System.out.println("getColumnName:" + metaData.getColumnName(i));
+//            System.out.println("getColumnTypeName:" + metaData.getColumnTypeName(i));
+//            System.out.println("getColumnClassName:" + metaData.getColumnClassName(i));
+//            System.out.println("---------------------------------");
+//        }
+//    }
 
 
 }

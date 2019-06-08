@@ -70,25 +70,28 @@ public class JdbcUtils {
     }
 
     /**
-     * 执行SQL
-     * @param dataSource 数据源
-     * @param sql sql脚本
-     * @return 是否成功
-     * @exception SQLException sql执行失败
+     * execute sql
+     * @param dataSource ds
+     * @param sql sql
+     * @exception SQLException sql exception
      */
     public static void executeUpdate(DataSource dataSource, String sql) throws SQLException{
         Connection conn = null;
         PreparedStatement ps = null;
         try {
+            logger.debug("get connection");
             conn = dataSource.getConnection();
+            logger.debug("prepare statement");
             ps = conn.prepareStatement(sql);
+            logger.debug("execute update");
             ps.executeUpdate();
         } catch (SQLException e) {
-            logger.error("SQL语句执行失败:{}", sql, e);
+            logger.error("executeUpdate exception:{}", sql, e);
             throw e;
         } finally {
             close(ps);
             close(conn);
+            logger.debug("close");
         }
     }
 

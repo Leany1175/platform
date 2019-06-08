@@ -43,14 +43,6 @@ public interface IDatabase {
 
 	/**
 	 * TODO 创建表
-	 * @param tableBuilders 表建造者
-	 * @exception SQLException 异常
-	 */
-	@Deprecated
-	void createTable(TableBuilders tableBuilders) throws SQLException;
-
-	/**
-	 * TODO 创建表
 	 * @param tableBuilder 表
 	 * @throws SQLException 一串
 	 */
