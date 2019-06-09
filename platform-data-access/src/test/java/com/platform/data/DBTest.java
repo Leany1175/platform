@@ -224,6 +224,32 @@ public class DBTest {
         System.out.println(oracleTalbe.getTableName());
     }
 
+    @Test
+    public void addColumnTest() throws SQLException{
+        ColumnBuilder columnBuilder = new ColumnBuilder().columnName("column_xx").columnType(Types.INTEGER);
+        mysqlTalbe.addColumn(columnBuilder);
+        oracleTalbe.addColumn(columnBuilder);
+    }
 
+    @Test
+    public void modifyColumnTest() throws SQLException{
+        ColumnBuilder columnBuilder = new ColumnBuilder().columnName("column_xx").columnType(Types.VARCHAR).length(32);
+        mysqlTalbe.modifyColumn(columnBuilder);
+        oracleTalbe.modifyColumn(columnBuilder);
+    }
+
+
+    @Test
+    public void renameColumnColumnTest() throws SQLException{
+        ColumnBuilder columnBuilder = new ColumnBuilder().columnName("column_xx1").columnType(Types.VARCHAR).length(32);
+        mysqlTalbe.renameColumn("column_xx", columnBuilder);
+        oracleTalbe.renameColumn("column_xx", columnBuilder);
+    }
+
+    @Test
+    public void dropColumnTest() throws SQLException{
+        mysqlTalbe.dropColumn("column_xx1");
+        oracleTalbe.dropColumn("column_xx1");
+    }
 
 }

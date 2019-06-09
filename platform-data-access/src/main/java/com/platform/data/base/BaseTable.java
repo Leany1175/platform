@@ -54,50 +54,35 @@ public abstract class BaseTable implements ITable {
     }
 
     @Override
-    public void addColumn(ColumnBuilders columnBuilders) throws SQLException {
+    public void addColumn(ColumnBuilder columnBuilder) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" add column ")
-                .append(columnBuilders.build(createBuilder()));
+                .append(createColumnBuilder().build(columnBuilder.build()));
 
-        logger.debug("新增列,SQL:{}", buffer.toString());
+        logger.debug("add column,SQL:{}", buffer.toString());
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public void addColumn(ColumnBuilder columnBuilders) throws SQLException {
-        // TODO addColumn
-
-
-
-//        StringBuffer buffer = new StringBuffer("alter table ")
-//                .append(TABLE_NAME)
-//                .append(" add column ")
-//                .append(columnBuilders.build(createBuilder()));
-//
-//        logger.debug("新增列,SQL:{}", buffer.toString());
-//        JdbcUtils.executeUpdate(dataSource, buffer.toString());
-    }
-
-    @Override
-    public void modifyColumn(ColumnBuilders columnBuilders) throws SQLException{
+    public void modifyColumn(ColumnBuilder columnBuilders) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" modify ")
-                .append(columnBuilders.build(createBuilder()));
-        logger.debug("更新列:{}", buffer);
+                .append(createColumnBuilder().build(columnBuilders.build()));
+        logger.debug("modify colummn:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException{
+    public void renameColumn(String columnName, ColumnBuilder columnBuilder) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" rename column ")
                 .append(columnName)
                 .append(" to ")
-                .append(columnBuilders.build().getColumnName());
-        logger.debug("更改列名:{}", buffer.toString());
+                .append(columnBuilder.build().getColumnName());
+        logger.debug("rename:{}", buffer.toString());
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 

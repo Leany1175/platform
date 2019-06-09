@@ -2,6 +2,7 @@ package com.platform.data.mysql;
 
 import com.alibaba.fastjson.JSON;
 import com.platform.data.base.SearchResult;
+import com.platform.data.builder.column.ColumnBuilder;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.builder.column.IColumnBuilder;
 import com.platform.data.base.BaseTable;
@@ -47,14 +48,14 @@ public class MysqlTable extends BaseTable {
     }
 
     @Override
-    public void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException {
+    public void renameColumn(String columnName, ColumnBuilder columnBuilder) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" change column ")
                 .append(columnName)
                 .append(" ")
-                .append(columnBuilders.build(createBuilder()));
-        logger.debug("更改列名:{}", buffer);
+                .append(createColumnBuilder().build(columnBuilder.build()));
+        logger.debug("rename column:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 

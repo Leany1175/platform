@@ -16,33 +16,25 @@ public interface ITable {
 
 	/**
 	 * add column
-	 * @param columnBuilders column
-	 * @exception SQLException exeception
-	 */
-	@Deprecated
-	void addColumn(ColumnBuilders columnBuilders) throws SQLException;
-
-	/**
-	 * TODO add column
 	 * @param columnBuilder
 	 * @throws SQLException
 	 */
 	void addColumn(ColumnBuilder columnBuilder) throws SQLException;
 
 	/**
-	 * 更新列,不包括列名
-	 * @param columnBuilders 列
-	 * @exception SQLException 异常
+	 * modify column, do not include column name
+	 * @param columnBuilder column
+	 * @exception SQLException
 	 */
-	void modifyColumn(ColumnBuilders columnBuilders) throws SQLException;
+	void modifyColumn(ColumnBuilder columnBuilder) throws SQLException;
 
 	/**
-	 * 列重命名
-	 * @param columnName 原来列名
-	 * @param columnBuilders 新
-	 * @exception SQLException 异常
+	 * rename column
+	 * @param columnName old_column_name
+	 * @param columnBuilder column info
+	 * @exception SQLException
 	 */
-	void renameColumn(String columnName, ColumnBuilders columnBuilders) throws SQLException;
+	void renameColumn(String columnName, ColumnBuilder columnBuilder) throws SQLException;
 
 	/**
 	 * 删除列

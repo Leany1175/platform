@@ -1,5 +1,6 @@
 package com.platform.data.oracle;
 
+import com.platform.data.builder.column.ColumnBuilder;
 import com.platform.data.builder.column.ColumnBuilders;
 import com.platform.data.base.BaseTable;
 import com.platform.data.builder.column.IColumnBuilder;
@@ -44,24 +45,24 @@ public class OracleTable extends BaseTable {
     }
 
     @Override
-    public void addColumn(ColumnBuilders columnBuilders) throws SQLException {
+    public void addColumn(ColumnBuilder columnBuilder) throws SQLException {
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" add (")
-                .append(columnBuilders.build(createBuilder()))
+                .append(createColumnBuilder().build(columnBuilder.build()))
                 .append(")");
-        logger.debug("添加列:{}", buffer);
+        logger.debug("add column:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
     @Override
-    public void modifyColumn(ColumnBuilders columnBuilders) throws SQLException{
+    public void modifyColumn(ColumnBuilder columnBuilder) throws SQLException{
         StringBuffer buffer = new StringBuffer("alter table ")
                 .append(TABLE_NAME)
                 .append(" modify (")
-                .append(columnBuilders.build(createBuilder()))
+                .append(createColumnBuilder().build(columnBuilder.build()))
                 .append(")");
-        logger.debug("修改列:{}", buffer);
+        logger.debug("modify column:{}", buffer);
         JdbcUtils.executeUpdate(dataSource, buffer.toString());
     }
 
