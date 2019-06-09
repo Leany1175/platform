@@ -12,6 +12,13 @@ public class ColumnMeta implements Serializable {
     private Object defaultValue;
     private boolean isNull = true;
 
+    public ColumnMeta() {
+    }
+
+    public ColumnMeta(String columnName) {
+        this.columnName = columnName;
+    }
+
     public String getColumnName() {
         return columnName;
     }

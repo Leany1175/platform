@@ -95,10 +95,10 @@ public interface ITable {
 //	IAggregationResult aggregation(IAggregationBuilder aggregationBuilder, IWhereClause whereClause);
 //
 	/**
-	 * 添加或更新
-	 * @param row 行
-	 * @return 受影响行数
-	 * @exception SQLException 异常
+	 * insert
+	 * @param row
+	 * @return
+	 * @exception SQLException
 	 */
 	int insert(Row row) throws SQLException;
 

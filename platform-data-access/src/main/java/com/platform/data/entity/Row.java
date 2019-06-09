@@ -1,15 +1,12 @@
 package com.platform.data.entity;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * 行:key=列名,value=值
  */
-public class Row extends HashMap<String, Object> {
+public class Row extends LinkedHashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
 

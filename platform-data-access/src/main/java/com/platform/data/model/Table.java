@@ -1,5 +1,7 @@
 package com.platform.data.model;
 
+import com.platform.data.entity.Row;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,6 +15,14 @@ public class Table implements Serializable {
     private List<ColumnMeta> columnMetaList = new ArrayList<>();
     /** 数据列表 */
     private List<Object[]> rowList = new LinkedList<>();
+
+    public Table addRow(Row row) {
+        row.forEach((key, value) -> {
+            columnMetaList.add(new ColumnMeta(key));
+        });
+        rowList.add(row.values().toArray());
+        return this;
+    }
 
     public String getTableName() {
         return tableName;

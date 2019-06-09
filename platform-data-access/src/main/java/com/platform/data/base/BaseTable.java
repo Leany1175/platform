@@ -140,18 +140,17 @@ public abstract class BaseTable implements ITable {
 
     @Override
     public int insert(Row row) throws SQLException {
-        // sql语句
         String sql = insertSql(row);
         logger.debug("insert sql:{}", sql);
 
         Connection conn = null;
         PreparedStatement ps = null;
-        // 受影响行数
+        // line_count
         int count = 0;
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
-            // 设值
+            // prepare
             prepareValue(ps, row);
             count = ps.executeUpdate();
         } catch (SQLException e) {
