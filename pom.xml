@@ -29,7 +29,7 @@
         <mysql.version>5.1.39</mysql.version>
         <quartz.version>2.3.0</quartz.version>
         <oracle.version>12.1.0.2</oracle.version>
-        <hadoop.version>3.2.0</hadoop.version>
+        <hadoop.version>3.2.3</hadoop.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
